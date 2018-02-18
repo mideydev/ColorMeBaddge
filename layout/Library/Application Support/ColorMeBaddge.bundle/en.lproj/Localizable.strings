@@ -1,0 +1,26 @@
+/* confirmation dialog "yes" button */
+CONFIRMATION_YES = "Yes";
+
+/* confirmation dialog "no" button */
+CONFIRMATION_NO = "No";
+
+/* confirmation dialog "ok" button */
+CONFIRMATION_OK = "OK";
+
+/* preferences reset confirmation dialog title */
+RESET_CONFIRMATION_TITLE = "Confirm Reset";
+
+/* preferences reset confirmation dialog message */
+RESET_CONFIRMATION_MESSAGE = "Are you sure you want to reset these preferences to default values?";
+
+/* respring confirmation dialog title */
+RESPRING_CONFIRMATION_TITLE = "Confirm Respring";
+
+/* respring confirmation dialog message */
+RESPRING_CONFIRMATION_MESSAGE = "Are you sure you want to respring?";
+
+/* ColorBadges conflict warning title */
+COLORBADGES_WARNING_TITLE = "Warning";
+
+/* ColorBadges conflict warning message */
+COLORBADGES_WARNING_MESSAGE = "Enabling this tweak and ColorBadges at the same time may cause undefined behavior.  Please disable one of them.";

@@ -1,0 +1,36 @@
+PAGE_TITLE = "Brightness Settings";
+
+BRIGHTNESS_SETTINGS_FOOTER = "The options below only apply to badge text colors that are chosen by brightness.";
+
+COLOR_SPACE_GROUP_FOOTER = "Color space to use for brightness calculations.";
+
+COLOR_SPACE_LIST_LABEL = "Color Space";
+
+COLOR_SPACE_LIST_ITEM_RGB = "RGB";
+COLOR_SPACE_LIST_ITEM_CIELAB = "CIELAB";
+
+COLOR_SPACE_LIST_DESCRIPTION = "Choose CIELAB for brightness calculations that better correspond with human vision.";
+
+THRESHOLD_GROUP_LABEL = "Brightness Threshold";
+
+THRESHOLD_GROUP_FOOTER = "Threshold above which black text is chosen over white text.";
+
+BADGE_COLOR_ADJUSTMENT_TYPE_GROUP_FOOTER = "If you prefer text to be either all white or all black, you can choose to have the badge color lightened or darkened here so that your desired text color stands out.";
+
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_LABEL = "Badge Color Adjustment";
+
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_NO_ADJUSTMENT = "None";
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_SHADE_FOR_WHITE_TEXT = "Darken Badges (for white text)";
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_TINT_FOR_BLACK_TEXT = "Lighten Badges (for black text)";
+
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_SHORT_NO_ADJUSTMENT = "None";
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_SHORT_SHADE_FOR_WHITE_TEXT = "Darken for white text";
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_SHORT_TINT_FOR_BLACK_TEXT = "Lighten for black text";
+
+BADGE_COLOR_ADJUSTMENT_TYPE_LIST_DESCRIPTION = "None: Badge color is left alone, and text color is determined based on the chosen brightness threshold.
+
+Darken Badges: Badge colors above the chosen brightness threshold are darkened just below it, so that white text is always chosen.
+
+Lighten Badges: Badge colors below the chosen brightness threshold are lightened just above it, so that black text is always chosen.";
+
+RESET_LABEL = "Reset to Defaults";

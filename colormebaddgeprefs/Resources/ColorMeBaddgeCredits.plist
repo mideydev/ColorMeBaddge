@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>PAGE_TITLE</string>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>COLORCUBE_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>COLORCUBE_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>COLORCUBE_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsColorCubeListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>LECOLORPICKER_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>LECOLORPICKER_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>LECOLORPICKER_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsLEColorPickerListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>COLOURS_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>COLOURS_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>COLOURS_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsColoursListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>BOOVER_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>BOOVER_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>BOOVER_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsBooverListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>COLORBADGES_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>COLORBADGES_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>COLORBADGES_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsColorBadgesListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HRCOLORPICKER_GROUP_LABEL</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>HRCOLORPICKER_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsHRColorPickerListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>COURIA_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>COURIA_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>COURIA_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsCouriaListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>MISC_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>MISC_GROUP_FOOTER</string>
+		</dict>
+
+	</array>
+</dict>
+</plist>

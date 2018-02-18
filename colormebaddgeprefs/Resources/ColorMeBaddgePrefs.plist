@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>PAGE_TITLE</string>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>TWEAK_ENABLED_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>TWEAK_ENABLED_SWITCH_LABEL</string>
+			<key>key</key>
+			<string>tweakEnabled</string>
+			<key>id</key>
+			<string>CMBTweakEnabled</string>
+			<key>default</key>
+			<true/>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>APP_BADGE_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBAppsListController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>FOLDER_BADGE_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBFoldersListController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>SPECIAL_BADGE_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBSpecialListController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>BRIGHTNESS_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBBrightnessListController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>MISCELLANEOUS_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBMiscellaneousListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>RESPRING_FOOTER</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>respring</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>RESPRING_LABEL</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>CREDITS_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>© 2016-2017 midey @mideydev &lt;mideydev@gmail.com&gt;</string>
+		</dict>
+
+	</array>
+</dict>
+</plist>

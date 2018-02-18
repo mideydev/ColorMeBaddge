@@ -1,0 +1,16 @@
+PAGE_TITLE = "ColorMeBaddge";
+
+TWEAK_ENABLED_FOOTER = "Disabling this requires a respring.";
+
+TWEAK_ENABLED_SWITCH_LABEL = "Enabled";
+
+APP_BADGE_SETTINGS_LABEL = "App Badges";
+FOLDER_BADGE_SETTINGS_LABEL = "Folder Badges";
+SPECIAL_BADGE_SETTINGS_LABEL = "Special Badges";
+BRIGHTNESS_SETTINGS_LABEL = "Brightness Settings";
+MISCELLANEOUS_SETTINGS_LABEL = "Miscellaneous Settings";
+
+RESPRING_FOOTER = "Changes made above will not affect existing badges until they are redrawn.  Respring if you want to apply all changes immediately.";
+RESPRING_LABEL = "Respring";
+
+CREDITS_LABEL = "Acknowledgements";

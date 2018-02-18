@@ -1,0 +1,11 @@
+Package: org.midey.colormebaddge
+Name: ColorMeBaddge
+Depends: mobilesubstrate, preferenceloader
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Sex up your badges with icon-based colors
+Maintainer: midey <mideydev@gmail.com>
+Author: midey <mideydev@gmail.com>
+Section: Tweaks
+Depiction: http://apt.midey.org/depictions/?p=org.midey.colormebaddge
+Icon: file:///Library/PreferenceBundles/ColorMeBaddgePrefs.bundle/ColorMeBaddgeIcon@2x.png

@@ -1,0 +1,9 @@
+PAGE_TITLE = "Miscellaneous Options";
+
+UNMASKED_ICONS_GROUP_FOOTER = "Enable this to allow badge color algorithms to use pixels that are normally not visible on the screen due to icon masking.";
+UNMASKED_ICONS_SWITCH_LABEL = "Use Unmasked Icons";
+
+SHOW_ALL_BADGES_GROUP_FOOTER = "Enable this to allow all apps to show badges, even if disabled in Notifications.";
+SHOW_ALL_BADGES_SWITCH_LABEL = "Show All Badges";
+
+RESET_LABEL = "Reset to Defaults";

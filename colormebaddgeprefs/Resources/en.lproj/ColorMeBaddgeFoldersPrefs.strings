@@ -1,0 +1,55 @@
+PAGE_TITLE = "Folder Badges";
+
+BADGE_COLOR_GROUP_LABEL = "Folder Badge Background";
+
+BADGE_COLOR_LIST_LABEL = "Badge Color";
+
+BADGE_COLOR_LIST_ITEM_FIXED_COLOR = "Fixed Color";
+BADGE_COLOR_LIST_ITEM_LOWEST_BADGE = "Lowest Badge";
+BADGE_COLOR_LIST_ITEM_HIGHEST_BADGE = "Highest Badge";
+BADGE_COLOR_LIST_ITEM_FIRST_BADGE = "First Badge";
+BADGE_COLOR_LIST_ITEM_LAST_BADGE = "Last Badge";
+BADGE_COLOR_LIST_ITEM_RANDOM_BADGE = "Random Badge";
+BADGE_COLOR_LIST_ITEM_AVERAGE_COLOR = "Average Color";
+BADGE_COLOR_LIST_ITEM_WEIGHTED_AVERAGE_COLOR = "Weighted Average Color";
+BADGE_COLOR_LIST_ITEM_FOLDER_MINIGRID = "Folder Minigrid";
+
+BADGE_COLOR_LIST_DESCRIPTION = "Lowest Badge: uses the color of the first lowest-numbered badge in the folder. †
+
+Highest Badge: uses the color of the first highest-numbered badge in the folder. †
+
+First Badge: uses the color of the first badge in the folder. †
+
+Last Badge: uses the color of the last badge in the folder. †
+
+Random Badge: uses the color of a random badge in the folder.  Since this applies recursively, the badge color may come from any badged application within the folder, or subfolders of the folder.
+
+Average Color: uses the average color of all numeric badges in the folder.
+
+Weighted Average Color: uses the weighted average color of all numeric badges in the folder.  Badges will contribute to the average color proportionally to their badge value.
+
+Folder Minigrid: treats the folder view as an app icon, and generates colors for it according to the selected app badge algorithm.
+
+† If folder icons are manually reordered, the folder badge color may no longer be as expected until the badge is redrawn.";
+
+BADGE_COLOR_LINK_LABEL = "Fixed Badge Color";
+
+TEXT_COLOR_GROUP_LABEL = "Folder Badge Text";
+
+TEXT_COLOR_LIST_LABEL = "Text Color";
+
+TEXT_COLOR_LIST_ITEM_FIXED_COLOR = "Fixed Color";
+TEXT_COLOR_LIST_ITEM_BRIGHTNESS = "By Brightness";
+TEXT_COLOR_LIST_ITEM_BADGE_ELSE_FIXED_COLOR = "By Badge, otherwise Fixed Color";
+TEXT_COLOR_LIST_ITEM_BADGE_ELSE_BRIGHTNESS = "By Badge, otherwise Brightness";
+
+TEXT_COLOR_LIST_ITEM_SHORT_FIXED_COLOR = "Fixed Color";
+TEXT_COLOR_LIST_ITEM_SHORT_BRIGHTNESS = "By Brightness";
+TEXT_COLOR_LIST_ITEM_SHORT_BADGE_ELSE_FIXED_COLOR = "By Badge, else Fixed Color";
+TEXT_COLOR_LIST_ITEM_SHORT_BADGE_ELSE_BRIGHTNESS = "By Badge, else Brightness";
+
+TEXT_COLOR_LIST_DESCRIPTION = "For folder badge background colors taken from a specific badge, \"By Badge\" settings above will use its associated text color.";
+
+TEXT_COLOR_LINK_LABEL = "Fixed Text Color";
+
+RESET_LABEL = "Reset to Defaults";

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>PAGE_TITLE</string>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>UNMASKED_ICONS_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>UNMASKED_ICONS_SWITCH_LABEL</string>
+			<key>key</key>
+			<string>useUnmaskedIcons</string>
+			<key>id</key>
+			<string>CMBUseUnmaskedIcons</string>
+			<key>default</key>
+			<false/>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>SHOW_ALL_BADGES_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>SHOW_ALL_BADGES_SWITCH_LABEL</string>
+			<key>key</key>
+			<string>showAllBadges</string>
+			<key>id</key>
+			<string>CMBShowAllBadges</string>
+			<key>default</key>
+			<false/>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>RESET_LABEL</string>
+			<key>action</key>
+			<string>reset</string>
+		</dict>
+
+	</array>
+</dict>
+</plist>

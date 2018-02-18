@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>PAGE_TITLE</string>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>SPECIAL_BADGES_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>SPECIAL_BADGES_SWITCH_LABEL</string>
+			<key>key</key>
+			<string>specialBadgesEnabled</string>
+			<key>id</key>
+			<string>CMBSpecialBadgesEnabled</string>
+			<key>default</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>BADGE_COLOR_LINK_LABEL</string>
+			<key>cellClass</key>
+			<string>CMBColorPickerCell</string>
+			<key>key</key>
+			<string>specialBadgesBackgroundColor</string>
+			<key>id</key>
+			<string>CMBSpecialBadgesBackgroundColor</string>
+			<key>default</key>
+			<string>#FFFF00</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>label</key>
+			<string>TEXT_COLOR_LINK_LABEL</string>
+			<key>cellClass</key>
+			<string>CMBColorPickerCell</string>
+			<key>key</key>
+			<string>specialBadgesForegroundColor</string>
+			<key>id</key>
+			<string>CMBSpecialBadgesForegroundColor</string>
+			<key>default</key>
+			<string>#FF0000</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>RESET_LABEL</string>
+			<key>action</key>
+			<string>reset</string>
+		</dict>
+
+	</array>
+</dict>
+</plist>

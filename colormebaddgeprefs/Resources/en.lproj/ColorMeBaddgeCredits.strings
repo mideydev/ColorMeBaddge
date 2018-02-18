@@ -1,0 +1,31 @@
+PAGE_TITLE = "Acknowledgements";
+
+COLORCUBE_GROUP_LABEL = "ColorCube";
+COLORCUBE_GROUP_FOOTER = "";
+COLORCUBE_INFO_LABEL = "ColorCube License";
+
+LECOLORPICKER_GROUP_LABEL = "LEColorPicker";
+LECOLORPICKER_GROUP_FOOTER = "";
+LECOLORPICKER_INFO_LABEL = "LEColorPicker License";
+
+COLOURS_GROUP_LABEL = "Colours";
+COLOURS_GROUP_FOOTER = "CIELAB support is provided by Colours.";
+COLOURS_INFO_LABEL = "Colours License";
+
+BOOVER_GROUP_LABEL = "Boover";
+BOOVER_GROUP_FOOTER = "Badge drawing functionality is based on Boover source code.  The original Boover icon-based badge colorization algorithm is implemented here as well.";
+BOOVER_INFO_LABEL = "Boover Info";
+
+COLORBADGES_GROUP_LABEL = "ColorBadges";
+COLORBADGES_GROUP_FOOTER = "Folder-based badge colorization options were inspired by ColorBadges.  Also, the ColorBadges API is used for coloring app badges using its algorithm, if desired.";
+COLORBADGES_INFO_LABEL = "ColorBadges Info";
+
+HRCOLORPICKER_GROUP_LABEL = "HRColorPicker";
+HRCOLORPICKER_INFO_LABEL = "HRColorPicker License";
+
+COURIA_GROUP_LABEL = "Couria";
+COURIA_GROUP_FOOTER = "HRColorPicker interface code was taken directly from Couria.";
+COURIA_INFO_LABEL = "Couria License";
+
+MISC_GROUP_LABEL = "Miscellaneous";
+MISC_GROUP_FOOTER = "Thanks to /u/tateu for help with preference pane header alignment.";
