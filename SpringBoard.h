@@ -39,10 +39,6 @@
 - (id)_miniIconGridForPage:(long long)arg1;
 @end
 
-@interface SBFolderIconView : SBIcon
-- (id)folder;
-@end
-
 @interface SBApplicationIcon : SBLeafIcon
 - (id)application;
 - (id)getUnmaskedIconImage:(int)arg1;
@@ -68,12 +64,6 @@
 @end
 
 @interface SBIconBadgeView : UIView
-{
-	SBIconAccessoryImage *_backgroundImage;
-	SBDarkeningImageView *_backgroundView;
-	SBIconAccessoryImage *_textImage;
-	SBDarkeningImageView *_textView;
-}
 // CMB:
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon prepareForCrossfade:(BOOL)prepareForCrossfade;
 - (void)setBadgeColors:(CMBColorInfo *)badgeColors;
@@ -92,15 +82,5 @@
 // CMB:
 - (void)createSwitcherIconBadge;
 @end
-
-#if 0
-@interface SBApplication : NSObject
-- (id)badgeNumberOrString;
-@end
-
-@interface SBApplicationController : NSObject
-- (id)applicationWithBundleIdentifier:(id)arg1;
-@end
-#endif
 
 // vim:ft=objc

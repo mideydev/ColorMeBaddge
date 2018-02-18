@@ -29,7 +29,7 @@ Average Color: Uses the average color of all numeric badges in the folder.
 
 Weighted Average Color: Uses the weighted average color of all numeric badges in the folder.  Badges will contribute to the average color proportionally to their badge value.
 
-Folder Minigrid: Treats the folder view as an app icon, and generates colors for it according to the selected app badge algorithm.
+Folder Minigrid: Treats the folder icon as an app icon, and generates colors for it according to the selected app badge algorithm.  (May not work as expected with tweaks that replace the folder icon.)
 
 Random Colors: Generates a random badge and text color.
 

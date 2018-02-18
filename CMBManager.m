@@ -764,16 +764,65 @@
 	return badgeColors;
 }
 
-- (void)clearCachedColors
+- (void)redrawBadges:(NSString *)applicationBundleID
 {
-	[cachedAppBadgeColors removeAllObjects];
-	[cachedRandomFolderBadgeColors removeAllObjects];
+	CMBIconInfo *iconInfo;
+	NSInteger badgeType;
+	id badgeNumberOrString;
+
+	for (SBIcon *icon in [[[objc_getClass("SBIconController") sharedInstance] model] leafIcons])
+	{
+		iconInfo = [[CMBIconInfo sharedInstance] getIconInfo:icon];
+
+		if (!iconInfo.isApplication)
+			continue;
+
+		if (applicationBundleID && ![applicationBundleID isEqualToString:iconInfo.nodeIdentifier])
+			continue;
+
+		badgeNumberOrString = [iconInfo.icon badgeNumberOrString];
+
+		badgeType = [self getBadgeValueType:badgeNumberOrString];
+
+		HBLogDebug(@"redrawBadges: [%@] considering %ld / %@",iconInfo.nodeIdentifier,(long)badgeType,badgeNumberOrString);
+
+		if (kEmptyBadge == badgeType)
+			continue;
+
+		HBLogDebug(@"redrawBadges: [%@] noting badge did change",iconInfo.nodeIdentifier);
+
+		[icon noteBadgeDidChange];
+	}
 }
 
-- (void)clearCachedColorsForApplication:(NSString *)applicationBundleID
+- (void)refreshBadgesForAllApplications
 {
-	HBLogDebug(@"clearCachedColorsForApplication: clearing colors for app: %@",applicationBundleID);
+	HBLogDebug(@"refreshBadgesForAllApplications: refreshing all badges");
+
+	[cachedRandomFolderBadgeColors removeAllObjects];
+
+	[cachedAppBadgeColors removeAllObjects];
+
+	[self redrawBadges:nil];
+}
+
+- (void)refreshBadgesForApplication:(NSString *)applicationBundleID
+{
+	HBLogDebug(@"refreshBadgesForApplication: refreshing badges for app: %@",applicationBundleID);
+
+	[cachedRandomFolderBadgeColors removeAllObjects];
+
 	[cachedAppBadgeColors removeObjectForKey:applicationBundleID];
+
+	[self redrawBadges:applicationBundleID];
+}
+
+- (void)refreshBadges:(NSString *)applicationBundleID
+{
+	if (applicationBundleID)
+		[self refreshBadgesForApplication:applicationBundleID];
+	else
+		[self refreshBadgesForAllApplications];
 }
 
 @end

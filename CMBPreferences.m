@@ -11,7 +11,8 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 {
 	[[CMBPreferences sharedInstance] refreshSettings];
 	[[CMBPreferences sharedInstance] loadSettings];
-	[[CMBPreferences sharedInstance] redrawBadges];
+
+	[[CMBManager sharedInstance] refreshBadgesForAllApplications];
 }
 
 - (CMBPreferences *)init
@@ -193,8 +194,6 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 		if ((pref = [settings objectForKey:@"switcherBadgesEnabled"])) self.switcherBadgesEnabled = [pref boolValue];
 
 		[self logSettings];
-
-		[[CMBManager sharedInstance] clearCachedColors];
 	}
 }
 
@@ -209,12 +208,6 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 */
 
 	settings = [[NSMutableDictionary alloc] initWithContentsOfFile:@CMB_PREFS_FILE];
-}
-
--(void)redrawBadges
-{
-	for (SBIcon *icon in [[[objc_getClass("SBIconController") sharedInstance] model] leafIcons])
-		[icon noteBadgeDidChange];
 }
 
 @end

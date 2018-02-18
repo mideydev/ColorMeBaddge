@@ -15,7 +15,7 @@
 
 	id retval = %orig();
 
-	[[CMBManager sharedInstance] clearCachedColorsForApplication:[retval applicationBundleID]];
+	[[CMBManager sharedInstance] refreshBadges:[retval applicationBundleID]];
 
 	return retval;
 }
@@ -32,7 +32,7 @@
 
 	%orig();
 
-	[[CMBManager sharedInstance] clearCachedColorsForApplication:[arg1 applicationBundleID]];
+	[[CMBManager sharedInstance] refreshBadges:[arg1 applicationBundleID]];
 }
 
 %end

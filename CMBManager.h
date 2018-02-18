@@ -16,9 +16,10 @@ typedef NS_ENUM(NSUInteger,BadgeValueType)
 }
 + (CMBManager *)sharedInstance;
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon;
-- (void)clearCachedColors;
-- (void)clearCachedColorsForApplication:(NSString *)applicationBundleID;
 - (NSInteger)getBadgeValueType:(id)badgeNumberOrString;
+- (void)refreshBadges:(NSString *)applicationBundleID;
+- (void)refreshBadgesForApplication:(NSString *)applicationBundleID;
+- (void)refreshBadgesForAllApplications;
 @end
 
 // vim:ft=objc
