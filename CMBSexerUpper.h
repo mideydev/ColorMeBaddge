@@ -20,7 +20,7 @@
 - (CMBColorInfo *)getColorsUsingColorBadges:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingChameleon:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingRandom;
-- (int)RGBFromUIColor:(UIColor *)color;
+- (int)DRGBFromUIColor:(UIColor *)color;
 @end
 
 // vim:ft=objc

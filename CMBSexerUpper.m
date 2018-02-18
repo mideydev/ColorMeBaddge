@@ -812,10 +812,10 @@
 	return badgeColors;
 }
 
-- (int)RGBFromUIColor:(UIColor *)color
+- (int)DRGBFromUIColor:(UIColor *)color
 {
 	CGFloat r,g,b,a;
-	int R,G,B,rgb;
+	int D,R,G,B,drgb;
 
 	HBLogDebug(@"RGBFromUIColor: color = %@",color);
 
@@ -832,15 +832,22 @@
 
 	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,255.0*r,255.0*g,255.0*b);
 
+	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
+
+	NSInteger brightnessThreshold = [[CMBPreferences sharedInstance] brightnessThreshold];
+
+	// D = is dark color flag, carried in extra bits of int
+	D = (normalizedBrightness <= brightnessThreshold) ? 1 : 0;
+
 	R = (int)round(255.0*r);
 	G = (int)round(255.0*g);
 	B = (int)round(255.0*b);
 
-	rgb = ((R & 0xFF) << 16) | ((G & 0xFF) << 8) | (B & 0xFF);
+	drgb = ((D & 0xFF) << 24) | ((R & 0xFF) << 16) | ((G & 0xFF) << 8) | (B & 0xFF);
 
-	HBLogDebug(@"RGBFromUIColor: (R,G,B) = (%d,%d,%d) => rgb = %d",R,G,B,rgb);
+	HBLogDebug(@"RGBFromUIColor: (D,R,G,B) = (%d,%d,%d,%d) => drgb = %d",D,R,G,B,drgb);
 
-	return rgb;
+	return drgb;
 }
 
 @end

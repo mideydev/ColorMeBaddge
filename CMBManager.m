@@ -311,6 +311,12 @@
 
 	if ([badgeNumberOrString isKindOfClass:[NSNumber class]])
 	{
+		if ([badgeNumberOrString integerValue] <= 0)
+		{
+			HBLogDebug(@"getBadgeValueType: kEmptyBadge (non-positive NSNumber): [%@]",NSStringFromClass([badgeNumberOrString class]));
+			return kEmptyBadge;
+		}
+
 		HBLogDebug(@"getBadgeValueType: kNumericBadge (NSNumber): [%@]",NSStringFromClass([badgeNumberOrString class]));
 		return kNumericBadge;
 	}
@@ -438,15 +444,12 @@
 	if (!thisBadgeCount)
 		return nil;
 
-	if ([thisBadgeCount isKindOfClass:[NSString class]])
-	{
-		NSString *thisBadgeString = (NSString *)thisBadgeCount;
+	NSInteger badgeType = [self getBadgeValueType:thisBadgeCount];
 
-		if ([thisBadgeString isEqualToString:@""])
-		{
-//			HBLogDebug(@"validBadgeNumberOrString: thisBadgeCount was empty");
-			return nil;
-		}
+	if (kEmptyBadge == badgeType)
+	{
+		HBLogDebug(@"validBadgeNumberOrString: %@: badgeNumberOrString: %@  [INVALID]",iconInfo.nodeIdentifier,thisBadgeCount);
+		return nil;
 	}
 
 	HBLogDebug(@"validBadgeNumberOrString: %@: badgeNumberOrString: %@",iconInfo.nodeIdentifier,thisBadgeCount);

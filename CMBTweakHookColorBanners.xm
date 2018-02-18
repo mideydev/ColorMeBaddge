@@ -6,6 +6,8 @@
 #import "external/ColorBanners2/CBRColoringInfo.h"
 #import <dlfcn.h>
 
+#define GETDARK(rgb) ((rgb >> 24) & 0xFF)
+
 BOOL hasColorBanners = NO;
 
 %ctor
@@ -76,19 +78,22 @@ BOOL hasColorBanners = NO;
 	{
 		HBLogDebug(@"colorForIdentifier: using image");
 		bannerColors = [[CMBManager sharedInstance] getPreferredAppBadgeColorsForImage:arg2];
+
+		if (bannerColors)
+			bannerColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:bannerColors.backgroundColor];
 	}
 
-	if (!bannerColors.backgroundColor)
+	if (!bannerColors)
 	{
 		HBLogDebug(@"colorForIdentifier: no ColorMeBaddge colors; falling back to ColorBanners");
 		return %orig();
 	}
 
-	int rgb = [[CMBSexerUpper sharedInstance] RGBFromUIColor:bannerColors.backgroundColor];
+	int drgb = [[CMBSexerUpper sharedInstance] DRGBFromUIColor:bannerColors.backgroundColor];
 
-	HBLogDebug(@"colorForIdentifier: rgb = %d",rgb);
+	HBLogDebug(@"colorForIdentifier: returning drgb = %d (%d,%d,%d,%d)",drgb,GETDARK(drgb),GETRED(drgb),GETGREEN(drgb),GETBLUE(drgb));
 
-	return rgb;
+	return drgb;
 }
 
 - (int)colorForImage:(id)arg1
@@ -114,17 +119,20 @@ BOOL hasColorBanners = NO;
 
 	bannerColors = [[CMBManager sharedInstance] getPreferredAppBadgeColorsForImage:arg1];
 
-	if (!bannerColors.backgroundColor)
+	if (bannerColors)
+		bannerColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:bannerColors.backgroundColor];
+
+	if (!bannerColors)
 	{
 		HBLogDebug(@"colorForImage: no ColorMeBaddge colors; falling back to ColorBanners");
 		return %orig();
 	}
 
-	int rgb = [[CMBSexerUpper sharedInstance] RGBFromUIColor:bannerColors.backgroundColor];
+	int drgb = [[CMBSexerUpper sharedInstance] DRGBFromUIColor:bannerColors.backgroundColor];
 
-	HBLogDebug(@"colorForImage: rgb = %d",rgb);
+	HBLogDebug(@"colorForImage: returning drgb = %d (%d,%d,%d,%d)",drgb,GETDARK(drgb),GETRED(drgb),GETGREEN(drgb),GETBLUE(drgb));
 
-	return rgb;
+	return drgb;
 }
 
 + (_Bool)isDarkColor:(int)arg1
@@ -146,51 +154,73 @@ BOOL hasColorBanners = NO;
 
 	HBLogDebug(@"----------[ CBRColorCache:isDarkColor ]----------");
 
-	UIColor *backgroundColor = UIColorFromRGB(arg1);
+	HBLogDebug(@"isDarkColor: arg1 = %d (%d,%d,%d,%d)",arg1,GETDARK(arg1),GETRED(arg1),GETGREEN(arg1),GETBLUE(arg1));
 
-	UIColor *foregroundColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:backgroundColor];
+	BOOL isDark = (GETDARK(arg1)) ? YES : NO;
 
-	int rgb = [[CMBSexerUpper sharedInstance] RGBFromUIColor:foregroundColor];
+	HBLogDebug(@"isDarkColor: returning %@",isDark?@"YES":@"NO");
 
-	// foreground color chosen based on background color darkness will either be white (rgb = 16777215) or black (rgb = 0).
-	// so we determine whether the background color is dark, by checking whether the foreground color is light
-	BOOL backgroundColorIsDark = (rgb) ? YES : NO;
-
-	HBLogDebug(@"isDarkColor: rgb = %d  (backgroundColorIsDark = %@)",rgb,backgroundColorIsDark?@"YES":@"NO");
-
-	return backgroundColorIsDark;
+	return isDark;
 }
 
 %end
 
 %hook CBRColoringInfo
 
-- (UIColor *)contrastColor
+- (void)setContrastColor:(UIColor *)color
 {
 	if (!hasColorBanners)
 	{
-		return %orig();
+		%orig();
+		return;
 	}
 
 	if (![[CMBPreferences sharedInstance] tweakEnabled])
 	{
-		return %orig();
+		%orig();
+		return;
 	}
 
 	if (![[CMBPreferences sharedInstance] provideColorsForColorBanners])
 	{
-		return %orig();
+		%orig();
+		return;
 	}
 
-	HBLogDebug(@"----------[ CBRColoringInfo:contrastColor ]----------");
+	HBLogDebug(@"----------[ CBRColoringInfo:setContrastColor ]----------");
 
-	HBLogDebug(@"contrastColor: current color: %@",[self color]);
+	HBLogDebug(@"setContrastColor: caller wants to set color: %@",color);
 
-	UIColor *foregroundColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:[self color]];
+	UIColor *realContrastColor = color;
 
-	HBLogDebug(@"contrastColor: contrast color: %@",foregroundColor);
+	switch ([[CMBPreferences sharedInstance] badgeColorAdjustmentType])
+	{
+		case kShadeForWhiteText:
+			HBLogDebug(@"setContrastColor: kShadeForWhiteText: using white");
+			realContrastColor = [UIColor whiteColor];
+			break;
 
-	return foregroundColor;
+		case kTintForBlackText:
+			HBLogDebug(@"setContrastColor: kTintForBlackText: using black");
+			realContrastColor = [UIColor blackColor];
+			break;
+
+		case kNoAdjustment:
+		default:
+			if ([color isEqual:[UIColor whiteColor]])
+			{
+				HBLogDebug(@"setContrastColor: kNoAdjustment: color being set is equal to white; using white");
+				realContrastColor = [UIColor whiteColor];
+			}
+			else
+			{
+				HBLogDebug(@"setContrastColor: kNoAdjustment: color being set is NOT equal to white; using black");
+				realContrastColor = [UIColor blackColor];
+			}
+			break;
+	}
+
+	%orig(realContrastColor);
 }
 
 %end
