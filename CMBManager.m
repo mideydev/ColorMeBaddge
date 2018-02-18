@@ -44,23 +44,23 @@
 
 	switch ([[CMBPreferences sharedInstance] appBadgeForegroundType])
 	{
-		case kABFFixedColor:
+		case kABF_FixedColor:
 			foregroundColor = [[CMBPreferences sharedInstance] appBadgeForegroundColor];
 			break;
 
-		case kABFBrightness:
+		case kABF_ByBrightness:
 			backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:backgroundColor];
 			foregroundColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:backgroundColor];
 			break;
 
-		case kABFAlgorithmElseFixedColor:
+		case kABF_ByAlgorithmElseFixedColor:
 			if (!foregroundColor)
 			{
 				foregroundColor = [[CMBPreferences sharedInstance] appBadgeForegroundColor];
 			}
 			break;
 
-		case kABFAlgorithmElseBrightness:
+		case kABF_ByAlgorithmElseBrightness:
 			if (!foregroundColor)
 			{
 				backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:backgroundColor];
@@ -101,23 +101,23 @@
 
 	switch ([[CMBPreferences sharedInstance] appBadgeBackgroundType])
 	{
-		case kABBFixedColor:
+		case kABB_FixedColor:
 			badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] appBadgeBackgroundColor] andForegroundColor:nil];
 			break;
 
-		case kABBCCColorCube:
+		case kABB_CCColorCube:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingCCColorCube:iconImage];
 			break;
 
-		case kABBLEColorPicker:
+		case kABB_LEColorPicker:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingLEColorPicker:iconImage];
 			break;
 
-		case kABBBoover:
+		case kABB_Boover:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingBooverAlgorithm:iconImage];
 			break;
 
-		case kABBColorBadges:
+		case kABB_ColorBadges:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingColorBadges:iconImage];
 			break;
 	}
@@ -128,6 +128,28 @@
 	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackAppBadgeBackgroundColor andForegroundColor:fallbackAppBadgeForegroundColor];
 
 	return badgeColors;
+}
+
+- (UIColor *)getPreferredBorderColor:(CMBColorInfo *)currentColors
+{
+	UIColor *borderColor = currentColors.foregroundColor;
+
+	switch ([[CMBPreferences sharedInstance] badgeBorderType])
+	{
+		case kBB_FixedColor:
+			borderColor = [[CMBPreferences sharedInstance] badgeBorderColor];
+			break;
+
+		case kBB_ByBrightness:
+			borderColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:currentColors.backgroundColor];
+			break;
+
+		case kBB_ByBadgeForegroundColor:
+			borderColor = currentColors.foregroundColor;
+			break;
+	}
+
+	return borderColor;
 }
 
 - (CMBColorInfo *)getBadgeColorsForApplicationIcon:(CMBIconInfo *)iconInfo
@@ -250,11 +272,11 @@
 
 			switch (badgeType)
 			{
-				case kFBBFirstBadge:
+				case kFBB_FirstBadge:
 					return thisIconInfo;
 					break;
 
-				case kFBBLastBadge:
+				case kFBB_LastBadge:
 					targetIconInfo = thisIconInfo;
 					break;
 			}
@@ -313,7 +335,7 @@
 
 			switch (badgeType)
 			{
-				case kFBBLowestBadge:
+				case kFBB_LowestBadge:
 					if (thisBadgeNumber < minBadgeValue)
 					{
 						targetIconInfo = thisIconInfo;
@@ -321,7 +343,7 @@
 					}
 					break;
 
-				case kFBBHighestBadge:
+				case kFBB_HighestBadge:
 					if (thisBadgeNumber > maxBadgeValue)
 					{
 						targetIconInfo = thisIconInfo;
@@ -444,7 +466,7 @@
 
 			NSInteger thisBadgeNumber = [thisBadgeCount integerValue];
 
-			weightFactor = (kFBBWeightedAverageColor == averageType) ? thisBadgeNumber : 1;
+			weightFactor = (kFBB_WeightedAverageColor == averageType) ? thisBadgeNumber : 1;
 
 			CMBColorInfo *thisBadgeColors = nil;
 
@@ -484,23 +506,23 @@
 
 	switch ([[CMBPreferences sharedInstance] folderBadgeForegroundType])
 	{
-		case kFBFFixedColor:
+		case kFBF_FixedColor:
 			foregroundColor = [[CMBPreferences sharedInstance] folderBadgeForegroundColor];
 			break;
 
-		case kFBFBrightness:
+		case kFBF_ByBrightness:
 			backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:backgroundColor];
 			foregroundColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:backgroundColor];
 			break;
 
-		case kFBFBadgeElseFixedColor:
+		case kFBF_ByBadgeElseFixedColor:
 			if (!foregroundColor)
 			{
 				foregroundColor = [[CMBPreferences sharedInstance] folderBadgeForegroundColor];
 			}
 			break;
 
-		case kFBFBadgeElseBrightness:
+		case kFBF_ByBadgeElseBrightness:
 			if (!foregroundColor)
 			{
 				backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:backgroundColor];
@@ -522,30 +544,30 @@
 
 	switch (folderBadgeBackgroundType)
 	{
-		case kFBBFixedColor:
+		case kFBB_FixedColor:
 			badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] folderBadgeBackgroundColor] andForegroundColor:nil];
 			break;
 
-		case kFBBLowestBadge:
-		case kFBBHighestBadge:
+		case kFBB_LowestBadge:
+		case kFBB_HighestBadge:
 			badgeColors = [self getBadgeColorsForFolderUsingColorsFromNumberedBadge:iconInfo badgeType:folderBadgeBackgroundType];
 			break;
 
-		case kFBBRandomBadge:
+		case kFBB_RandomBadge:
 			badgeColors = [self getBadgeColorsForFolderUsingColorsFromRandomBadge:iconInfo];
 			break;
 
-		case kFBBFirstBadge:
-		case kFBBLastBadge:
+		case kFBB_FirstBadge:
+		case kFBB_LastBadge:
 			badgeColors = [self getBadgeColorsForFolderUsingColorsFromPositionalBadge:iconInfo badgeType:folderBadgeBackgroundType];
 			break;
 
-		case kFBBAverageColor:
-		case kFBBWeightedAverageColor:
+		case kFBB_AverageColor:
+		case kFBB_WeightedAverageColor:
 			badgeColors = [self getBadgeColorsForFolderUsingAverageColorFromBadges:iconInfo averageType:folderBadgeBackgroundType];
 			break;
 
-		case kFBBFolderMinigrid:
+		case kFBB_FolderMinigrid:
 			badgeColors = [self getBadgeColorsForFolderUsingMiniGrid:iconInfo];
 			break;
 	}
@@ -553,7 +575,7 @@
 	if (badgeColors)
 		return badgeColors;
 
-	badgeColors = [self getBadgeColorsForFolderUsingColorsFromPositionalBadge:iconInfo badgeType:kFBBFirstBadge];
+	badgeColors = [self getBadgeColorsForFolderUsingColorsFromPositionalBadge:iconInfo badgeType:kFBB_FirstBadge];
 
 	if (badgeColors)
 		return badgeColors;
@@ -596,7 +618,7 @@
 	return badgeColors;
 }
 
-- (CMBColorInfo *)getBadgeColorsForIcon:(id)icon
+- (CMBColorInfo *)getBackgroundForegroundColorsForIcon:(id)icon
 {
 	CMBColorInfo *badgeColors = nil;
 
@@ -623,6 +645,16 @@
 		return badgeColors;
 
 	badgeColors = [self getBadgeColorsForUnknown];
+
+	return badgeColors;
+}
+
+- (CMBColorInfo *)getBadgeColorsForIcon:(id)icon
+{
+	CMBColorInfo *badgeColors;
+
+	badgeColors = [self getBackgroundForegroundColorsForIcon:icon];
+	badgeColors.borderColor = [self getPreferredBorderColor:badgeColors];
 
 	return badgeColors;
 }

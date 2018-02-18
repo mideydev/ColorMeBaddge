@@ -21,6 +21,7 @@
 @interface CMBColorInfo : NSObject
 @property(nonatomic,strong)	UIColor *backgroundColor;
 @property(nonatomic,strong)	UIColor *foregroundColor;
+@property(nonatomic,strong)	UIColor *borderColor;
 @property(nonatomic)		CFAbsoluteTime now;
 
 + (CMBColorInfo *)sharedInstance;

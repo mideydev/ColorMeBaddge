@@ -1,8 +1,10 @@
 PAGE_TITLE = "Special Badges";
 
-SPECIAL_BADGES_GROUP_FOOTER = "Special badges are badges values that are non-negative integers, such as the Messages \"!\" badge.  Enabling this allows you to set custom colors to help these badges stand out.";
+SPECIAL_BADGES_GROUP_FOOTER = "Special badges are badges with non-numeric values, such as the Messages \"!\" badge.  Enabling this allows you to set custom colors to help these badges stand out.";
 
 SPECIAL_BADGES_SWITCH_LABEL = "Special Badges Enabled";
+
+COLOR_GROUP_LABEL = "Special Badge Colors";
 
 BADGE_COLOR_LINK_LABEL = "Badge Color";
 

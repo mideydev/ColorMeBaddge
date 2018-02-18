@@ -62,6 +62,14 @@
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>label</key>
+			<string>BORDER_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBBorderListController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
 			<string>BRIGHTNESS_SETTINGS_LABEL</string>
 			<key>detail</key>
 			<string>CMBBrightnessListController</string>

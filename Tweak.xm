@@ -137,7 +137,7 @@ static void respring(CFNotificationCenterRef center,void *observer,CFStringRef n
 }
 
 %new
-- (void)setBadgeBackgroundColor:(UIColor *)backgroundColor
+- (void)setBadgeBackgroundColor:(CMBColorInfo *)badgeColors
 {
 	SBDarkeningImageView *backgroundView;
 	SBIconAccessoryImage *backgroundImage;
@@ -156,7 +156,14 @@ static void respring(CFNotificationCenterRef center,void *observer,CFStringRef n
 //	bgview = [[[UIView alloc] initWithFrame:rect] autorelease];
 	bgview = [[UIView alloc] initWithFrame:rect];
 	bgview.layer.cornerRadius = cornerRadius;
-	bgview.backgroundColor = backgroundColor;
+	bgview.backgroundColor = badgeColors.backgroundColor;
+
+	if ([[CMBPreferences sharedInstance] badgeBordersEnabled])
+	{
+		bgview.layer.borderWidth = [[CMBPreferences sharedInstance] badgeBorderWidth];
+		bgview.layer.borderColor = badgeColors.borderColor.CGColor;
+	}
+
 	UIGraphicsBeginImageContextWithOptions(bgview.frame.size,NO,0.0);
 	[bgview.layer renderInContext:UIGraphicsGetCurrentContext()];
 	colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -166,7 +173,7 @@ static void respring(CFNotificationCenterRef center,void *observer,CFStringRef n
 }
 
 %new
-- (void)setBadgeForegroundColor:(UIColor *)foregroundColor
+- (void)setBadgeForegroundColor:(CMBColorInfo *)badgeColors
 {
 	SBDarkeningImageView *textView;
 	SBIconAccessoryImage *textImage;
@@ -181,7 +188,7 @@ static void respring(CFNotificationCenterRef center,void *observer,CFStringRef n
 
 	textView = MSHookIvar<SBDarkeningImageView*>(self,"_textView");
 
-	colorizedImage = [[CMBSexerUpper sharedInstance] colorizeImage:textImage withColor:foregroundColor];
+	colorizedImage = [[CMBSexerUpper sharedInstance] colorizeImage:textImage withColor:badgeColors.foregroundColor];
 
 	if (!colorizedImage)
 		return;
@@ -192,8 +199,8 @@ static void respring(CFNotificationCenterRef center,void *observer,CFStringRef n
 %new
 - (void)setBadgeColors:(CMBColorInfo *)badgeColors
 {
-	[self setBadgeBackgroundColor:badgeColors.backgroundColor];
-	[self setBadgeForegroundColor:badgeColors.foregroundColor];
+	[self setBadgeBackgroundColor:badgeColors];
+	[self setBadgeForegroundColor:badgeColors];
 }
 
 %end

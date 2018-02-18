@@ -19,14 +19,17 @@
 #define CMB_DEFAULT_USE_UNMASKED_ICONS				NO
 #define CMB_DEFAULT_BRIGHTNESS_THRESHOLD			730
 #define CMB_DEFAULT_SHOW_ALL_BADGES					NO
+#define CMB_DEFAULT_BADGE_BORDERS_ENABLED			NO
+#define CMB_DEFAULT_BADGE_BORDER_WIDTH				1.0
 
 // preference defaults (types)
-#define CMB_DEFAULT_APP_BADGE_BACKGROUND_TYPE		kABBCCColorCube
-#define CMB_DEFAULT_APP_BADGE_FOREGROUND_TYPE		kABFBrightness
-#define CMB_DEFAULT_FOLDER_BADGE_BACKGROUND_TYPE	kFBBRandomBadge
-#define CMB_DEFAULT_FOLDER_BADGE_FOREGROUND_TYPE	kFBFBadgeElseBrightness
+#define CMB_DEFAULT_APP_BADGE_BACKGROUND_TYPE		kABB_CCColorCube
+#define CMB_DEFAULT_APP_BADGE_FOREGROUND_TYPE		kABF_ByBrightness
+#define CMB_DEFAULT_FOLDER_BADGE_BACKGROUND_TYPE	kFBB_RandomBadge
+#define CMB_DEFAULT_FOLDER_BADGE_FOREGROUND_TYPE	kFBF_ByBadgeElseBrightness
 #define CMB_DEFAULT_COLOR_SPACE_TYPE				kColorSpaceCIELAB
 #define CMB_DEFAULT_BADGE_COLOR_ADJUSTMENT_TYPE		kNoAdjustment
+#define CMB_DEFAULT_BADGE_BORDER_TYPE				kBB_ByBadgeForegroundColor
 
 // preference defaults (colors)
 #define CMB_DEFAULT_APP_BADGE_BACKGROUND_COLOR		CMB_HEXCOLOR_RED
@@ -35,43 +38,44 @@
 #define CMB_DEFAULT_FOLDER_BADGE_FOREGROUND_COLOR	CMB_HEXCOLOR_WHITE
 #define CMB_DEFAULT_SPECIAL_BADGE_BACKGROUND_COLOR	CMB_HEXCOLOR_YELLOW
 #define CMB_DEFAULT_SPECIAL_BADGE_FOREGROUND_COLOR	CMB_HEXCOLOR_RED
+#define CMB_DEFAULT_BADGE_BORDER_COLOR				CMB_HEXCOLOR_WHITE
 
 typedef NS_ENUM(NSUInteger,AppBadgeBackgroundType)
 {
-	kABBFixedColor = 0,
-	kABBCCColorCube,
-	kABBLEColorPicker,
-	kABBBoover,
-	kABBColorBadges
+	kABB_FixedColor = 0,
+	kABB_CCColorCube,
+	kABB_LEColorPicker,
+	kABB_Boover,
+	kABB_ColorBadges
 };
 
 typedef NS_ENUM(NSUInteger,AppBadgeForegroundType)
 {
-	kABFFixedColor = 0,
-	kABFBrightness,
-	kABFAlgorithmElseFixedColor,
-	kABFAlgorithmElseBrightness
+	kABF_FixedColor = 0,
+	kABF_ByBrightness,
+	kABF_ByAlgorithmElseFixedColor,
+	kABF_ByAlgorithmElseBrightness
 };
 
 typedef NS_ENUM(NSUInteger,FolderBadgeBackgroundType)
 {
-	kFBBFixedColor = 0,
-	kFBBLowestBadge,
-	kFBBHighestBadge,
-	kFBBFirstBadge,
-	kFBBLastBadge,
-	kFBBRandomBadge,
-	kFBBAverageColor,
-	kFBBWeightedAverageColor,
-	kFBBFolderMinigrid
+	kFBB_FixedColor = 0,
+	kFBB_LowestBadge,
+	kFBB_HighestBadge,
+	kFBB_FirstBadge,
+	kFBB_LastBadge,
+	kFBB_RandomBadge,
+	kFBB_AverageColor,
+	kFBB_WeightedAverageColor,
+	kFBB_FolderMinigrid
 };
 
 typedef NS_ENUM(NSUInteger,FolderBadgeForegroundType)
 {
-	kFBFFixedColor = 0,
-	kFBFBrightness,
-	kFBFBadgeElseFixedColor,
-	kFBFBadgeElseBrightness
+	kFBF_FixedColor = 0,
+	kFBF_ByBrightness,
+	kFBF_ByBadgeElseFixedColor,
+	kFBF_ByBadgeElseBrightness
 };
 
 typedef NS_ENUM(NSUInteger,ColorSpaceType)
@@ -87,6 +91,13 @@ typedef NS_ENUM(NSUInteger,BadgeColorAdjustmentType)
 	kTintForBlackText
 };
 
+typedef NS_ENUM(NSUInteger,BadgeBorderType)
+{
+	kBB_FixedColor = 0,
+	kBB_ByBrightness,
+	kBB_ByBadgeForegroundColor
+};
+
 @interface CMBPreferences : NSObject
 {
 	NSMutableDictionary *settings;
@@ -95,6 +106,7 @@ typedef NS_ENUM(NSUInteger,BadgeColorAdjustmentType)
 @property(nonatomic)		BOOL specialBadgesEnabled;
 @property(nonatomic)		BOOL useUnmaskedIcons;
 @property(nonatomic)		BOOL showAllBadges;
+@property(nonatomic)		BOOL badgeBordersEnabled;
 @property(nonatomic)		NSInteger appBadgeBackgroundType;
 @property(nonatomic)		NSInteger appBadgeForegroundType;
 @property(nonatomic)		NSInteger folderBadgeBackgroundType;
@@ -102,12 +114,15 @@ typedef NS_ENUM(NSUInteger,BadgeColorAdjustmentType)
 @property(nonatomic)		NSInteger colorSpaceType;
 @property(nonatomic)		NSInteger brightnessThreshold;
 @property(nonatomic)		NSInteger badgeColorAdjustmentType;
+@property(nonatomic)		NSInteger badgeBorderType;
+@property(nonatomic)		CGFloat badgeBorderWidth;
 @property(nonatomic,strong)	UIColor *appBadgeBackgroundColor;
 @property(nonatomic,strong)	UIColor *appBadgeForegroundColor;
 @property(nonatomic,strong)	UIColor *folderBadgeBackgroundColor;
 @property(nonatomic,strong)	UIColor *folderBadgeForegroundColor;
 @property(nonatomic,strong)	UIColor *specialBadgesBackgroundColor;
 @property(nonatomic,strong)	UIColor *specialBadgesForegroundColor;
+@property(nonatomic,strong)	UIColor *badgeBorderColor;
 
 + (CMBPreferences *)sharedInstance;
 @end

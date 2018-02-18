@@ -68,8 +68,8 @@
 // CMB:
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon prepareForCrossfade:(BOOL)prepareForCrossfade;
 - (void)setBadgeColors:(CMBColorInfo *)badgeColors;
-- (void)setBadgeBackgroundColor:(UIColor *)backgroundColor;
-- (void)setBadgeForegroundColor:(UIColor *)foregroundColor;
+- (void)setBadgeBackgroundColor:(CMBColorInfo *)badgeColors;
+- (void)setBadgeForegroundColor:(CMBColorInfo *)badgeColors;
 @end
 
 // vim:ft=objc

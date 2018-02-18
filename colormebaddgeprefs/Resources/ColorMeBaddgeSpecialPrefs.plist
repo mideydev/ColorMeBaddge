@@ -25,6 +25,13 @@
 			<key>default</key>
 			<true/>
 		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>COLOR_GROUP_LABEL</string>
+		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSTitleValueCell</string>

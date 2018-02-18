@@ -40,6 +40,7 @@
 
 	badgeColors.backgroundColor = backgroundColor;
 	badgeColors.foregroundColor = foregroundColor;
+	badgeColors.borderColor = nil;
 
 	return badgeColors;
 }
