@@ -36,6 +36,8 @@
 
 	if ([icon isKindOfClass:NSClassFromString(@"SBApplicationIcon")])
 	{
+		HBLogDebug(@"getIconInfo: SBApplicationIcon");
+
 		iconInfo.nodeIdentifier = [icon applicationBundleID];
 //		iconInfo.image = [icon getIconImage:1];
 //		iconInfo.unmaskedImage = [icon getUnmaskedIconImage:1];
@@ -45,6 +47,8 @@
 	}
 	else if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 	{
+		HBLogDebug(@"getIconInfo: SBFolderIcon");
+
 		iconInfo.nodeIdentifier = [[icon folder] displayName];
 //		iconInfo.image = [icon _miniIconGridForPage:0];
 //		iconInfo.unmaskedImage = nil;
@@ -53,7 +57,7 @@
 	}
 	else
 	{
-//		HBLogDebug(@"getIconInfo: unhandled icon: %@",NSStringFromClass([icon class]));
+		HBLogDebug(@"getIconInfo: unhandled icon: %@",NSStringFromClass([icon class]));
 
 		return nil;
 	}

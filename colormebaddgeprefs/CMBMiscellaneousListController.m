@@ -18,11 +18,14 @@
 {
 	PSSpecifier *specifier;
 
-	specifier = [self specifierForID:@"CMBUseUnmaskedIcons"];
-	[self setPreferenceValue:@(CMB_DEFAULT_USE_UNMASKED_ICONS) specifier:specifier];
-
 	specifier = [self specifierForID:@"CMBShowAllBadges"];
 	[self setPreferenceValue:@(CMB_DEFAULT_SHOW_ALL_BADGES) specifier:specifier];
+
+	specifier = [self specifierForID:@"CMBSwitcherBadgesEnabled"];
+	[self setPreferenceValue:@(CMB_DEFAULT_SWITCHER_BADGES_ENABLED) specifier:specifier];
+
+	specifier = [self specifierForID:@"CMBUseUnmaskedIcons"];
+	[self setPreferenceValue:@(CMB_DEFAULT_USE_UNMASKED_ICONS) specifier:specifier];
 }
 
 @end

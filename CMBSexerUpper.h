@@ -7,6 +7,7 @@
 + (CMBSexerUpper *)sharedInstance;
 - (UIColor *)getForegroundColorByBrightnessThreshold:(UIColor *)backgroundColor;
 - (UIColor *)adjustBackgroundColorByPreference:(UIColor *)color;
+- (UIColor *)adjustBorderColorByPreference:(UIColor *)color;
 - (UIImage *)colorizeImage:(UIImage *)image withColor:(UIColor *)color;
 - (CMBColorInfo *)getColorsUsingLEColorPicker:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingCCColorCube:(UIImage *)image;

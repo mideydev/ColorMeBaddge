@@ -6,4 +6,7 @@ UNMASKED_ICONS_SWITCH_LABEL = "Use Unmasked Icons";
 SHOW_ALL_BADGES_GROUP_FOOTER = "Enable this to allow all apps to show badges, even if disabled in Notifications.";
 SHOW_ALL_BADGES_SWITCH_LABEL = "Show All Badges";
 
+SWITCHER_BADGES_GROUP_FOOTER = "Enable this to show badges in the app switcher (iOS 9/10).";
+SWITCHER_BADGES_SWITCH_LABEL = "Switcher Badges";
+
 RESET_LABEL = "Reset to Defaults";

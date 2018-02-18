@@ -21,6 +21,7 @@
 #define CMB_DEFAULT_SHOW_ALL_BADGES					NO
 #define CMB_DEFAULT_BADGE_BORDERS_ENABLED			NO
 #define CMB_DEFAULT_BADGE_BORDER_WIDTH				1.0
+#define CMB_DEFAULT_SWITCHER_BADGES_ENABLED			NO
 
 // preference defaults (types)
 #define CMB_DEFAULT_APP_BADGE_BACKGROUND_TYPE		kABB_CCColorCube
@@ -95,7 +96,9 @@ typedef NS_ENUM(NSUInteger,BadgeBorderType)
 {
 	kBB_FixedColor = 0,
 	kBB_ByBrightness,
-	kBB_ByBadgeForegroundColor
+	kBB_ByBadgeForegroundColor,
+	kBB_ByShadedBadgeBackgroundColor,
+	kBB_ByTintedBadgeBackgroundColor
 };
 
 @interface CMBPreferences : NSObject
@@ -107,6 +110,7 @@ typedef NS_ENUM(NSUInteger,BadgeBorderType)
 @property(nonatomic)		BOOL useUnmaskedIcons;
 @property(nonatomic)		BOOL showAllBadges;
 @property(nonatomic)		BOOL badgeBordersEnabled;
+@property(nonatomic)		BOOL switcherBadgesEnabled;
 @property(nonatomic)		NSInteger appBadgeBackgroundType;
 @property(nonatomic)		NSInteger appBadgeForegroundType;
 @property(nonatomic)		NSInteger folderBadgeBackgroundType;

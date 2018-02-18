@@ -7,7 +7,15 @@ BORDER_COLOR_GROUP_LABEL = "Badge Borders";
 BORDER_COLOR_LIST_LABEL = "Border Color";
 BORDER_COLOR_LIST_ITEM_FIXED_COLOR = "Fixed Color";
 BORDER_COLOR_LIST_ITEM_BY_BRIGHTNESS = "By Brightness";
-BORDER_COLOR_LIST_ITEM_BY_BADGE_FOREGROUND_COLOR = "By Badge Foreground Color";
+BORDER_COLOR_LIST_ITEM_BY_BADGE_FOREGROUND_COLOR = "By Badge Text Color";
+BORDER_COLOR_LIST_ITEM_BY_SHADED_BADGE_BACKGROUND_COLOR = "By Shaded Badge Color";
+BORDER_COLOR_LIST_ITEM_BY_TINTED_BADGE_BACKGROUND_COLOR = "By Tinted Badge Color";
+
+BORDER_COLOR_LIST_DESCRIPTION = "Badge Text Color: Uses the color of the badge text.
+
+Shaded Badge Color: Uses a shaded (darkened) version of the badge color.
+
+Tinted Badge Color: Uses a tinted (lightened) version of the badge color.";
 
 BORDER_COLOR_LINK_LABEL = "Fixed Border Color";
 

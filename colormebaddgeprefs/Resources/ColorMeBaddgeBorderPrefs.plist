@@ -44,13 +44,19 @@
 				<string>BORDER_COLOR_LIST_ITEM_FIXED_COLOR</string>
 				<string>BORDER_COLOR_LIST_ITEM_BY_BRIGHTNESS</string>
 				<string>BORDER_COLOR_LIST_ITEM_BY_BADGE_FOREGROUND_COLOR</string>
+				<string>BORDER_COLOR_LIST_ITEM_BY_SHADED_BADGE_BACKGROUND_COLOR</string>
+				<string>BORDER_COLOR_LIST_ITEM_BY_TINTED_BADGE_BACKGROUND_COLOR</string>
 			</array>
 			<key>validValues</key>
 			<array>
 				<string>0</string>
 				<string>1</string>
 				<string>2</string>
+				<string>3</string>
+				<string>4</string>
 			</array>
+			<key>staticTextMessage</key>
+			<string>BORDER_COLOR_LIST_DESCRIPTION</string>
 		</dict>
 		<dict>
 			<key>cell</key>

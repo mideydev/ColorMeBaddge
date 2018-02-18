@@ -365,6 +365,43 @@
 	return color;
 }
 
+- (UIColor *)shadeColorByBrightnessFactor:(UIColor *)color factor:(double)factor
+{
+	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
+
+	CGFloat targetBrightness = fmaxf(normalizedBrightness * factor,1.0);
+
+	return [self shadeColor:color toNormalizedBrightness:targetBrightness];
+}
+
+- (UIColor *)tintColorByBrightnessFactor:(UIColor *)color factor:(double)factor
+{
+	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
+
+	CGFloat targetBrightness = fminf(normalizedBrightness * factor,NORMALIZED_BRIGHTNESS_SCALE - 1.0);
+
+	return [self tintColor:color toNormalizedBrightness:targetBrightness];
+}
+
+- (UIColor *)adjustBorderColorByPreference:(UIColor *)color
+{
+//	double percent = (double)[[CMBPreferences sharedInstance] badgeBorderShadeTintPercentage] / 100.0;
+	double percent = 30.0 / 100.0;
+
+	switch ([[CMBPreferences sharedInstance] badgeBorderType])
+	{
+		case kBB_ByShadedBadgeBackgroundColor:
+			return [self shadeColorByBrightnessFactor:color factor:1.0 - percent];
+			break;
+
+		case kBB_ByTintedBadgeBackgroundColor:
+			return [self tintColorByBrightnessFactor:color factor:1.0 + percent];
+			break;
+	}
+
+	return color;
+}
+
 /*
 - (void)saveImage:(UIImage *)image withName:(NSString *)name andPostfix:(NSString *)postfix
 {

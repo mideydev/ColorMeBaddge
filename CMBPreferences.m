@@ -73,6 +73,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 	HBLogDebug(@"[logSettings] self.badgeBordersEnabled        = %@",self.badgeBordersEnabled?@"YES":@"NO");
 	HBLogDebug(@"[logSettings] self.badgeBorderType            = %ld",(long)self.badgeBorderType);
 	HBLogDebug(@"[logSettings] self.badgeBorderWidth           = %0.2f",self.badgeBorderWidth);
+	HBLogDebug(@"[logSettings] self.switcherBadgesEnabled      = %@",self.switcherBadgesEnabled?@"YES":@"NO");
 
 	HBLogDebug(@"[logSettings] --------------------------------------");
 	HBLogDebug(@"[logSettings] self.appBadgeBackgroundColor      = %@",self.appBadgeBackgroundColor);
@@ -100,6 +101,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 	self.badgeBordersEnabled = CMB_DEFAULT_BADGE_BORDERS_ENABLED;
 	self.badgeBorderType = CMB_DEFAULT_BADGE_BORDER_TYPE;
 	self.badgeBorderWidth = CMB_DEFAULT_BADGE_BORDER_WIDTH;
+	self.switcherBadgesEnabled = CMB_DEFAULT_SWITCHER_BADGES_ENABLED;
 
 	self.appBadgeBackgroundColor = [UIColor colorFromHexString:@CMB_DEFAULT_APP_BADGE_BACKGROUND_COLOR];
 	self.appBadgeForegroundColor = [UIColor colorFromHexString:@CMB_DEFAULT_APP_BADGE_FOREGROUND_COLOR];
@@ -137,6 +139,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 		if ((pref = [settings objectForKey:@"badgeBordersEnabled"])) self.badgeBordersEnabled = [pref boolValue];
 		if ((pref = [settings objectForKey:@"badgeBorderType"])) self.badgeBorderType = [pref integerValue];
 		if ((pref = [settings objectForKey:@"badgeBorderWidth"])) self.badgeBorderWidth = [pref doubleValue];
+		if ((pref = [settings objectForKey:@"switcherBadgesEnabled"])) self.switcherBadgesEnabled = [pref boolValue];
 
 		if ((pref = [settings objectForKey:@"appBadgeBackgroundColor"])) self.appBadgeBackgroundColor = [UIColor colorFromHexString:pref];
 		if ((pref = [settings objectForKey:@"appBadgeForegroundColor"])) self.appBadgeForegroundColor = [UIColor colorFromHexString:pref];

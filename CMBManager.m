@@ -132,6 +132,9 @@
 
 - (UIColor *)getPreferredBorderColor:(CMBColorInfo *)currentColors
 {
+	if (currentColors.borderColor)
+		return currentColors.borderColor;
+
 	UIColor *borderColor = currentColors.foregroundColor;
 
 	switch ([[CMBPreferences sharedInstance] badgeBorderType])
@@ -146,6 +149,11 @@
 
 		case kBB_ByBadgeForegroundColor:
 			borderColor = currentColors.foregroundColor;
+			break;
+
+		case kBB_ByTintedBadgeBackgroundColor:
+		case kBB_ByShadedBadgeBackgroundColor:
+			borderColor = [[CMBSexerUpper sharedInstance] adjustBorderColorByPreference:currentColors.backgroundColor];
 			break;
 	}
 
@@ -166,35 +174,108 @@
 
 	badgeColors = [self getPreferredAppBadgeForegroundColor:[self getPreferredAppBadgeColorsForIcon:iconInfo]];
 
+	badgeColors.borderColor = [self getPreferredBorderColor:badgeColors];
+
 	[cachedAppBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
 
 	return badgeColors;
 }
 
-- (CMBColorInfo *)getBadgeColorsForSpecialBadgeValue:(CMBIconInfo *)iconInfo
+- (NSInteger)getBadgeValueType:(id)badgeNumberOrString
 {
-	id badgeCount = [iconInfo.icon badgeNumberOrString];
+	if (!badgeNumberOrString)
+	{
+		HBLogDebug(@"getBadgeValueType: kEmptyBadge (nil)");
+		return kEmptyBadge;
+	}
 
-	if (!badgeCount)
-		return nil;
+	if ([badgeNumberOrString isKindOfClass:[NSNumber class]])
+	{
+		HBLogDebug(@"getBadgeValueType: kNumericBadge (NSNumber): [%@]",NSStringFromClass([badgeNumberOrString class]));
+		return kNumericBadge;
+	}
 
-	if (![badgeCount isKindOfClass:[NSString class]])
-		return nil;
+	if (![badgeNumberOrString isKindOfClass:[NSString class]])
+	{
+		HBLogDebug(@"getBadgeValueType: kEmptyBadge (not NSString): [%@]",NSStringFromClass([badgeNumberOrString class]));
+		return kEmptyBadge;
+	}
 
-	NSString *badgeString = (NSString *)badgeCount;
+	NSString *badgeString = (NSString *)badgeNumberOrString;
 
-	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackSpecialBadgeBackgroundColor andForegroundColor:fallbackSpecialBadgeForegroundColor];
+	if ([badgeString isEqualToString:@""])
+	{
+		HBLogDebug(@"getBadgeValueType: kEmptyBadge (empty string)");
+		return kEmptyBadge;
+	}
 
 	// only want non-negative integers
-	NSScanner *scanner = [NSScanner scannerWithString:badgeString];
+
+	NSScanner *scanner;
 	NSInteger badgeValue;
+	BOOL isNumeric;
 
-	BOOL isNumeric = [scanner scanInteger:&badgeValue] && [scanner isAtEnd];
+	// 1. check string as-is
 
-	if ((!isNumeric) || (badgeValue < 0))
-		return badgeColors;
+	HBLogDebug(@"getBadgeValueType: 1. checking string for numeracy as-is: [%@]",badgeString);
 
-	return nil;
+	scanner = [NSScanner scannerWithString:badgeString];
+	isNumeric = [scanner scanInteger:&badgeValue] && [scanner isAtEnd];
+
+	HBLogDebug(@"getBadgeValueType: 1. isNumeric = %@ / badgeValue = %ld",(isNumeric)?@"YES":@"NO",(long)badgeValue);
+
+	if ((isNumeric) && (badgeValue >= 0))
+	{
+		HBLogDebug(@"getBadgeValueType: kNumericBadge");
+		return kNumericBadge;
+	}
+
+	// 2. check string without localized separators
+
+	NSString *groupingSeparator = [[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator];
+	NSString *delocalizedBadgeString = [badgeString stringByReplacingOccurrencesOfString:groupingSeparator withString:@""];
+
+	HBLogDebug(@"getBadgeValueType: 2. checking delocalized string: [%@] - [%@] => [%@]",badgeString,groupingSeparator,delocalizedBadgeString);
+
+	scanner = [NSScanner scannerWithString:delocalizedBadgeString];
+	isNumeric = [scanner scanInteger:&badgeValue] && [scanner isAtEnd];
+
+	HBLogDebug(@"getBadgeValueType: 2. isNumeric = %@ / badgeValue = %ld",(isNumeric)?@"YES":@"NO",(long)badgeValue);
+
+	if ((isNumeric) && (badgeValue >= 0))
+	{
+		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+		[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+		[numberFormatter setGroupingSeparator:groupingSeparator];
+
+		NSString *relocalizedBadgeString = [numberFormatter stringFromNumber:@(badgeValue)];
+
+		HBLogDebug(@"getBadgeValueType: 2. checking relocalized string: [%@] = [%@]",badgeString,relocalizedBadgeString);
+
+		if ([badgeString isEqualToString:relocalizedBadgeString])
+		{
+			HBLogDebug(@"getBadgeValueType: kNumericBadge");
+			return kNumericBadge;
+		}
+	}
+
+	// unknown format, must be special
+
+	HBLogDebug(@"getBadgeValueType: ran out of things to check... must be special");
+
+	HBLogDebug(@"getBadgeValueType: kSpecialBadge");
+
+	return kSpecialBadge;
+}
+
+- (CMBColorInfo *)getBadgeColorsForSpecialBadgeValue:(CMBIconInfo *)iconInfo
+{
+	NSInteger badgeType = [self getBadgeValueType:[iconInfo.icon badgeNumberOrString]];
+
+	if (kSpecialBadge != badgeType)
+		return nil;
+
+	return [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackSpecialBadgeBackgroundColor andForegroundColor:fallbackSpecialBadgeForegroundColor];
 }
 
 - (CMBColorInfo *)getBadgeColorsForApplication:(CMBIconInfo *)iconInfo
