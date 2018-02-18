@@ -9,4 +9,7 @@ SHOW_ALL_BADGES_SWITCH_LABEL = "Show All Badges";
 SWITCHER_BADGES_GROUP_FOOTER = "Enable this to show badges in the app switcher (iOS 9/10).";
 SWITCHER_BADGES_SWITCH_LABEL = "Switcher Badges";
 
+PROVIDE_COLORS_FOR_COLORBANNERS_GROUP_FOOTER = "Enable this to make ColorBanners choose colors according to your app badge background colorization settings.  Requires ColorBanners or ColorBanners 2 to be installed.";
+PROVIDE_COLORS_FOR_COLORBANNERS_SWITCH_LABEL = "Provide Colors for ColorBanners";
+
 RESET_LABEL = "Reset to Defaults";

@@ -22,6 +22,7 @@
 #define CMB_DEFAULT_BADGE_BORDERS_ENABLED			NO
 #define CMB_DEFAULT_BADGE_BORDER_WIDTH				1.0
 #define CMB_DEFAULT_SWITCHER_BADGES_ENABLED			NO
+#define CMB_DEFAULT_PROVIDE_COLORS_FOR_COLORBANNERS	NO
 
 // preference defaults (types)
 #define CMB_DEFAULT_APP_BADGE_BACKGROUND_TYPE				kABB_CCColorCube
@@ -166,8 +167,9 @@ typedef NS_ENUM(NSUInteger,BadgeBorderType)
 @property(nonatomic)		BOOL useUnmaskedIcons;
 @property(nonatomic)		BOOL showAllBadges;
 @property(nonatomic)		BOOL switcherBadgesEnabled;
+@property(nonatomic)		BOOL provideColorsForColorBanners;
 
-+ (CMBPreferences *)sharedInstance;
++ (instancetype)sharedInstance;
 @end
 
 // vim:ft=objc

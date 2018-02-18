@@ -1,9 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <dlfcn.h>
 #import "SpringBoard.h"
 #import "CMBManager.h"
 #import "CMBPreferences.h"
 #import "CMBSexerUpper.h"
+
+#define ANEMONE_CLASS objc_getClass("ANEMSettingsManager")
 
 @implementation CMBManager
 
@@ -15,6 +18,19 @@
 	{
 		cachedAppBadgeColors = [[NSMutableDictionary alloc] init];
 		cachedRandomFolderBadgeColors = [[NSMutableDictionary alloc] init];
+
+		dlopen("/Library/MobileSubstrate/DynamicLibraries/AnemoneCore.dylib",RTLD_LAZY);
+
+		if (ANEMONE_CLASS)
+		{
+			if ([ANEMONE_CLASS respondsToSelector:@selector(sharedManager)])
+			{
+				if ([[ANEMONE_CLASS sharedManager] respondsToSelector:@selector(addEventHandler:)])
+				{
+					[[ANEMONE_CLASS sharedManager] addEventHandler:self];
+				}
+			}
+		}
 	}
 
 	return self;
@@ -81,6 +97,49 @@
 	return badgeColors;
 }
 
+- (CMBColorInfo *)getPreferredAppBadgeColorsForImage:(UIImage *)image
+{
+	CMBColorInfo *badgeColors = nil;
+
+	switch ([[CMBPreferences sharedInstance] appBadgeBackgroundType])
+	{
+		case kABB_FixedColor:
+			badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] appBadgeBackgroundColor] andForegroundColor:nil];
+			break;
+
+		case kABB_CCColorCube:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingCCColorCube:image];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_LEColorPicker:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingLEColorPicker:image];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_Boover:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingBooverAlgorithm:image];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_ColorBadges:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingColorBadges:image];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_Chameleon:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingChameleon:image];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_RandomColor:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingRandom];
+			break;
+	}
+
+	return badgeColors;
+}
+
 - (CMBColorInfo *)getPreferredAppBadgeColorsForIcon:(CMBIconInfo *)iconInfo
 {
 	UIImage *iconImage = nil;
@@ -104,43 +163,7 @@
 		iconImage = [iconInfo.icon _miniIconGridForPage:0];
 	}
 
-	CMBColorInfo *badgeColors = nil;
-
-	switch ([[CMBPreferences sharedInstance] appBadgeBackgroundType])
-	{
-		case kABB_FixedColor:
-			badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] appBadgeBackgroundColor] andForegroundColor:nil];
-			break;
-
-		case kABB_CCColorCube:
-			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingCCColorCube:iconImage];
-			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
-			break;
-
-		case kABB_LEColorPicker:
-			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingLEColorPicker:iconImage];
-			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
-			break;
-
-		case kABB_Boover:
-			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingBooverAlgorithm:iconImage];
-			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
-			break;
-
-		case kABB_ColorBadges:
-			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingColorBadges:iconImage];
-			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
-			break;
-
-		case kABB_Chameleon:
-			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingChameleon:iconImage];
-			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
-			break;
-
-		case kABB_RandomColor:
-			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingRandom];
-			break;
-	}
+	CMBColorInfo *badgeColors = [self getPreferredAppBadgeColorsForImage:iconImage];
 
 	if (badgeColors)
 		return badgeColors;
@@ -764,6 +787,13 @@
 	return badgeColors;
 }
 
+- (CMBColorInfo *)getBadgeColorsForApplicationIdentifier:(NSString *)applicationBundleID
+{
+	SBIcon *icon = [[[objc_getClass("SBIconController") sharedInstance] model] applicationIconForBundleIdentifier:applicationBundleID];
+
+	return [self getBadgeColorsForIcon:icon];
+}
+
 - (void)redrawBadges:(NSString *)applicationBundleID
 {
 	CMBIconInfo *iconInfo;
@@ -791,6 +821,9 @@
 
 		HBLogDebug(@"redrawBadges: [%@] noting badge did change",iconInfo.nodeIdentifier);
 
+//		[icon setBadge:nil];
+//		[icon noteBadgeDidChange];
+//		[icon setBadge:badgeNumberOrString];
 		[icon noteBadgeDidChange];
 	}
 }
@@ -823,6 +856,11 @@
 		[self refreshBadgesForApplication:applicationBundleID];
 	else
 		[self refreshBadgesForAllApplications];
+}
+
+- (void)reloadTheme
+{
+	[self refreshBadgesForAllApplications];
 }
 
 @end

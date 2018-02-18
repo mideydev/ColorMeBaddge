@@ -7,7 +7,7 @@
 @property(nonatomic)		BOOL isApplication;
 //@property(nonatomic)		BOOL isFolder;
 
-+ (CMBIconInfo *)sharedInstance;
++ (instancetype)sharedInstance;
 - (CMBIconInfo *)getIconInfo:(id)icon;
 @end
 

@@ -1,6 +1,7 @@
 //#import "SpringBoard.h"
 #import "CMBColorInfo.h"
 #import "CMBIconInfo.h"
+#import "external/Anemone/ANEMSettingsManager.h"
 
 typedef NS_ENUM(NSUInteger,BadgeValueType)
 {
@@ -9,13 +10,15 @@ typedef NS_ENUM(NSUInteger,BadgeValueType)
 	kSpecialBadge
 };
 
-@interface CMBManager : NSObject
+@interface CMBManager : NSObject <AnemoneEventHandler>
 {
 	NSMutableDictionary *cachedAppBadgeColors;
 	NSMutableDictionary *cachedRandomFolderBadgeColors;
 }
-+ (CMBManager *)sharedInstance;
++ (instancetype)sharedInstance;
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon;
+- (CMBColorInfo *)getBadgeColorsForApplicationIdentifier:(NSString *)applicationBundleID;
+- (CMBColorInfo *)getPreferredAppBadgeColorsForImage:(UIImage *)image;
 - (NSInteger)getBadgeValueType:(id)badgeNumberOrString;
 - (void)refreshBadges:(NSString *)applicationBundleID;
 - (void)refreshBadgesForApplication:(NSString *)applicationBundleID;

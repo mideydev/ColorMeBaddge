@@ -24,7 +24,7 @@
 @property(nonatomic,strong)	UIColor *borderColor;
 @property(nonatomic)		CFAbsoluteTime now;
 
-+ (CMBColorInfo *)sharedInstance;
++ (instancetype)sharedInstance;
 - (CMBColorInfo *)colorInfoWithBackgroundColor:(UIColor *)backgroundColor andForegroundColor:(UIColor *)foregroundColor;
 @end
 

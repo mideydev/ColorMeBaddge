@@ -99,6 +99,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 	HBLogDebug(@"[logSettings] useUnmaskedIcons                 = %@",self.useUnmaskedIcons?@"YES":@"NO");
 	HBLogDebug(@"[logSettings] showAllBadges                    = %@",self.showAllBadges?@"YES":@"NO");
 	HBLogDebug(@"[logSettings] switcherBadgesEnabled            = %@",self.switcherBadgesEnabled?@"YES":@"NO");
+	HBLogDebug(@"[logSettings] provideColorsForColorBanners     = %@",self.provideColorsForColorBanners?@"YES":@"NO");
 }
 
 - (void)loadInitialSettings
@@ -140,6 +141,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 	self.useUnmaskedIcons = CMB_DEFAULT_USE_UNMASKED_ICONS;
 	self.showAllBadges = CMB_DEFAULT_SHOW_ALL_BADGES;
 	self.switcherBadgesEnabled = CMB_DEFAULT_SWITCHER_BADGES_ENABLED;
+	self.provideColorsForColorBanners = CMB_DEFAULT_PROVIDE_COLORS_FOR_COLORBANNERS;
 
 	[self logSettings];
 
@@ -192,6 +194,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 		if ((pref = [settings objectForKey:@"useUnmaskedIcons"])) self.useUnmaskedIcons = [pref boolValue];
 		if ((pref = [settings objectForKey:@"showAllBadges"])) self.showAllBadges = [pref boolValue];
 		if ((pref = [settings objectForKey:@"switcherBadgesEnabled"])) self.switcherBadgesEnabled = [pref boolValue];
+		if ((pref = [settings objectForKey:@"provideColorsForColorBanners"])) self.provideColorsForColorBanners = [pref boolValue];
 
 		[self logSettings];
 	}

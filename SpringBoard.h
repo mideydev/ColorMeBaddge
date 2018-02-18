@@ -12,6 +12,7 @@
 - (id)nodeIdentifier;
 - (id)badgeNumberOrString;
 - (void)noteBadgeDidChange;
+- (void)setBadge:(id)arg1;
 @property(retain, nonatomic) SBIcon *icon;
 @end
 
@@ -25,6 +26,7 @@
 
 @interface SBIconModel : NSObject
 - (id)applicationIconForBundleIdentifier:(id)arg1;
+- (id)expectedIconForDisplayIdentifier:(id)arg1;
 - (id)leafIcons;
 @end
 

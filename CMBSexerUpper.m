@@ -798,6 +798,22 @@
 	return badgeColors;
 }
 
+- (int)RGBFromUIColor:(UIColor *)color
+{
+	CGFloat r,g,b,a;
+	int R,G,B,rgb;
+
+	[color getRed:&r green:&g blue:&b alpha:&a];
+
+	R = (int)round(255.0*r);
+	G = (int)round(255.0*g);
+	B = (int)round(255.0*b);
+
+	rgb = ((R & 0xFF) << 16) | ((G & 0xFF) << 8) | (B & 0xFF);
+
+	return rgb;
+}
+
 @end
 
 // vim:ft=objc

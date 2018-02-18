@@ -65,6 +65,28 @@ static UIColor *lastForegroundUIColor;
 	%orig();
 }
 
+#if 0
+- (void)prepareForReuse
+{
+	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	{
+		%orig();
+		return;
+	}
+
+	HBLogDebug(@"==============================[ SBIconBadgeView:prepareForReuse ]==============================");
+
+	%orig();
+
+	SBDarkeningImageView *backgroundView = MSHookIvar<SBDarkeningImageView*>(self,"_backgroundView");
+	SBDarkeningImageView *textView = MSHookIvar<SBDarkeningImageView*>(self,"_textView");
+//	SBIconAccessoryImage *textImage = MSHookIvar<SBIconAccessoryImage*>(self,"_textImage");
+
+	[backgroundView setImage:nil];
+	[textView setImage:nil];
+}
+#endif
+
 %new
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon prepareForCrossfade:(BOOL)prepareForCrossfade
 {

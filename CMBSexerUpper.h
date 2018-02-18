@@ -7,7 +7,7 @@
 #define TINT_PERCENTAGE				(25.0 / 100.0)
 
 @interface CMBSexerUpper : NSObject
-+ (CMBSexerUpper *)sharedInstance;
++ (instancetype)sharedInstance;
 - (UIColor *)getForegroundColorByBrightnessThreshold:(UIColor *)backgroundColor;
 - (UIColor *)adjustBackgroundColorByPreference:(UIColor *)color;
 - (UIColor *)adjustBorderColorByPreference:(UIColor *)color;
@@ -20,6 +20,7 @@
 - (CMBColorInfo *)getColorsUsingColorBadges:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingChameleon:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingRandom;
+- (int)RGBFromUIColor:(UIColor *)color;
 @end
 
 // vim:ft=objc

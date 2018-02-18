@@ -17,6 +17,7 @@
 	[self setPreferenceValue:@(CMB_DEFAULT_USE_UNMASKED_ICONS) specifier:[self specifierForID:@"CMBUseUnmaskedIcons"]];
 	[self setPreferenceValue:@(CMB_DEFAULT_SHOW_ALL_BADGES) specifier:[self specifierForID:@"CMBShowAllBadges"]];
 	[self setPreferenceValue:@(CMB_DEFAULT_SWITCHER_BADGES_ENABLED) specifier:[self specifierForID:@"CMBSwitcherBadgesEnabled"]];
+	[self setPreferenceValue:@(CMB_DEFAULT_PROVIDE_COLORS_FOR_COLORBANNERS) specifier:[self specifierForID:@"CMBProvideColorsForColorBanners"]];
 }
 
 @end
