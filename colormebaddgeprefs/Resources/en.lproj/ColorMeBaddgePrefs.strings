@@ -11,7 +11,7 @@ BORDER_SETTINGS_LABEL = "Border Settings";
 BRIGHTNESS_SETTINGS_LABEL = "Brightness Settings";
 MISCELLANEOUS_SETTINGS_LABEL = "Miscellaneous Settings";
 
-RESPRING_FOOTER = "Changes made above will not affect existing badges until they are redrawn.  Respring if you want to apply all changes immediately.";
+RESPRING_FOOTER = "Changes made above take effect immediately.  A respring is only required when disabling this tweak.";
 RESPRING_LABEL = "Respring";
 
 CREDITS_LABEL = "Acknowledgements";

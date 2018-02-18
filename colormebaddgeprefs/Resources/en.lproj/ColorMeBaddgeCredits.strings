@@ -27,5 +27,13 @@ COURIA_GROUP_LABEL = "Couria";
 COURIA_GROUP_FOOTER = "HRColorPicker interface code was taken directly from Couria.";
 COURIA_INFO_LABEL = "Couria License";
 
+BLURRYBADGES_GROUP_LABEL = "BlurryBadges";
+BLURRYBADGES_GROUP_FOOTER = "Code to apply changes immediately without requiring a respring was taken from BlurryBadges.";
+BLURRYBADGES_INFO_LABEL = "BlurryBadges License";
+
+CHAMELEON_GROUP_LABEL = "Chameleon";
+CHAMELEON_GROUP_FOOTER = "";
+CHAMELEON_INFO_LABEL = "Chameleon License";
+
 MISC_GROUP_LABEL = "Miscellaneous";
 MISC_GROUP_FOOTER = "Thanks to /u/tateu for help with preference pane header alignment.";

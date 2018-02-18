@@ -1,4 +1,5 @@
 #import "CMBColorInfo.h"
+
 // springboard stuff
 
 @interface FBSystemService : NSObject
@@ -10,6 +11,7 @@
 - (id)getIconImage:(int)arg1;
 - (id)nodeIdentifier;
 - (id)badgeNumberOrString;
+- (void)noteBadgeDidChange;
 @property(retain, nonatomic) SBIcon *icon;
 @end
 
@@ -23,6 +25,7 @@
 
 @interface SBIconModel : NSObject
 - (id)applicationIconForBundleIdentifier:(id)arg1;
+- (id)leafIcons;
 @end
 
 @interface SBFolder : NSObject

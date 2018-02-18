@@ -37,6 +37,7 @@
 				<string>BADGE_COLOR_LIST_ITEM_AVERAGE_COLOR</string>
 				<string>BADGE_COLOR_LIST_ITEM_WEIGHTED_AVERAGE_COLOR</string>
 				<string>BADGE_COLOR_LIST_ITEM_FOLDER_MINIGRID</string>
+				<string>BADGE_COLOR_LIST_ITEM_RANDOM_COLORS</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -49,6 +50,7 @@
 				<string>6</string>
 				<string>7</string>
 				<string>8</string>
+				<string>9</string>
 			</array>
 			<key>staticTextMessage</key>
 			<string>BADGE_COLOR_LIST_DESCRIPTION</string>

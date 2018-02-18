@@ -1,7 +1,7 @@
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = ColorMeBaddgePrefs
-ColorMeBaddgePrefs_FILES = $(wildcard *.m)
+ColorMeBaddgePrefs_FILES = $(wildcard *.m external/*/*.m)
 ColorMeBaddgePrefs_INSTALL_PATH = /Library/PreferenceBundles
 ColorMeBaddgePrefs_FRAMEWORKS = UIKit
 ColorMeBaddgePrefs_PRIVATE_FRAMEWORKS = Preferences

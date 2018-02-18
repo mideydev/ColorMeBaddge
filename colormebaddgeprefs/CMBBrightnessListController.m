@@ -1,6 +1,4 @@
-#import <Preferences/PSSpecifier.h>
 #import "CMBBrightnessListController.h"
-#import "../CMBPreferences.h"
 
 @implementation CMBBrightnessListController
 
@@ -16,16 +14,9 @@
 
 - (void)resetSettings
 {
-	PSSpecifier *specifier;
-
-	specifier = [self specifierForID:@"CMBBadgeColorAdjustmentType"];
-	[self setPreferenceValue:[@(CMB_DEFAULT_BADGE_COLOR_ADJUSTMENT_TYPE) stringValue] specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBBrightnessThreshold"];
-	[self setPreferenceValue:@(CMB_DEFAULT_BRIGHTNESS_THRESHOLD) specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBColorSpaceType"];
-	[self setPreferenceValue:[@(CMB_DEFAULT_COLOR_SPACE_TYPE) stringValue] specifier:specifier];
+	[self setPreferenceValue:[@(CMB_DEFAULT_COLOR_SPACE_TYPE) stringValue] specifier:[self specifierForID:@"CMBColorSpaceType"]];
+	[self setPreferenceValue:@(CMB_DEFAULT_BRIGHTNESS_THRESHOLD) specifier:[self specifierForID:@"CMBBrightnessThreshold"]];
+	[self setPreferenceValue:[@(CMB_DEFAULT_BADGE_COLOR_ADJUSTMENT_TYPE) stringValue] specifier:[self specifierForID:@"CMBBadgeColorAdjustmentType"]];
 }
 
 @end

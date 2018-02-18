@@ -128,6 +128,40 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>BLURRYBADGES_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>BLURRYBADGES_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>BLURRYBADGES_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsBlurryBadgesListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>CHAMELEON_GROUP_LABEL</string>
+			<key>footerText</key>
+			<string>CHAMELEON_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>CHAMELEON_INFO_LABEL</string>
+			<key>detail</key>
+			<string>CMBCreditsChameleonListController</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>MISC_GROUP_LABEL</string>
 			<key>footerText</key>
 			<string>MISC_GROUP_FOOTER</string>

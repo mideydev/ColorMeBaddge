@@ -15,7 +15,7 @@ THRESHOLD_GROUP_LABEL = "Brightness Threshold";
 
 THRESHOLD_GROUP_FOOTER = "Threshold above which black text is chosen over white text.";
 
-BADGE_COLOR_ADJUSTMENT_TYPE_GROUP_FOOTER = "If you prefer text to be either all white or all black, you can choose to have the badge color tinted (lightened) or shaded (darkened) so that your desired text color stands out.";
+BADGE_COLOR_ADJUSTMENT_TYPE_GROUP_FOOTER = "If you prefer text to be either all white or all black, you can choose to have the badge color tinted or shaded so that your desired text color stands out.";
 
 BADGE_COLOR_ADJUSTMENT_TYPE_LIST_LABEL = "Badge Color Adjustment";
 
@@ -29,8 +29,8 @@ BADGE_COLOR_ADJUSTMENT_TYPE_LIST_ITEM_SHORT_TINT_FOR_BLACK_TEXT = "Tint for blac
 
 BADGE_COLOR_ADJUSTMENT_TYPE_LIST_DESCRIPTION = "None: Badge color is left alone, and text color is determined based on the chosen brightness threshold.
 
-Shade Badges: Badge colors above the chosen brightness threshold are shaded (darkened) just below it, so that white text is always chosen.
+Shade Badges: Badge colors above the chosen brightness threshold are darkened just below it, so that white text is always chosen.
 
-Tint Badges: Badge colors below the chosen brightness threshold are tinted (lightened) just above it, so that black text is always chosen.";
+Tint Badges: Badge colors below the chosen brightness threshold are lightened just above it, so that black text is always chosen.";
 
 RESET_LABEL = "Reset to Defaults";

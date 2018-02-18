@@ -2,10 +2,11 @@
 #import <objc/runtime.h>
 #import "CMBSexerUpper.h"
 #import "CMBPreferences.h"
-#import "ColorBadges.h"
-#import "LEColorPicker.h"
-#import "CCColorCube.h"
-#import "Colours.h"
+#import "external/ColorBadges/ColorBadges.h"
+#import "external/LEColorPicker/LEColorPicker.h"
+#import "external/ColorCube/CCColorCube.h"
+#import "external/Colours/Colours.h"
+#import "external/Chameleon/Chameleon.h"
 
 #define COLORBADGESCLASS objc_getClass("ColorBadges")
 
@@ -132,8 +133,8 @@
 	NSInteger brightnessThreshold = [[CMBPreferences sharedInstance] brightnessThreshold];
 
 /*
-	CGFloat whiteDistance = [backgroundColor distanceFromColor:realWhiteColor type:ColorDistanceCIE2000];
-	CGFloat blackDistance = [backgroundColor distanceFromColor:realBlackColor type:ColorDistanceCIE2000];
+	CGFloat whiteDistance = [backgroundColor distanceFromColor:realWhiteColor type:ColoursColorDistanceCIE2000];
+	CGFloat blackDistance = [backgroundColor distanceFromColor:realBlackColor type:ColoursColorDistanceCIE2000];
 
 	HBLogDebug(@"getForegroundColorByBrightnessThreshold: n = %0.2f  pref = %ld --> %@ / wD = %0.2f bD = %0.2f --> %@"
 				,normalizedBrightness
@@ -365,6 +366,73 @@
 	return color;
 }
 
+- (UIColor *)inverseColor:(UIColor *)color
+{
+	CGFloat r, g, b, a;
+
+	[color getRed:&r green:&g blue:&b alpha:&a];
+
+	UIColor *inverseColor = [UIColor colorWithRed:(1.0-r) green:(1.0-g) blue:(1.0-b) alpha:a];
+
+	return inverseColor;
+}
+
+- (UIColor *)adjustAppBadgeBackgroundColorByPreference:(UIColor *)color
+{
+	switch ([[CMBPreferences sharedInstance] appBadgeBackgroundAdjustmentType])
+	{
+		case kABBA_None:
+			return color;
+			break;
+
+		case kABBA_Shade:
+			return [self shadeColorByBrightnessFactor:color factor:1.0 - SHADE_PERCENTAGE];
+			break;
+
+		case kABBA_Tint:
+			return [self tintColorByBrightnessFactor:color factor:1.0 + TINT_PERCENTAGE];
+			break;
+
+		case kABBA_Inverse:
+			return [self inverseColor:color];
+			break;
+
+		case kABBA_Complementary:
+			return [color complementaryColor];
+			break;
+	}
+
+	return color;
+}
+
+- (UIColor *)adjustAppBadgeForegroundColorByPreference:(UIColor *)color
+{
+	switch ([[CMBPreferences sharedInstance] appBadgeForegroundAdjustmentType])
+	{
+		case kABFA_None:
+			return color;
+			break;
+
+		case kABFA_Shade:
+			return [self shadeColorByBrightnessFactor:color factor:1.0 - SHADE_PERCENTAGE];
+			break;
+
+		case kABFA_Tint:
+			return [self tintColorByBrightnessFactor:color factor:1.0 + TINT_PERCENTAGE];
+			break;
+
+		case kABFA_Inverse:
+			return [self inverseColor:color];
+			break;
+
+		case kABFA_Complementary:
+			return [color complementaryColor];
+			break;
+	}
+
+	return color;
+}
+
 - (UIColor *)shadeColorByBrightnessFactor:(UIColor *)color factor:(double)factor
 {
 	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
@@ -385,17 +453,14 @@
 
 - (UIColor *)adjustBorderColorByPreference:(UIColor *)color
 {
-//	double percent = (double)[[CMBPreferences sharedInstance] badgeBorderShadeTintPercentage] / 100.0;
-	double percent = 30.0 / 100.0;
-
 	switch ([[CMBPreferences sharedInstance] badgeBorderType])
 	{
-		case kBB_ByShadedBadgeBackgroundColor:
-			return [self shadeColorByBrightnessFactor:color factor:1.0 - percent];
+		case kBB_ShadedBadgeBackgroundColor:
+			return [self shadeColorByBrightnessFactor:color factor:1.0 - SHADE_PERCENTAGE];
 			break;
 
-		case kBB_ByTintedBadgeBackgroundColor:
-			return [self tintColorByBrightnessFactor:color factor:1.0 + percent];
+		case kBB_TintedBadgeBackgroundColor:
+			return [self tintColorByBrightnessFactor:color factor:1.0 + TINT_PERCENTAGE];
 			break;
 	}
 
@@ -497,6 +562,51 @@
 	return badgeColors;
 }
 
+- (CMBColorInfo *)getColorsUsingChameleon:(UIImage *)image
+{
+	NSArray *backgroundColors = [NSArray arrayOfColorsFromImage:image withFlatScheme:NO];
+
+	// find a background color
+
+	UIColor *backgroundColor = nil;
+	UIColor *foregroundColor = nil;
+
+	// default to first color returned
+	if ([backgroundColors count] >= 1)
+		backgroundColor = [backgroundColors objectAtIndex:0];
+
+	// now look for a more colorful choice
+	for (UIColor *thisColor in backgroundColors)
+	{
+		if (![self colorSeemsGrey:thisColor])
+		{
+			backgroundColor = thisColor;
+			break;
+		}
+	}
+
+	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:backgroundColor andForegroundColor:foregroundColor];
+
+	return badgeColors;
+}
+
+- (UIColor *)randomColor
+{
+	UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0f];
+
+	return randomColor;
+}
+
+- (CMBColorInfo *)getColorsUsingRandom
+{
+	UIColor *backgroundColor = [self randomColor];
+	UIColor *foregroundColor = [self randomColor];
+
+	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:backgroundColor andForegroundColor:foregroundColor];
+
+	return badgeColors;
+}
+
 - (BOOL)colorSeemsGrey:(UIColor *)color
 {
 	CGFloat r, g, b, a;
@@ -581,7 +691,7 @@
 			double thisBrightness = [thisL doubleValue];
 
 			// 0 ... 100
-			CGFloat distance = [thisColor distanceFromColor:backgroundColor type:ColorDistanceCIE2000];
+			CGFloat distance = [thisColor distanceFromColor:backgroundColor type:ColoursColorDistanceCIE2000];
 
 			// wild guess
 			if ((fabs(backgroundBrightness-thisBrightness) > 49.0) && (distance > 49.0))

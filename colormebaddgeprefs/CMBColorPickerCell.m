@@ -1,6 +1,6 @@
 #import "CMBColorPickerCell.h"
 #import "CMBColorPickerViewController.h"
-#import "UIColor+HRColorPickerHexColor.h"
+#import "external/HRColorPicker/UIColor+HRColorPickerHexColor.h"
 
 @implementation CMBColorPickerCell
 

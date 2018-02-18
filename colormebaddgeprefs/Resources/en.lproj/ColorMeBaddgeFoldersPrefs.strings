@@ -13,22 +13,25 @@ BADGE_COLOR_LIST_ITEM_RANDOM_BADGE = "Random Badge";
 BADGE_COLOR_LIST_ITEM_AVERAGE_COLOR = "Average Color";
 BADGE_COLOR_LIST_ITEM_WEIGHTED_AVERAGE_COLOR = "Weighted Average Color";
 BADGE_COLOR_LIST_ITEM_FOLDER_MINIGRID = "Folder Minigrid";
+BADGE_COLOR_LIST_ITEM_RANDOM_COLORS = "Random Colors";
 
-BADGE_COLOR_LIST_DESCRIPTION = "Lowest Badge: uses the color of the first lowest-numbered badge in the folder. †
+BADGE_COLOR_LIST_DESCRIPTION = "Lowest Badge: Uses the color of the first lowest-numbered badge in the folder. †
 
-Highest Badge: uses the color of the first highest-numbered badge in the folder. †
+Highest Badge: Uses the color of the first highest-numbered badge in the folder. †
 
-First Badge: uses the color of the first badge in the folder. †
+First Badge: Uses the color of the first badge in the folder. †
 
-Last Badge: uses the color of the last badge in the folder. †
+Last Badge: Uses the color of the last badge in the folder. †
 
-Random Badge: uses the color of a random badge in the folder.  Since this applies recursively, the badge color may come from any badged application within the folder, or subfolders of the folder.
+Random Badge: Uses the color of a random badge in the folder.  Since this applies recursively, the badge color may come from any badged application within the folder, or subfolders of the folder.
 
-Average Color: uses the average color of all numeric badges in the folder.
+Average Color: Uses the average color of all numeric badges in the folder.
 
-Weighted Average Color: uses the weighted average color of all numeric badges in the folder.  Badges will contribute to the average color proportionally to their badge value.
+Weighted Average Color: Uses the weighted average color of all numeric badges in the folder.  Badges will contribute to the average color proportionally to their badge value.
 
-Folder Minigrid: treats the folder view as an app icon, and generates colors for it according to the selected app badge algorithm.
+Folder Minigrid: Treats the folder view as an app icon, and generates colors for it according to the selected app badge algorithm.
+
+Random Colors: Generates a random badge and text color.
 
 † If folder icons are manually reordered, the folder badge color may no longer be as expected until the badge is redrawn.";
 

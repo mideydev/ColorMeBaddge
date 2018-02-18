@@ -1,9 +1,4 @@
-#import <Preferences/PSSpecifier.h>
 #import "CMBAppsListController.h"
-#import "CMBColorPickerViewController.h"
-#import "CMBColorPickerCell.h"
-#import "UIColor+HRColorPickerHexColor.h"
-#import "../CMBPreferences.h"
 
 @implementation CMBAppsListController
 
@@ -19,19 +14,12 @@
 
 - (void)resetSettings
 {
-	PSSpecifier *specifier;
-
-	specifier = [self specifierForID:@"CMBAppBadgeBackgroundColor"];
-	[self setPreferenceValue:@CMB_DEFAULT_APP_BADGE_BACKGROUND_COLOR specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBAppBadgeBackgroundType"];
-	[self setPreferenceValue:[@(CMB_DEFAULT_APP_BADGE_BACKGROUND_TYPE) stringValue] specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBAppBadgeForegroundColor"];
-	[self setPreferenceValue:@CMB_DEFAULT_APP_BADGE_FOREGROUND_COLOR specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBAppBadgeForegroundType"];
-	[self setPreferenceValue:[@(CMB_DEFAULT_APP_BADGE_FOREGROUND_TYPE) stringValue] specifier:specifier];
+	[self setPreferenceValue:[@(CMB_DEFAULT_APP_BADGE_BACKGROUND_TYPE) stringValue] specifier:[self specifierForID:@"CMBAppBadgeBackgroundType"]];
+	[self setPreferenceValue:[@(CMB_DEFAULT_APP_BADGE_BACKGROUND_ADJUSTMENT_TYPE) stringValue] specifier:[self specifierForID:@"CMBAppBadgeBackgroundAdjustmentType"]];
+	[self setPreferenceValue:@CMB_DEFAULT_APP_BADGE_BACKGROUND_COLOR specifier:[self specifierForID:@"CMBAppBadgeBackgroundColor"]];
+	[self setPreferenceValue:[@(CMB_DEFAULT_APP_BADGE_FOREGROUND_TYPE) stringValue] specifier:[self specifierForID:@"CMBAppBadgeForegroundType"]];
+	[self setPreferenceValue:[@(CMB_DEFAULT_APP_BADGE_FOREGROUND_ADJUSTMENT_TYPE) stringValue] specifier:[self specifierForID:@"CMBAppBadgeForegroundAdjustmentType"]];
+	[self setPreferenceValue:@CMB_DEFAULT_APP_BADGE_FOREGROUND_COLOR specifier:[self specifierForID:@"CMBAppBadgeForegroundColor"]];
 }
 
 @end

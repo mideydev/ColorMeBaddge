@@ -551,7 +551,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 
 #pragma mark - Generate Color Scheme
-- (NSArray *)colorSchemeOfType:(ColorScheme)type
+- (NSArray *)colorSchemeOfType:(ColoursColorScheme)type
 {
     NSArray *hsbArray = [self hsbaArray];
     float hue = [hsbArray[0] floatValue] * 360;
@@ -560,13 +560,13 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     float alpha = [hsbArray[3] floatValue];
     
     switch (type) {
-        case ColorSchemeAnalagous:
+        case ColoursColorSchemeAnalagous:
             return [[self class] analagousColorsFromHue:hue saturation:sat brightness:bright alpha:alpha];
-        case ColorSchemeMonochromatic:
+        case ColoursColorSchemeMonochromatic:
             return [[self class] monochromaticColorsFromHue:hue saturation:sat brightness:bright alpha:alpha];
-        case ColorSchemeTriad:
+        case ColoursColorSchemeTriad:
             return [[self class] triadColorsFromHue:hue saturation:sat brightness:bright alpha:alpha];
-        case ColorSchemeComplementary:
+        case ColoursColorSchemeComplementary:
             return [[self class] complementaryColorsFromHue:hue saturation:sat brightness:bright alpha:alpha];
         default:
             return nil;
@@ -631,10 +631,10 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 - (CGFloat)distanceFromColor:(id)color
 {
     // Defaults to CIE94
-    return [self distanceFromColor:color type:ColorDistanceCIE94];
+    return [self distanceFromColor:color type:ColoursColorDistanceCIE94];
 }
 
-- (CGFloat)distanceFromColor:(id)color type:(ColorDistance)distanceType {
+- (CGFloat)distanceFromColor:(id)color type:(ColoursColorDistance)distanceType {
     /**
      *
      *  Detecting a difference in two colors is not as trivial as it sounds.
@@ -682,7 +682,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     CGFloat B2 = [lab2[2] floatValue];
     
     // CIE76 first
-    if (distanceType == ColorDistanceCIE76) {
+    if (distanceType == ColoursColorDistanceCIE76) {
         CGFloat distance = sqrtf(pow((L1-L2), 2) + pow((A1-A2), 2) + pow((B1-B2), 2));
         return distance;
     }
@@ -703,7 +703,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     CGFloat sH = 1 + k2*(sqrt((A1*A1) + (B1*B1)));
     
     // CIE94
-    if (distanceType == ColorDistanceCIE94) {
+    if (distanceType == ColoursColorDistanceCIE94) {
         return sqrt(pow((deltaL/(kL*sL)), 2.0) + pow((deltaC/(kC*sC)), 2.0) + pow((deltaH/(kH*sH)), 2.0));
     }
     
@@ -743,13 +743,13 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 
 #pragma mark - Compare Colors
-+ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison {
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColoursColorComparison)comparison {
     return [colors sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [self compareColor:obj1 andColor:obj2 withComparison:comparison];
     }];
 }
 
-+ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison {
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColoursColorComparison)comparison {
     if (![colorA isKindOfClass:[self class]] || ![colorB isKindOfClass:[self class]]) {
         return NSOrderedSame;
     }
@@ -1306,39 +1306,39 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 
 #pragma mark - Color Comparison
-- (NSDictionary *)colorsForComparison:(ColorComparison)comparison key:(NSString **)key greater:(boolean_t *)greaterThan {
+- (NSDictionary *)colorsForComparison:(ColoursColorComparison)comparison key:(NSString **)key greater:(boolean_t *)greaterThan {
     switch (comparison) {
-        case ColorComparisonRed:
+        case ColoursColorComparisonRed:
             *key = kColoursRGBA_R;
             *greaterThan = true;
             return [self rgbaDictionary];
             
-        case ColorComparisonGreen:
+        case ColoursColorComparisonGreen:
             *key = kColoursRGBA_G;
             *greaterThan = true;
             return [self rgbaDictionary];
             
-        case ColorComparisonBlue:
+        case ColoursColorComparisonBlue:
             *key = kColoursRGBA_B;
             *greaterThan = true;
             return [self rgbaDictionary];
             
-        case ColorComparisonDarkness:
+        case ColoursColorComparisonDarkness:
             *key = kColoursHSBA_B;
             *greaterThan = false;
             return [self hsbaDictionary];
             
-        case ColorComparisonLightness:
+        case ColoursColorComparisonLightness:
             *key = kColoursHSBA_B;
             *greaterThan = true;
             return [self hsbaDictionary];
             
-        case ColorComparisonSaturated:
+        case ColoursColorComparisonSaturated:
             *key = kColoursHSBA_S;
             *greaterThan = true;
             return [self hsbaDictionary];
             
-        case ColorComparisonDesaturated:
+        case ColoursColorComparisonDesaturated:
             *key = kColoursHSBA_S;
             *greaterThan = false;
             return [self hsbaDictionary];

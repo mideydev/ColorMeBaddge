@@ -9,14 +9,38 @@ BADGE_COLOR_LIST_ITEM_COLORCUBE = "ColorCube";
 BADGE_COLOR_LIST_ITEM_LECOLORPICKER = "LEColorPicker";
 BADGE_COLOR_LIST_ITEM_BOOVER = "Boover";
 BADGE_COLOR_LIST_ITEM_COLORBADGES = "ColorBadges";
+BADGE_COLOR_LIST_ITEM_CHAMELEON = "Chameleon";
+BADGE_COLOR_LIST_ITEM_RANDOM_COLORS = "Random Colors";
 
-BADGE_COLOR_LIST_DESCRIPTION = "ColorCube: finds locally maximal RGB colors from an icon using a 3D histogram grid, preferring colors that are not too close to white, black, or grey.  This algorithm provides a badge color, and may also provide a contrasting text color.
+BADGE_COLOR_LIST_DESCRIPTION = "ColorCube: Finds locally maximal RGB colors from an icon using a 3D histogram grid, preferring colors that are not too close to white, black, or grey.  This algorithm provides a badge color, and may also provide a contrasting text color.
 
-LEColorPicker: generates a color scheme from an icon, similar to iTunes.  This algorithm provides a badge color as well as a contrasting text color.
+LEColorPicker: Generates a color scheme from an icon, similar to iTunes.  This algorithm provides a badge color as well as a contrasting text color.
 
-Boover: calculates an average color for an icon, ignoring bright pixels.  This algorithm provides just a badge color.
+Boover: Calculates an average color for an icon, ignoring bright pixels.  This algorithm provides just a badge color.
 
-ColorBadges: generates a badge color for an icon using the ColorBadges API.  Requires ColorBadges to be installed, otherwise default iOS colors will be used.  This algorithm provides just a badge color.";
+ColorBadges: Generates a badge color for an icon using the ColorBadges API.  Requires ColorBadges to be installed, otherwise default iOS colors will be used.  This algorithm provides just a badge color.
+
+Chameleon: Generates a badge color for an icon using the Chameleon framework.  This algorithm provides just a badge color.
+
+Random Colors: Generates a random badge and text color.";
+
+BADGE_COLOR_ADJUSTMENT_LIST_LABEL = "Badge Color Adjustment";
+
+BADGE_COLOR_ADJUSTMENT_LIST_ITEM_NONE = "None";
+BADGE_COLOR_ADJUSTMENT_LIST_ITEM_SHADE = "Shade";
+BADGE_COLOR_ADJUSTMENT_LIST_ITEM_TINT = "Tint";
+BADGE_COLOR_ADJUSTMENT_LIST_ITEM_INVERT = "Invert";
+BADGE_COLOR_ADJUSTMENT_LIST_ITEM_COMPLEMENT = "Complement";
+
+BADGE_COLOR_ADJUSTMENT_LIST_DESCRIPTION = "This only applies to algorithm-generated badge colors.  Fixed or Random colors will not be adjusted.
+
+Shade: Darken the generated badge color.
+
+Tint: Lighten the generated badge color.
+
+Invert: Use the inverse of the generated badge color.
+
+Complement: Use the color on the color wheel that is opposite of the generated badge color.  This only changes the hue, not the saturation or brightness.";
 
 BADGE_COLOR_LINK_LABEL = "Fixed Badge Color";
 
@@ -35,6 +59,24 @@ TEXT_COLOR_LIST_ITEM_SHORT_ALGORITHM_ELSE_FIXED_COLOR = "By Algorithm, else Fixe
 TEXT_COLOR_LIST_ITEM_SHORT_ALGORITHM_ELSE_BRIGHTNESS = "By Algorithm, else Brightness";
 
 TEXT_COLOR_LIST_DESCRIPTION = "Some badge color algorithms may also provide a text color.  \"By Algorithm\" settings above will use that text color, if available.";
+
+TEXT_COLOR_ADJUSTMENT_LIST_LABEL = "Text Color Adjustment";
+
+TEXT_COLOR_ADJUSTMENT_LIST_ITEM_NONE = "None";
+TEXT_COLOR_ADJUSTMENT_LIST_ITEM_SHADE = "Shade";
+TEXT_COLOR_ADJUSTMENT_LIST_ITEM_TINT = "Tint";
+TEXT_COLOR_ADJUSTMENT_LIST_ITEM_INVERT = "Invert";
+TEXT_COLOR_ADJUSTMENT_LIST_ITEM_COMPLEMENT = "Complement";
+
+TEXT_COLOR_ADJUSTMENT_LIST_DESCRIPTION = "This only applies to algorithm-generated text colors.
+
+Shade: Darken the generated text color.
+
+Tint: Lighten the generated text color.
+
+Invert: Use the inverse of the generated text color.
+
+Complement: Use the color on the color wheel that is opposite of the generated text color.  This only changes the hue, not the saturation or brightness.";
 
 TEXT_COLOR_LINK_LABEL = "Fixed Text Color";
 

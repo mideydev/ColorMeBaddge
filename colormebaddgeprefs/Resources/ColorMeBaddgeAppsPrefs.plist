@@ -33,6 +33,42 @@
 				<string>BADGE_COLOR_LIST_ITEM_LECOLORPICKER</string>
 				<string>BADGE_COLOR_LIST_ITEM_BOOVER</string>
 				<string>BADGE_COLOR_LIST_ITEM_COLORBADGES</string>
+				<string>BADGE_COLOR_LIST_ITEM_CHAMELEON</string>
+				<string>BADGE_COLOR_LIST_ITEM_RANDOM_COLORS</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+				<string>4</string>
+				<string>5</string>
+				<string>6</string>
+			</array>
+			<key>staticTextMessage</key>
+			<string>BADGE_COLOR_LIST_DESCRIPTION</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>label</key>
+			<string>BADGE_COLOR_ADJUSTMENT_LIST_LABEL</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>appBadgeBackgroundAdjustmentType</string>
+			<key>id</key>
+			<string>CMBAppBadgeBackgroundAdjustmentType</string>
+			<key>default</key>
+			<string>0</string>
+			<key>validTitles</key>
+			<array>
+				<string>BADGE_COLOR_ADJUSTMENT_LIST_ITEM_NONE</string>
+				<string>BADGE_COLOR_ADJUSTMENT_LIST_ITEM_SHADE</string>
+				<string>BADGE_COLOR_ADJUSTMENT_LIST_ITEM_TINT</string>
+				<string>BADGE_COLOR_ADJUSTMENT_LIST_ITEM_INVERT</string>
+				<string>BADGE_COLOR_ADJUSTMENT_LIST_ITEM_COMPLEMENT</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -43,7 +79,7 @@
 				<string>4</string>
 			</array>
 			<key>staticTextMessage</key>
-			<string>BADGE_COLOR_LIST_DESCRIPTION</string>
+			<string>BADGE_COLOR_ADJUSTMENT_LIST_DESCRIPTION</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -102,6 +138,38 @@
 			</array>
 			<key>staticTextMessage</key>
 			<string>TEXT_COLOR_LIST_DESCRIPTION</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>label</key>
+			<string>TEXT_COLOR_ADJUSTMENT_LIST_LABEL</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>appBadgeForegroundAdjustmentType</string>
+			<key>id</key>
+			<string>CMBAppBadgeForegroundAdjustmentType</string>
+			<key>default</key>
+			<string>0</string>
+			<key>validTitles</key>
+			<array>
+				<string>TEXT_COLOR_ADJUSTMENT_LIST_ITEM_NONE</string>
+				<string>TEXT_COLOR_ADJUSTMENT_LIST_ITEM_SHADE</string>
+				<string>TEXT_COLOR_ADJUSTMENT_LIST_ITEM_TINT</string>
+				<string>TEXT_COLOR_ADJUSTMENT_LIST_ITEM_INVERT</string>
+				<string>TEXT_COLOR_ADJUSTMENT_LIST_ITEM_COMPLEMENT</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+				<string>2</string>
+				<string>3</string>
+				<string>4</string>
+			</array>
+			<key>staticTextMessage</key>
+			<string>TEXT_COLOR_ADJUSTMENT_LIST_DESCRIPTION</string>
 		</dict>
 		<dict>
 			<key>cell</key>

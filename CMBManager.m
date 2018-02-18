@@ -1,10 +1,9 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import "SpringBoard.h"
 #import "CMBManager.h"
 #import "CMBPreferences.h"
 #import "CMBSexerUpper.h"
-#import "LEColorPicker.h"
-#import "CCColorCube.h"
 
 @implementation CMBManager
 
@@ -54,14 +53,22 @@
 			break;
 
 		case kABF_ByAlgorithmElseFixedColor:
-			if (!foregroundColor)
+			if (foregroundColor)
+			{
+				foregroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeForegroundColorByPreference:foregroundColor];
+			}
+			else
 			{
 				foregroundColor = [[CMBPreferences sharedInstance] appBadgeForegroundColor];
 			}
 			break;
 
 		case kABF_ByAlgorithmElseBrightness:
-			if (!foregroundColor)
+			if (foregroundColor)
+			{
+				foregroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeForegroundColorByPreference:foregroundColor];
+			}
+			else
 			{
 				backgroundColor = [[CMBSexerUpper sharedInstance] adjustBackgroundColorByPreference:backgroundColor];
 				foregroundColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:backgroundColor];
@@ -107,18 +114,31 @@
 
 		case kABB_CCColorCube:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingCCColorCube:iconImage];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
 			break;
 
 		case kABB_LEColorPicker:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingLEColorPicker:iconImage];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
 			break;
 
 		case kABB_Boover:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingBooverAlgorithm:iconImage];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
 			break;
 
 		case kABB_ColorBadges:
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingColorBadges:iconImage];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_Chameleon:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingChameleon:iconImage];
+			badgeColors.backgroundColor = [[CMBSexerUpper sharedInstance] adjustAppBadgeBackgroundColorByPreference:badgeColors.backgroundColor];
+			break;
+
+		case kABB_RandomColor:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingRandom];
 			break;
 	}
 
@@ -147,12 +167,12 @@
 			borderColor = [[CMBSexerUpper sharedInstance] getForegroundColorByBrightnessThreshold:currentColors.backgroundColor];
 			break;
 
-		case kBB_ByBadgeForegroundColor:
+		case kBB_BadgeForegroundColor:
 			borderColor = currentColors.foregroundColor;
 			break;
 
-		case kBB_ByTintedBadgeBackgroundColor:
-		case kBB_ByShadedBadgeBackgroundColor:
+		case kBB_TintedBadgeBackgroundColor:
+		case kBB_ShadedBadgeBackgroundColor:
 			borderColor = [[CMBSexerUpper sharedInstance] adjustBorderColorByPreference:currentColors.backgroundColor];
 			break;
 	}
@@ -650,6 +670,10 @@
 
 		case kFBB_FolderMinigrid:
 			badgeColors = [self getBadgeColorsForFolderUsingMiniGrid:iconInfo];
+			break;
+
+		case kFBB_RandomColor:
+			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingRandom];
 			break;
 	}
 

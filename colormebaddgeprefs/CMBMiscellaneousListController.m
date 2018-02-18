@@ -1,6 +1,4 @@
-#import <Preferences/PSSpecifier.h>
 #import "CMBMiscellaneousListController.h"
-#import "../CMBPreferences.h"
 
 @implementation CMBMiscellaneousListController
 
@@ -16,16 +14,9 @@
 
 - (void)resetSettings
 {
-	PSSpecifier *specifier;
-
-	specifier = [self specifierForID:@"CMBShowAllBadges"];
-	[self setPreferenceValue:@(CMB_DEFAULT_SHOW_ALL_BADGES) specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBSwitcherBadgesEnabled"];
-	[self setPreferenceValue:@(CMB_DEFAULT_SWITCHER_BADGES_ENABLED) specifier:specifier];
-
-	specifier = [self specifierForID:@"CMBUseUnmaskedIcons"];
-	[self setPreferenceValue:@(CMB_DEFAULT_USE_UNMASKED_ICONS) specifier:specifier];
+	[self setPreferenceValue:@(CMB_DEFAULT_USE_UNMASKED_ICONS) specifier:[self specifierForID:@"CMBUseUnmaskedIcons"]];
+	[self setPreferenceValue:@(CMB_DEFAULT_SHOW_ALL_BADGES) specifier:[self specifierForID:@"CMBShowAllBadges"]];
+	[self setPreferenceValue:@(CMB_DEFAULT_SWITCHER_BADGES_ENABLED) specifier:[self specifierForID:@"CMBSwitcherBadgesEnabled"]];
 }
 
 @end

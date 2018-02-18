@@ -60,36 +60,36 @@ static NSString * kColoursCMYK_K = @"CMYK-k";
 
 #pragma mark - Enums
 // Color Scheme Generation Enum
-typedef NS_ENUM(NSInteger, ColorScheme) {
-    ColorSchemeAnalagous,
-    ColorSchemeMonochromatic,
-    ColorSchemeTriad,
-    ColorSchemeComplementary
+typedef NS_ENUM(NSInteger, ColoursColorScheme) {
+    ColoursColorSchemeAnalagous,
+    ColoursColorSchemeMonochromatic,
+    ColoursColorSchemeTriad,
+    ColoursColorSchemeComplementary
 };
 
-// ColorFormulation Type
-typedef NS_ENUM(NSInteger, ColorFormulation) {
-    ColorFormulationRGBA,
-    ColorFormulationHSBA,
-    ColorFormulationLAB,
-    ColorFormulationCMYK
+// ColoursColorFormulation Type
+typedef NS_ENUM(NSInteger, ColoursColorFormulation) {
+    ColoursColorFormulationRGBA,
+    ColoursColorFormulationHSBA,
+    ColoursColorFormulationLAB,
+    ColoursColorFormulationCMYK
 };
 
-// ColorDistance
-typedef NS_ENUM(NSInteger, ColorDistance) {
-    ColorDistanceCIE76,
-    ColorDistanceCIE94,
-    ColorDistanceCIE2000,
+// ColoursColorDistance
+typedef NS_ENUM(NSInteger, ColoursColorDistance) {
+    ColoursColorDistanceCIE76,
+    ColoursColorDistanceCIE94,
+    ColoursColorDistanceCIE2000,
 };
 
-typedef NS_ENUM(NSInteger, ColorComparison) {
-    ColorComparisonDarkness,
-    ColorComparisonLightness,
-    ColorComparisonDesaturated,
-    ColorComparisonSaturated,
-    ColorComparisonRed,
-    ColorComparisonGreen,
-    ColorComparisonBlue
+typedef NS_ENUM(NSInteger, ColoursColorComparison) {
+    ColoursColorComparisonDarkness,
+    ColoursColorComparisonLightness,
+    ColoursColorComparisonDesaturated,
+    ColoursColorComparisonSaturated,
+    ColoursColorComparisonRed,
+    ColoursColorComparisonGreen,
+    ColoursColorComparisonBlue
 };
 
 
@@ -382,10 +382,10 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
 #pragma mark - 4 Color Scheme from Color
 /**
  Creates an NSArray of 4 Colors that complement the Color.
- @param type ColorSchemeAnalagous, ColorSchemeMonochromatic, ColorSchemeTriad, ColorSchemeComplementary
+ @param type ColoursColorSchemeAnalagous, ColoursColorSchemeMonochromatic, ColoursColorSchemeTriad, ColoursColorSchemeComplementary
  @return    NSArray
  */
-- (NSArray *)colorSchemeOfType:(ColorScheme)type;
+- (NSArray *)colorSchemeOfType:(ColoursColorScheme)type;
 
 
 #pragma mark - Contrasting Color from Color
@@ -424,12 +424,12 @@ typedef NS_ENUM(NSInteger, ColorComparison) {
  *
  *  @return CGFloat
  */
-- (CGFloat)distanceFromColor:(id)color type:(ColorDistance)distanceType;
+- (CGFloat)distanceFromColor:(id)color type:(ColoursColorDistance)distanceType;
 
 
 #pragma mark - Compare Colors
-+ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColorComparison)comparison;
-+ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColorComparison)comparison;
++ (NSArray *)sortColors:(NSArray *)colors withComparison:(ColoursColorComparison)comparison;
++ (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColoursColorComparison)comparison;
 
 
 #pragma mark - Colors
