@@ -97,6 +97,79 @@
 	return badgeColors;
 }
 
+#if 0
+- (UIColor *)convertUIColorToUIDeviceRGBColorSpace:(UIColor *)color
+{
+	if (!color)
+		return color;
+
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: color       = %@",color);
+
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: [color CGColor] = %@",[color CGColor]);
+
+	CGColorSpaceRef colorSpace = CGColorGetColorSpace([color CGColor]);
+	CGColorSpaceModel colorSpaceModel = CGColorSpaceGetModel(colorSpace);
+
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: colorSpace = %@",colorSpace);
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: colorSpaceModel = %d",colorSpaceModel);
+
+	CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
+
+	CGColorRef deviceColorRef = CGColorCreateCopyByMatchingToColorSpace(deviceColorSpace,kCGRenderingIntentPerceptual,[color CGColor],NULL);
+
+	UIColor *deviceColor = [UIColor colorWithCGColor:deviceColorRef];
+
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: deviceColor = %@",deviceColor);
+
+	return deviceColor;
+}
+
+- (CMBColorInfo *)convertBadgeColorsToUIDeviceRGBColorSpace:(CMBColorInfo *)currentColors
+{
+	currentColors.backgroundColor = [self convertUIColorToUIDeviceRGBColorSpace:currentColors.backgroundColor];
+	currentColors.foregroundColor = [self convertUIColorToUIDeviceRGBColorSpace:currentColors.foregroundColor];
+	currentColors.borderColor = [self convertUIColorToUIDeviceRGBColorSpace:currentColors.borderColor];
+
+	return currentColors;
+}
+#endif
+
+#if 0
+- (UIColor *)adjustColorForDisplay:(UIColor *)color
+{
+	if (!color)
+		return color;
+
+	HBLogDebug(@"adjustColorForDisplay: color = %@",color);
+
+	CGFloat r,g,b,a;
+	CGFloat R,G,B;
+
+	[color getRed:&r green:&g blue:&b alpha:&a];
+
+	R = fmaxf(0.0,fminf(1.0,r));
+	G = fmaxf(0.0,fminf(1.0,g));
+	B = fmaxf(0.0,fminf(1.0,b));
+
+	HBLogDebug(@"adjustColorForDisplay: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,R,G,B);
+
+	UIColor *displayColor = [UIColor colorWithRed:R green:G blue:B alpha:a];
+
+	HBLogDebug(@"adjustColorForDisplay: displayColor = %@",displayColor);
+
+	return displayColor;
+}
+
+- (CMBColorInfo *)adjustColorsForDisplay:(CMBColorInfo *)currentColors
+{
+	currentColors.backgroundColor = [self adjustColorForDisplay:currentColors.backgroundColor];
+	currentColors.foregroundColor = [self adjustColorForDisplay:currentColors.foregroundColor];
+	currentColors.borderColor = [self adjustColorForDisplay:currentColors.borderColor];
+
+	return currentColors;
+}
+#endif
+
 - (CMBColorInfo *)getPreferredAppBadgeColorsForImage:(UIImage *)image
 {
 	CMBColorInfo *badgeColors = nil;
@@ -136,6 +209,8 @@
 			badgeColors = [[CMBSexerUpper sharedInstance] getColorsUsingRandom];
 			break;
 	}
+
+//	badgeColors.backgroundColor = [self adjustColorForDisplay:badgeColors.backgroundColor];
 
 	return badgeColors;
 }
@@ -218,6 +293,8 @@
 	badgeColors = [self getPreferredAppBadgeForegroundColor:[self getPreferredAppBadgeColorsForIcon:iconInfo]];
 
 	badgeColors.borderColor = [self getPreferredBorderColor:badgeColors];
+
+	HBLogDebug(@"getBadgeColorsForApplicationIcon: app: %@  backgroundColor = %@",iconInfo.nodeIdentifier,badgeColors.backgroundColor);
 
 	[cachedAppBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
 
@@ -783,6 +860,8 @@
 
 	badgeColors = [self getBackgroundForegroundColorsForIcon:icon];
 	badgeColors.borderColor = [self getPreferredBorderColor:badgeColors];
+
+//	badgeColors = [self adjustColorsForDisplay:badgeColors];
 
 	return badgeColors;
 }

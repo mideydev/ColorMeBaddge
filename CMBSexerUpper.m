@@ -8,7 +8,7 @@
 #import "external/Colours/Colours.h"
 #import "external/Chameleon/Chameleon.h"
 
-#define COLORBADGESCLASS objc_getClass("ColorBadges")
+#define COLORBADGES_CLASS objc_getClass("ColorBadges")
 
 @implementation CMBSexerUpper
 
@@ -207,6 +207,8 @@
 	newColorDict[kColoursCIE_L] = @(targetL);
 	shadedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
 
+	HBLogDebug(@"shadeColorUsingCIELAB: shadedColor = %@",shadedColor);
+
 	// read back color and check L
 	NSDictionary *shadedColorDict = [shadedColor CIE_LabDictionary];
 	NSNumber *shadedL = shadedColorDict[kColoursCIE_L];
@@ -225,6 +227,8 @@
 
 		newColorDict[kColoursCIE_L] = @(adjustedL);
 		shadedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
+
+		HBLogDebug(@"shadeColorUsingCIELAB: shadedColor = %@",shadedColor);
 
 		shadedColorDict = [shadedColor CIE_LabDictionary];
 		shadedL = shadedColorDict[kColoursCIE_L];
@@ -248,6 +252,8 @@
 	newColorDict[kColoursCIE_L] = @(targetL);
 	tintedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
 
+	HBLogDebug(@"tintColorUsingCIELAB: tintedColor = %@",tintedColor);
+
 	// read back color and check L
 	NSDictionary *tintedColorDict = [tintedColor CIE_LabDictionary];
 	NSNumber *tintedL = tintedColorDict[kColoursCIE_L];
@@ -266,6 +272,8 @@
 
 		newColorDict[kColoursCIE_L] = @(adjustedL);
 		tintedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
+
+		HBLogDebug(@"tintColorUsingCIELAB: tintedColor = %@",tintedColor);
 
 		tintedColorDict = [tintedColor CIE_LabDictionary];
 		tintedL = tintedColorDict[kColoursCIE_L];
@@ -786,10 +794,16 @@
 
 - (CMBColorInfo *)getColorsUsingColorBadges:(UIImage *)image
 {
-	if (COLORBADGESCLASS == nil)
+	if (!COLORBADGES_CLASS)
 		return nil;
 
-	int badgeColor = [[COLORBADGESCLASS sharedInstance] colorForImage:image];
+	if (![COLORBADGES_CLASS respondsToSelector:@selector(sharedInstance)])
+		return nil;
+
+	if (![[COLORBADGES_CLASS sharedInstance] respondsToSelector:@selector(colorForImage:)])
+		return nil;
+
+	int badgeColor = [[COLORBADGES_CLASS sharedInstance] colorForImage:image];
 
 	UIColor *backgroundColor = UIColorFromRGB(badgeColor);
 
@@ -803,13 +817,28 @@
 	CGFloat r,g,b,a;
 	int R,G,B,rgb;
 
+	HBLogDebug(@"RGBFromUIColor: color = %@",color);
+
 	[color getRed:&r green:&g blue:&b alpha:&a];
+
+	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,255.0*r,255.0*g,255.0*b);
+
+	// simple conversion from extended SRGB
+	// (seems to match CGColorSpace conversion values)
+
+	r = fmaxf(0.0,fminf(1.0,r));
+	g = fmaxf(0.0,fminf(1.0,g));
+	b = fmaxf(0.0,fminf(1.0,b));
+
+	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,255.0*r,255.0*g,255.0*b);
 
 	R = (int)round(255.0*r);
 	G = (int)round(255.0*g);
 	B = (int)round(255.0*b);
 
 	rgb = ((R & 0xFF) << 16) | ((G & 0xFF) << 8) | (B & 0xFF);
+
+	HBLogDebug(@"RGBFromUIColor: (R,G,B) = (%d,%d,%d) => rgb = %d",R,G,B,rgb);
 
 	return rgb;
 }
