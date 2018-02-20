@@ -56,6 +56,28 @@ The third-party color picker used in this tweak doesn't work well in landscape m
 
 Configure options from Settings.
 
+## Screenshots
+
+Algorithm colorization examples:
+
+| ColorCube | LEColorPicker | LEColorPicker (text + borders) |
+| --- | --- | --- |
+| <img width="250" heigth="283" alt="ColorCube example" src="../assets/screenshots/ColorCube.png"> | <img width="250" heigth="283" alt="LEColorPicker example" src="../assets/screenshots/LEColorPicker.png"> | <img width="250" heigth="283" alt="LEColorPicker with foreground colors and borders example" src="../assets/screenshots/LEColorPicker+foreground+borders.png"> |
+
+| Boover | ColorBadges | Chameleon |
+| --- | --- | --- |
+| <img width="250" heigth="283" alt="Boover example" src="../assets/screenshots/Boover.png"> | <img width="250" heigth="283" alt="ColorBadges example" src="../assets/screenshots/ColorBadges.png"> | <img width="250" heigth="283" alt="Chameleon example" src="../assets/screenshots/Chameleon.png"> |
+
+Preferences:
+
+| Main | App Badges | Folder Badges |
+| --- | --- | --- |
+| <img width="250" heigth="445" alt="Main Preferences" src="../assets/screenshots/Preferences-0-main.png"> | <img width="250" heigth="445" alt="App Badge Preferences" src="../assets/screenshots/Preferences-1-apps.png"> | <img width="250" heigth="445" alt="Folder Badge Preferences" src="../assets/screenshots/Preferences-2-folders.png"> |
+
+| Special Badges | Border Settings |
+| --- | --- |
+| <img width="250" heigth="445" alt="Special Badge Preferences" src="../assets/screenshots/Preferences-3-special.png"> | <img width="250" heigth="445" alt="Border Preferences" src="../assets/screenshots/Preferences-4-borders.png"> |
+
 [ColorCube]: https://github.com/pixelogik/ColorCube
 [LEColorPicker]: https://github.com/luisespinoza/LEColorPicker
 [Boover]: http://cydia.saurik.com/package/com.jontelang.boover/
