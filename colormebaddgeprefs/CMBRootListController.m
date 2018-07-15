@@ -42,8 +42,6 @@
 		_specifiers = [self loadSpecifiersFromPlistName:@"ColorMeBaddgePrefs" target:self];
 	}
 
-	[self showColorBadgesWarningIfBothEnabled];
-
 	return _specifiers;
 }
 
@@ -72,6 +70,8 @@
 	[headerView setUserInteractionEnabled:YES];
 
 	self.table.tableHeaderView = headerView;
+
+	[self showColorBadgesWarningIfBothEnabled];
 }
 
 - (void)viewDidLayoutSubviews
