@@ -9,6 +9,8 @@ static UIColor *lastForegroundUIColor;
 
 %hook SBIconBadgeView
 
+%group iOS10OrLess
+
 - (void)configureForIcon:(id)arg1 location:(int)arg2 highlighted:(_Bool)arg3
 {
 	if (![[CMBPreferences sharedInstance] tweakEnabled])
@@ -42,6 +44,46 @@ static UIColor *lastForegroundUIColor;
 
 	[self setBadgeColors:badgeColors];
 }
+
+%end /* iOS10OrLess */
+
+%group iOS11OrGreater
+
+- (void)configureForIcon:(id)arg1 infoProvider:(id)arg2
+{
+	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	{
+		%orig();
+		return;
+	}
+
+	HBLogDebug(@"==============================[ SBIconBadgeView:configureForIcon ]==============================");
+
+	CMBColorInfo *badgeColors = [self getBadgeColorsForIcon:arg1 prepareForCrossfade:NO];
+
+	%orig();
+
+	[self setBadgeColors:badgeColors];
+}
+
+- (void)configureAnimatedForIcon:(id)arg1 infoProvider:(id)arg2 withPreparation:(id)arg3 animation:(id)arg4 completion:(id)arg5
+{
+	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	{
+		%orig();
+		return;
+	}
+
+	HBLogDebug(@"==============================[ SBIconBadgeView:configureAnimatedForIcon ]==============================");
+
+	CMBColorInfo *badgeColors = [self getBadgeColorsForIcon:arg1 prepareForCrossfade:YES];
+
+	%orig();
+
+	[self setBadgeColors:badgeColors];
+}
+
+%end
 
 - (void)_crossfadeToTextImage:(id)arg1 withPreparation:(id)arg2 animation:(id)arg3 completion:(id)arg4
 {
@@ -166,5 +208,19 @@ static UIColor *lastForegroundUIColor;
 }
 
 %end
+
+%ctor
+{
+	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0"))
+	{
+		%init(iOS11OrGreater);
+	}
+	else
+	{
+		%init(iOS10OrLess);
+	}
+
+	%init;
+}
 
 // vim:ft=objc

@@ -2,7 +2,9 @@
 #import "CMBManager.h"
 #import "CMBPreferences.h"
 
-%hook SBDeckSwitcherIconImageContainerView
+%group CMBSwitcherView
+
+%hook CMBSwitcherClass
 
 - (void)updateIcon
 {
@@ -18,7 +20,7 @@
 		return;
 	}
 
-	HBLogDebug(@"==============================[ SBDeckSwitcherIconImageContainerView:updateIcon ]==============================");
+	HBLogDebug(@"==============================[ SB{Deck,Fluid}SwitcherIconImageContainerView:updateIcon ]==============================");
 
 	%orig();
 
@@ -151,13 +153,31 @@
 
 	if ([[CMBPreferences sharedInstance] badgeBordersEnabled])
 	{
-		badge.layer.borderWidth = 1.0; 
+		badge.layer.borderWidth = 1.0;
 		badge.layer.borderColor = badgeColors.borderColor.CGColor;
 	}
 
 	[[self imageView] addSubview:badge];
 }
 
-%end
+%end /* hook */
+
+%end /* group */
+
+%ctor
+{
+	Class switcherClass;
+
+	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0"))
+	{
+		switcherClass = %c(SBFluidSwitcherIconImageContainerView);
+	}
+	else
+	{
+		switcherClass = %c(SBDeckSwitcherIconImageContainerView);
+	}
+
+	%init(CMBSwitcherView,CMBSwitcherClass = switcherClass);
+}
 
 // vim:ft=objc

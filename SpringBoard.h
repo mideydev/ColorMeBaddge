@@ -1,5 +1,11 @@
 #import "CMBColorInfo.h"
 
+#define SYSTEM_VERSION_EQUAL_TO(v)					([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)				([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)	([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)					([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)		([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
 // springboard stuff
 
 @interface FBSystemService : NSObject
@@ -78,6 +84,14 @@
 @end
 
 @interface SBDeckSwitcherIconImageContainerView : UIView
+@property(retain, nonatomic) UIImageView *imageView;
+@property(retain, nonatomic) SBIcon *icon;
+@property(readonly, nonatomic) SBDisplayItem *displayItem;
+// CMB:
+- (void)createSwitcherIconBadge;
+@end
+
+@interface SBFluidSwitcherIconImageContainerView : UIView
 @property(retain, nonatomic) UIImageView *imageView;
 @property(retain, nonatomic) SBIcon *icon;
 @property(readonly, nonatomic) SBDisplayItem *displayItem;

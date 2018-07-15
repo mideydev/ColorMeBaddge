@@ -36,7 +36,7 @@
 
 	if ([icon isKindOfClass:NSClassFromString(@"SBApplicationIcon")])
 	{
-		HBLogDebug(@"getIconInfo: SBApplicationIcon");
+//		HBLogDebug(@"getIconInfo: SBApplicationIcon");
 
 		iconInfo.nodeIdentifier = [icon applicationBundleID];
 //		iconInfo.image = [icon getIconImage:1];
@@ -47,7 +47,7 @@
 	}
 	else if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 	{
-		HBLogDebug(@"getIconInfo: SBFolderIcon");
+//		HBLogDebug(@"getIconInfo: SBFolderIcon");
 
 		iconInfo.nodeIdentifier = [[icon folder] displayName];
 //		iconInfo.image = [icon _miniIconGridForPage:0];
