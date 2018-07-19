@@ -8,6 +8,10 @@
 
 - (void)updateIcon
 {
+	// clear any existing badge -- do this now, so they are cleared even if tweak is disabled
+	for (UIView *subview in [[self imageView] subviews])
+		[subview removeFromSuperview];
+
 	if (![[CMBPreferences sharedInstance] tweakEnabled])
 	{
 		%orig();
@@ -30,6 +34,9 @@
 %new
 - (void)createSwitcherIconBadge
 {
+	if (![[self icon] nodeIdentifier])
+		return;
+
 	if (![[objc_getClass("SBIconController") sharedInstance] iconAllowsBadging:[self icon]])
 		return;
 
