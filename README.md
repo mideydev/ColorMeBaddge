@@ -1,6 +1,6 @@
 # ColorMeBaddge
 
-Compatible with iOS 8.4 - 10.2
+Compatible with iOS 8.4 - 11.3.1
 
 Sex up your badges with icon-based colors that feel so right it can't be wrong!
 
