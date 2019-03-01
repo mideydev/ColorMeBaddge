@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger,BadgeValueType)
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon;
 - (CMBColorInfo *)getBadgeColorsForApplicationIdentifier:(NSString *)applicationBundleID;
 - (CMBColorInfo *)getPreferredAppBadgeColorsForImage:(UIImage *)image;
+- (CMBColorInfo *)getBadgeColorsForFolderUsingColorsFromRandomBadge:(CMBIconInfo *)iconInfo preferCachedColors:(BOOL)preferCachedColors;
 - (NSInteger)getBadgeValueType:(id)badgeNumberOrString;
 - (void)refreshBadges:(NSString *)applicationBundleID;
 - (void)refreshBadgesForApplication:(NSString *)applicationBundleID;

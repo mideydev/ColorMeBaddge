@@ -192,7 +192,37 @@ static UIColor *lastForegroundUIColor;
 %new
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon prepareForCrossfade:(BOOL)prepareForCrossfade
 {
-	CMBColorInfo *badgeColors = [[CMBManager sharedInstance] getBadgeColorsForIcon:icon];
+	CMBColorInfo *badgeColors = nil;
+
+	CMBIconInfo *iconInfo = [[CMBIconInfo sharedInstance] getIconInfo:icon];
+
+	if (iconInfo.isApplication == NO)
+	{
+		NSInteger folderBadgeBackgroundType = [[CMBPreferences sharedInstance] folderBadgeBackgroundType];
+
+		if (folderBadgeBackgroundType == kFBB_RandomBadge)
+		{
+			UIView *rootView;
+
+			for (rootView = self; [rootView superview]; rootView = [rootView superview]);
+
+			HBLogDebug(@"[%@] folder self view: %@", iconInfo.nodeIdentifier, NSStringFromClass([self class]));
+			HBLogDebug(@"[%@] folder supr view: %@", iconInfo.nodeIdentifier, NSStringFromClass([[self superview] class]));
+			HBLogDebug(@"[%@] folder root view: %@", iconInfo.nodeIdentifier, NSStringFromClass([rootView class]));
+
+			// ios 12:
+			// SBHomeScreenWindow => normal view
+			// SBFolderIconView => 3d touch?
+
+			if (![rootView isKindOfClass:NSClassFromString(@"SBHomeScreenWindow")])
+			{
+				badgeColors = [[CMBManager sharedInstance] getBadgeColorsForFolderUsingColorsFromRandomBadge:iconInfo preferCachedColors:YES];
+			}
+		}
+	}
+
+	if (badgeColors == nil)
+		badgeColors = [[CMBManager sharedInstance] getBadgeColorsForIcon:icon];
 
 	if (prepareForCrossfade)
 		lastForegroundUIColor = [badgeColors.foregroundColor copy];

@@ -568,7 +568,7 @@
 	return badgeColors;
 }
 
-- (CMBColorInfo *)getBadgeColorsForFolderUsingColorsFromRandomBadge:(CMBIconInfo *)iconInfo
+- (CMBColorInfo *)getBadgeColorsForFolderUsingColorsFromRandomBadge:(CMBIconInfo *)iconInfo preferCachedColors:(BOOL)preferCachedColors
 {
 	id uniqueFolderID = [NSString stringWithFormat:@"%p",[iconInfo.icon folder]];
 
@@ -578,6 +578,12 @@
 
 	if (badgeColors)
 	{
+		if (preferCachedColors)
+		{
+			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: preferring cached colors",uniqueFolderID,iconInfo.nodeIdentifier);
+			return badgeColors;
+		}
+
 		[cachedRandomFolderBadgeColors removeObjectForKey:uniqueFolderID];
 
 		CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
@@ -758,7 +764,7 @@
 			break;
 
 		case kFBB_RandomBadge:
-			badgeColors = [self getBadgeColorsForFolderUsingColorsFromRandomBadge:iconInfo];
+			badgeColors = [self getBadgeColorsForFolderUsingColorsFromRandomBadge:iconInfo preferCachedColors:NO];
 			break;
 
 		case kFBB_FirstBadge:
