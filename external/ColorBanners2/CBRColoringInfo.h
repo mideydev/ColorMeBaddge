@@ -10,19 +10,27 @@
 
 @interface CBRColoringInfo : NSObject
 {
+    _Bool _isForLongLook;
     UIColor *_color;
     UIColor *_contrastColor;
+    UIColor *_longLookContrastColor;
     UIColor *_gradientColor;
-    double _backgroundAlpha;
     UIColor *_highlightColor;
+    double _backgroundAlpha;
 }
 
-@property(retain, nonatomic) UIColor *highlightColor; // @synthesize highlightColor=_highlightColor;
+@property(nonatomic) _Bool isForLongLook; // @synthesize isForLongLook=_isForLongLook;
 @property(nonatomic) double backgroundAlpha; // @synthesize backgroundAlpha=_backgroundAlpha;
+@property(retain, nonatomic) UIColor *highlightColor; // @synthesize highlightColor=_highlightColor;
 @property(retain, nonatomic) UIColor *gradientColor; // @synthesize gradientColor=_gradientColor;
+@property(retain, nonatomic) UIColor *longLookContrastColor; // @synthesize longLookContrastColor=_longLookContrastColor;
 @property(retain, nonatomic) UIColor *contrastColor; // @synthesize contrastColor=_contrastColor;
 @property(retain, nonatomic) UIColor *color; // @synthesize color=_color;
+- (id)copy;
+@property(readonly, nonatomic) UIColor *contrastColorForLookType;
 - (void)dealloc;
-
+// CMB:
+- (UIColor *)realColorForColor:(UIColor *)color;
+- (BOOL)color:(UIColor *)color1 isSimilarToColor:(UIColor *)color2 withTolerance:(float)tolerance;
 @end
 

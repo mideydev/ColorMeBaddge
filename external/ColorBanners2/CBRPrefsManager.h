@@ -27,6 +27,12 @@
     int _bannerGradientColor;
     int _lsGradientColor;
     int _ncGradientColor;
+    int _bannerLightColor;
+    int _lsLightColor;
+    int _ncLightColor;
+    int _bannerDarkColor;
+    int _lsDarkColor;
+    int _ncDarkColor;
     double _bannerAlpha;
     double _lsAlpha;
     double _ncAlpha;
@@ -34,6 +40,12 @@
 
 + (id)sharedInstance;
 @property(nonatomic, getter=shouldHideGrabber) _Bool hideGrabber; // @synthesize hideGrabber=_hideGrabber;
+@property(nonatomic) int ncDarkColor; // @synthesize ncDarkColor=_ncDarkColor;
+@property(nonatomic) int lsDarkColor; // @synthesize lsDarkColor=_lsDarkColor;
+@property(nonatomic) int bannerDarkColor; // @synthesize bannerDarkColor=_bannerDarkColor;
+@property(nonatomic) int ncLightColor; // @synthesize ncLightColor=_ncLightColor;
+@property(nonatomic) int lsLightColor; // @synthesize lsLightColor=_lsLightColor;
+@property(nonatomic) int bannerLightColor; // @synthesize bannerLightColor=_bannerLightColor;
 @property(nonatomic) _Bool ncPrefersWhiteText; // @synthesize ncPrefersWhiteText=_ncPrefersWhiteText;
 @property(nonatomic) _Bool lsPrefersWhiteText; // @synthesize lsPrefersWhiteText=_lsPrefersWhiteText;
 @property(nonatomic) _Bool bannerPrefersWhiteText; // @synthesize bannerPrefersWhiteText=_bannerPrefersWhiteText;

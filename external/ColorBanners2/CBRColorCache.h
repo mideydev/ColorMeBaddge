@@ -6,15 +6,19 @@
 
 //#import "NSObject.h"
 
+#import "AnemoneEventHandler-Protocol.h"
+
 @class NSCache;
 
-@interface CBRColorCache : NSObject
+@interface CBRColorCache : NSObject <AnemoneEventHandler>
 {
     NSCache *_cache;
 }
 
 + (_Bool)isDarkColor:(int)arg1;
 + (id)sharedInstance;
+- (void)reloadTheme;
+- (void)_appconIconImageChanged:(id)arg1;
 - (void)dealloc;
 - (int)colorForImage:(id)arg1;
 - (int)colorForIdentifier:(id)arg1 image:(id)arg2;
