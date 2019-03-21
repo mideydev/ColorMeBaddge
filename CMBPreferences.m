@@ -9,6 +9,8 @@
 
 static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStringRef name,const void *object,CFDictionaryRef userInfo)
 {
+	HBLogDebug(@"settingsChanged");
+
 	[[CMBPreferences sharedInstance] refreshSettings];
 	[[CMBPreferences sharedInstance] loadSettings];
 
@@ -25,16 +27,6 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 
 	return self;
 }
-
-/*
-- (void)dealloc
-{
-	if (settings)
-		[settings release];
-
-	[super dealloc];
-}
-*/
 
 + (CMBPreferences *)sharedInstance
 {

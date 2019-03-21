@@ -14,13 +14,6 @@
 	return self;
 }
 
-/*
-- (void)dealloc
-{
-	[super dealloc];
-}
-*/
-
 + (CMBColorInfo *)sharedInstance
 {
 	static CMBColorInfo *sharedInstance = nil;

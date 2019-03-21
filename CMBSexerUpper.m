@@ -23,13 +23,6 @@
 	return self;
 }
 
-/*
-- (void)dealloc
-{
-	[super dealloc];
-}
-*/
-
 + (CMBSexerUpper *)sharedInstance
 {
 	static CMBSexerUpper *sharedInstance = nil;
