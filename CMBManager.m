@@ -396,7 +396,7 @@
 
 - (CMBColorInfo *)getBadgeColorsForSpecialBadgeValue:(CMBIconInfo *)iconInfo
 {
-	NSInteger badgeType = [self getBadgeValueType:[iconInfo.icon badgeNumberOrString]];
+	NSInteger badgeType = [self getBadgeValueType:[iconInfo realBadgeNumberOrString]];
 
 	if (kSpecialBadge != badgeType)
 		return nil;
@@ -408,7 +408,7 @@
 {
 //	HBLogDebug(@"getBadgeColorsForApplication: scanning app: %@",iconInfo.nodeIdentifier);
 
-	HBLogDebug(@"configuring for application icon: %@  with badge value: %@",iconInfo.nodeIdentifier,[iconInfo.icon badgeNumberOrString]);
+	HBLogDebug(@"configuring for application icon: %@  with badge value: %@",iconInfo.nodeIdentifier,[iconInfo realBadgeNumberOrString]);
 
 	CMBColorInfo *badgeColors;
 
@@ -439,7 +439,7 @@
 	if (![[objc_getClass("SBIconController") sharedInstance] iconAllowsBadging:iconInfo.icon])
 		return nil;
 
-	id thisBadgeCount = [iconInfo.icon badgeNumberOrString];
+	id thisBadgeCount = [iconInfo realBadgeNumberOrString];
 
 	if (!thisBadgeCount)
 		return nil;
@@ -642,7 +642,7 @@
 	[cachedRandomFolderBadgeColors setObject:badgeColors forKey:uniqueFolderID];
 
 	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: using icon: %@  with badge value: %@"
-		,uniqueFolderID,iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier,[targetIconInfo.icon badgeNumberOrString]);
+		,uniqueFolderID,iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier,[targetIconInfo realBadgeNumberOrString]);
 
 	return badgeColors;
 }
@@ -801,7 +801,7 @@
 
 - (CMBColorInfo *)getBadgeColorsForFolder:(CMBIconInfo *)iconInfo
 {
-	HBLogDebug(@"configuring for folder icon: %@  with badge value: %@",iconInfo.nodeIdentifier,[iconInfo.icon badgeNumberOrString]);
+	HBLogDebug(@"configuring for folder icon: %@  with badge value: %@",iconInfo.nodeIdentifier,[iconInfo realBadgeNumberOrString]);
 
 	CMBColorInfo *badgeColors;
 
@@ -884,35 +884,24 @@
 
 - (void)redrawBadges:(NSString *)applicationBundleID
 {
-	CMBIconInfo *iconInfo;
-	NSInteger badgeType;
-	id badgeNumberOrString;
-
-	for (SBIcon *icon in [[[objc_getClass("SBIconController") sharedInstance] model] leafIcons])
+	for (SBLeafIcon *icon in [[[objc_getClass("SBIconController") sharedInstance] model] leafIcons])
 	{
-		iconInfo = [[CMBIconInfo sharedInstance] getIconInfo:icon];
-
-		if (!iconInfo.isApplication)
+		if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 			continue;
 
-		if (applicationBundleID && ![applicationBundleID isEqualToString:iconInfo.nodeIdentifier])
+		if (applicationBundleID && ![applicationBundleID isEqualToString:[icon applicationBundleID]])
 			continue;
 
-		badgeNumberOrString = [iconInfo.icon badgeNumberOrString];
+		id badgeNumberOrString = [icon badgeNumberOrString];
 
-		badgeType = [self getBadgeValueType:badgeNumberOrString];
-
-		HBLogDebug(@"redrawBadges: [%@] considering %ld / %@",iconInfo.nodeIdentifier,(long)badgeType,badgeNumberOrString);
-
-		if (kEmptyBadge == badgeType)
+		if (!badgeNumberOrString)
 			continue;
 
-		HBLogDebug(@"redrawBadges: [%@] noting badge did change",iconInfo.nodeIdentifier);
+		HBLogDebug(@"redrawBadges: redrawing: %@",[icon applicationBundleID]);
 
-//		[icon setBadge:nil];
 //		[icon noteBadgeDidChange];
-//		[icon setBadge:badgeNumberOrString];
-		[icon noteBadgeDidChange];
+		[icon setBadge:nil];
+		[icon setBadge:badgeNumberOrString];
 	}
 }
 

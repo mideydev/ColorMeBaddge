@@ -65,6 +65,11 @@
 	return iconInfo;
 }
 
+- (id)realBadgeNumberOrString
+{
+	return [self.icon badgeNumberOrString];
+}
+
 @end
 
 // vim:ft=objc

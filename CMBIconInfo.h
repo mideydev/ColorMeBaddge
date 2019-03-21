@@ -9,6 +9,7 @@
 
 + (instancetype)sharedInstance;
 - (CMBIconInfo *)getIconInfo:(id)icon;
+- (id)realBadgeNumberOrString;
 @end
 
 // vim:ft=objc
