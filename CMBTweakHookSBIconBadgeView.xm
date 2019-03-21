@@ -4,8 +4,64 @@
 #import "CMBPreferences.h"
 #import "CMBSexerUpper.h"
 
-// hack to apply proper text color when crossfading (may not work if multiple icons animate simultaneously)
-static UIColor *lastForegroundUIColor;
+// keep track of per-view text colors when crossfading
+static NSMutableDictionary *crossfadeColors = nil;
+
+// holds an image of the smallest size we want the badge to be
+//static UIImage *minimalImage = nil;
+
+static BOOL tweakIsOrWasPreviouslyEnabled()
+{
+	// sticky enable flag (disable tweak and respring to clear)
+	static BOOL enabledFlag = NO;
+
+	if (enabledFlag)
+	{
+		HBLogDebug(@"tweakIsOrWasPreviouslyEnabled: enabledFlag = YES");
+		return YES;
+	}
+
+	if ([[CMBPreferences sharedInstance] tweakEnabled])
+	{
+		HBLogDebug(@"tweakIsOrWasPreviouslyEnabled: tweakEnabled = YES");
+		enabledFlag = YES;
+		return YES;
+	}
+
+	HBLogDebug(@"tweakIsOrWasPreviouslyEnabled: tweakEnabled = NO");
+	return NO;
+}
+
+static void setCrossfadeColor(UIColor *crossfadeColor, NSString *key)
+{
+	@synchronized(crossfadeColors)
+	{
+		[crossfadeColors setObject:crossfadeColor forKey:key];
+		HBLogDebug(@"setCrossfadeColor: crossfadeColors[%@] <-- %@", key, crossfadeColor);
+	}
+}
+
+UIColor *getCrossfadeColor(NSString *key)
+{
+	UIColor *crossfadeColor = [UIColor whiteColor];
+
+	@synchronized(crossfadeColors)
+	{
+		crossfadeColor = [crossfadeColors objectForKey:key];
+
+		if (crossfadeColor)
+		{
+			HBLogDebug(@"getCrossfadeColor: crossfadeColors[%@] --> %@", key, crossfadeColor);
+			[crossfadeColors removeObjectForKey:key];
+		}
+		else
+		{
+			HBLogDebug(@"getCrossfadeColor: no crossfade color found; falling back to default");
+		}
+	}
+
+	return crossfadeColor;
+}
 
 %hook SBIconBadgeView
 
@@ -13,7 +69,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)configureForIcon:(id)arg1 location:(int)arg2 highlighted:(_Bool)arg3
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -30,7 +86,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)configureAnimatedForIcon:(id)arg1 location:(int)arg2 highlighted:(_Bool)arg3 withPreparation:(id)arg4 animation:(id)arg5 completion:(id)arg6
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -47,7 +103,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)_crossfadeToTextImage:(id)arg1 withPreparation:(id)arg2 animation:(id)arg3 completion:(id)arg4
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -55,13 +111,12 @@ static UIColor *lastForegroundUIColor;
 
 	HBLogDebug(@"==============================[ SBIconBadgeView:_crossfadeToTextImage ]==============================");
 
-	UIColor *lastForegroundColor;
-	lastForegroundColor = lastForegroundUIColor;
+	UIColor *crossfadeColor = getCrossfadeColor([self getCrossfadeColorKey]);
 
 	if (arg1)
 	{
-		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@",arg1);
-		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:lastForegroundColor];
+		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@", arg1);
+		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:crossfadeColor];
 	}
 
 	%orig();
@@ -73,7 +128,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)configureForIcon:(id)arg1 infoProvider:(id)arg2
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -90,7 +145,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)configureAnimatedForIcon:(id)arg1 infoProvider:(id)arg2 withPreparation:(id)arg3 animation:(id)arg4 completion:(id)arg5
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -107,7 +162,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)_crossfadeToTextImage:(id)arg1 withPreparation:(id)arg2 animation:(id)arg3 completion:(id)arg4
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -115,13 +170,12 @@ static UIColor *lastForegroundUIColor;
 
 	HBLogDebug(@"==============================[ SBIconBadgeView:_crossfadeToTextImage ]==============================");
 
-	UIColor *lastForegroundColor;
-	lastForegroundColor = lastForegroundUIColor;
+	UIColor *crossfadeColor = getCrossfadeColor([self getCrossfadeColorKey]);
 
 	if (arg1)
 	{
-		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@",arg1);
-		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:lastForegroundColor];
+		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@", arg1);
+		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:crossfadeColor];
 	}
 
 	%orig();
@@ -133,7 +187,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)configureForIcon:(id)arg1 infoProvider:(id)arg2
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -150,7 +204,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)configureAnimatedForIcon:(id)arg1 infoProvider:(id)arg2 animator:(id)arg3
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -167,7 +221,7 @@ static UIColor *lastForegroundUIColor;
 
 - (void)_crossfadeToTextImage:(id)arg1 animator:(id)arg2
 {
-	if (![[CMBPreferences sharedInstance] tweakEnabled])
+	if (!tweakIsOrWasPreviouslyEnabled())
 	{
 		%orig();
 		return;
@@ -175,13 +229,12 @@ static UIColor *lastForegroundUIColor;
 
 	HBLogDebug(@"==============================[ SBIconBadgeView:_crossfadeToTextImage ]==============================");
 
-	UIColor *lastForegroundColor;
-	lastForegroundColor = lastForegroundUIColor;
+	UIColor *crossfadeColor = getCrossfadeColor([self getCrossfadeColorKey]);
 
 	if (arg1)
 	{
-		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@",arg1);
-		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:lastForegroundColor];
+		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@", arg1);
+		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:crossfadeColor];
 	}
 
 	%orig();
@@ -225,7 +278,7 @@ static UIColor *lastForegroundUIColor;
 		badgeColors = [[CMBManager sharedInstance] getBadgeColorsForIcon:icon];
 
 	if (prepareForCrossfade)
-		lastForegroundUIColor = [badgeColors.foregroundColor copy];
+		setCrossfadeColor(badgeColors.foregroundColor, [self getCrossfadeColorKey]);
 
 	return badgeColors;
 }
@@ -234,35 +287,67 @@ static UIColor *lastForegroundUIColor;
 - (void)setBadgeBackgroundColor:(CMBColorInfo *)badgeColors
 {
 	SBDarkeningImageView *backgroundView;
-//	SBIconAccessoryImage *backgroundImage;
+	SBIconAccessoryImage *backgroundImage;
 	UIImage *colorizedImage;
-	UIView *bgview;
+
+	backgroundImage = MSHookIvar<SBIconAccessoryImage*>(self, "_backgroundImage");
+
+	if (!backgroundImage)
+		return;
+
+	backgroundView = MSHookIvar<SBDarkeningImageView*>(self, "_backgroundView");
+
+	if (!backgroundView)
+		return;
+
+	// colorize the background by recreating it from scratch.  the stock badge image
+	// contains the badge, surrounded by 1 point of empty space.  we attempt to simulate
+	// that by a) creating a colorized badge image 1 point smaller than the stock image,
+	// then b) drawing that image within a clear image the same size as the stock image.
+	// a plus to this method is that we can control the corner radius, allowing us to
+	// smooth out the bump seen in the stock badge with small numbers.  it also makes
+	// it easier to draw borders.
+
+	UIView *badgeView;
 	CGRect rect;
 	CGFloat cornerRadius;
 
-	// colorize the background by recreating it from scratch (only way i've found to control corner radius)
-
-//	backgroundImage = MSHookIvar<SBIconAccessoryImage*>(self,"_backgroundImage");
-	backgroundView = MSHookIvar<SBDarkeningImageView*>(self,"_backgroundView");
+	// create a colorized badge image, with border if desired
 
 	rect = self.bounds;
-	// reduce corner radius by 1 pixel to smooth out bump seen in stock badge
-	cornerRadius = (fminf(rect.size.height,rect.size.width) - 1.0) / 2.0;
-//	bgview = [[[UIView alloc] initWithFrame:rect] autorelease];
-	bgview = [[UIView alloc] initWithFrame:rect];
-	bgview.layer.cornerRadius = cornerRadius;
-	bgview.backgroundColor = badgeColors.backgroundColor;
+
+	rect.size.width -= backgroundImage.scale * 1.0;
+	rect.size.height -= backgroundImage.scale * 1.0;
+
+	cornerRadius = (fminf(rect.size.width, rect.size.height) - 1.0) / 2.0;
+
+	badgeView = [[UIView alloc] initWithFrame:rect];
+	badgeView.layer.cornerRadius = cornerRadius;
+	badgeView.backgroundColor = badgeColors.backgroundColor;
 
 	if ([[CMBPreferences sharedInstance] badgeBordersEnabled])
 	{
-		bgview.layer.borderWidth = [[CMBPreferences sharedInstance] badgeBorderWidth];
-		bgview.layer.borderColor = badgeColors.borderColor.CGColor;
+		badgeView.layer.borderWidth = [[CMBPreferences sharedInstance] badgeBorderWidth];
+		badgeView.layer.borderColor = badgeColors.borderColor.CGColor;
 	}
 
-	UIGraphicsBeginImageContextWithOptions(bgview.frame.size,NO,0.0);
-	[bgview.layer renderInContext:UIGraphicsGetCurrentContext()];
+	UIGraphicsBeginImageContextWithOptions(badgeView.frame.size, NO, 0.0);
+	[badgeView.layer renderInContext:UIGraphicsGetCurrentContext()];
 	colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
+
+	// now draw the colorized badge into a larger clear image
+
+	rect = self.bounds;
+
+	UIGraphicsBeginImageContextWithOptions(rect.size, NO, colorizedImage.scale);
+	[[UIColor clearColor] setFill];
+	[colorizedImage drawAtPoint:CGPointMake(1.0, 1.0)];
+	colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+
+	if (!colorizedImage)
+		return;
 
 	[backgroundView setImage:colorizedImage];
 }
@@ -276,12 +361,15 @@ static UIColor *lastForegroundUIColor;
 
 	// colorize the text by simply colorizing it
 
-	textImage = MSHookIvar<SBIconAccessoryImage*>(self,"_textImage");
+	textImage = MSHookIvar<SBIconAccessoryImage*>(self, "_textImage");
 
 	if (!textImage)
 		return;
 
-	textView = MSHookIvar<SBDarkeningImageView*>(self,"_textView");
+	textView = MSHookIvar<SBDarkeningImageView*>(self, "_textView");
+
+	if (!textView)
+		return;
 
 	colorizedImage = [[CMBSexerUpper sharedInstance] colorizeImage:textImage withColor:badgeColors.foregroundColor];
 
@@ -298,6 +386,13 @@ static UIColor *lastForegroundUIColor;
 	[self setBadgeForegroundColor:badgeColors];
 }
 
+%new
+- (NSString *)getCrossfadeColorKey
+{
+	NSString *key = [NSString stringWithFormat:@"%p", self];
+
+	return key;
+}
 %end
 
 %ctor
@@ -316,6 +411,8 @@ static UIColor *lastForegroundUIColor;
 	}
 
 	%init;
+
+	crossfadeColors = [[NSMutableDictionary alloc] init];
 }
 
 // vim:ft=objc
