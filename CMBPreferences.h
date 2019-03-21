@@ -2,12 +2,13 @@
 #define CMB_BUNDLE_ID								"org.midey.colormebaddge"
 #define CMB_PREFS_DIRECTORY							"/var/mobile/Library/Preferences"
 #define CMB_PREFS_FILE								CMB_PREFS_DIRECTORY "/" CMB_BUNDLE_ID ".plist"
-#define CMB_PREFS_CHANGED_NOTIFICATION				"org.midey.colormebaddge/settingsChanged"
+#define CMB_PREFS_CHANGED_NOTIFICATION				CMB_BUNDLE_ID "/settingsChanged"
 
 // localization definitions
 #define CMB_TWEAK_BUNDLE							"/Library/Application Support/ColorMeBaddge.bundle"
 
 // color definitions
+#define CMB_HEXCOLOR_STOCK_RED						"#FF3B30"
 #define CMB_HEXCOLOR_RED							"#FF0000"
 #define CMB_HEXCOLOR_WHITE							"#FFFFFF"
 #define CMB_HEXCOLOR_YELLOW							"#FFFF00"
@@ -36,7 +37,7 @@
 #define CMB_DEFAULT_BADGE_BORDER_TYPE						kBB_BadgeForegroundColor
 
 // preference defaults (colors)
-#define CMB_DEFAULT_APP_BADGE_BACKGROUND_COLOR		CMB_HEXCOLOR_RED
+#define CMB_DEFAULT_APP_BADGE_BACKGROUND_COLOR		CMB_HEXCOLOR_STOCK_RED
 #define CMB_DEFAULT_APP_BADGE_FOREGROUND_COLOR		CMB_HEXCOLOR_WHITE
 #define CMB_DEFAULT_FOLDER_BADGE_BACKGROUND_COLOR	CMB_HEXCOLOR_OCEAN
 #define CMB_DEFAULT_FOLDER_BADGE_FOREGROUND_COLOR	CMB_HEXCOLOR_WHITE

@@ -3,19 +3,21 @@
 #define realBlackColor							[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f]
 
 // fallback colors
-#define fallbackAppBadgeBackgroundColor			[UIColor redColor]
+#define stockRedColor							[UIColor colorWithRed:(255.0f/255.0f) green:(59.0f/255.0f) blue:(48.0f/255.0f) alpha:1.0f]
+
+#define fallbackAppBadgeBackgroundColor			stockRedColor
 #define fallbackAppBadgeForegroundColor			realWhiteColor
 
-#define fallbackFolderBadgeBackgroundColor		[UIColor redColor]
+#define fallbackFolderBadgeBackgroundColor		stockRedColor
 #define fallbackFolderBadgeForegroundColor		realWhiteColor
 
 #define fallbackSpecialBadgeBackgroundColor		[UIColor yellowColor]
 #define fallbackSpecialBadgeForegroundColor		[UIColor redColor]
 
-#define fallbackDisabledBadgeBackgroundColor	[UIColor redColor]
+#define fallbackDisabledBadgeBackgroundColor	stockRedColor
 #define fallbackDisabledBadgeForegroundColor	realWhiteColor
 
-#define fallbackUnknownBadgeBackgroundColor		[UIColor redColor]
+#define fallbackUnknownBadgeBackgroundColor		stockRedColor
 #define fallbackUnknownBadgeForegroundColor		realWhiteColor
 
 @interface CMBColorInfo : NSObject
