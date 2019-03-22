@@ -1,6 +1,6 @@
 PAGE_TITLE = "ColorMeBaddge";
 
-TWEAK_ENABLED_FOOTER = "Disabling this requires a respring.";
+TWEAK_ENABLED_FOOTER = "A respring is required to fully disable this tweak.";
 
 TWEAK_ENABLED_SWITCH_LABEL = "Enabled";
 
