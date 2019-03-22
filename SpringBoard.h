@@ -101,4 +101,18 @@
 - (void)createSwitcherIconBadge;
 @end
 
+@interface _LSQueryResult : NSObject
+@end
+
+@interface LSResourceProxy : _LSQueryResult
+@end
+
+@interface LSBundleProxy : LSResourceProxy
+@end
+
+@interface LSApplicationProxy : LSBundleProxy
++ (id)applicationProxyForIdentifier:(id)arg1;
+- (id)localizedName;
+@end
+
 // vim:ft=objc

@@ -408,7 +408,7 @@
 {
 //	HBLogDebug(@"getBadgeColorsForApplication: scanning app: %@",iconInfo.nodeIdentifier);
 
-	HBLogDebug(@"configuring for application icon: %@  with badge value: %@",iconInfo.nodeIdentifier,[iconInfo realBadgeNumberOrString]);
+	HBLogDebug(@"configuring for application icon: %@ (%@) with badge value: %@",iconInfo.nodeIdentifier,iconInfo.displayName,[iconInfo realBadgeNumberOrString]);
 
 	CMBColorInfo *badgeColors;
 
@@ -570,37 +570,35 @@
 
 - (CMBColorInfo *)getBadgeColorsForFolderUsingColorsFromRandomBadge:(CMBIconInfo *)iconInfo preferCachedColors:(BOOL)preferCachedColors
 {
-	id uniqueFolderID = [NSString stringWithFormat:@"%p",[iconInfo.icon folder]];
+	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: begin",iconInfo.nodeIdentifier);
 
-	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: begin",uniqueFolderID,iconInfo.nodeIdentifier);
-
-	CMBColorInfo *badgeColors = [cachedRandomFolderBadgeColors objectForKey:uniqueFolderID];
+	CMBColorInfo *badgeColors = [cachedRandomFolderBadgeColors objectForKey:iconInfo.nodeIdentifier];
 
 	if (badgeColors)
 	{
 		if (preferCachedColors)
 		{
-			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: preferring cached colors",uniqueFolderID,iconInfo.nodeIdentifier);
+			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: preferring cached colors",iconInfo.nodeIdentifier);
 			return badgeColors;
 		}
 
-		[cachedRandomFolderBadgeColors removeObjectForKey:uniqueFolderID];
+		[cachedRandomFolderBadgeColors removeObjectForKey:iconInfo.nodeIdentifier];
 
 		CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
 
-		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: examining cached colors; elapsed: %f",uniqueFolderID,iconInfo.nodeIdentifier,now-badgeColors.now);
+		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: examining cached colors; elapsed: %f",iconInfo.nodeIdentifier,now-badgeColors.now);
 
 		if ((now - badgeColors.now) < 0.5)
 		{
-			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: found recent colors",uniqueFolderID,iconInfo.nodeIdentifier);
+			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: found recent colors",iconInfo.nodeIdentifier);
 
 			badgeColors.now = CFAbsoluteTimeGetCurrent();
-			[cachedRandomFolderBadgeColors setObject:badgeColors forKey:uniqueFolderID];
+			[cachedRandomFolderBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
 
 			return badgeColors;
 		}
 
-		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: found stale colors",uniqueFolderID,iconInfo.nodeIdentifier);
+		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: found stale colors",iconInfo.nodeIdentifier);
 	}
 
 	// choose new icon if no cached or stale icon
@@ -629,7 +627,7 @@
 	{
 		targetIconInfo = badgedIcons[arc4random_uniform([badgedIcons count])];
 
-		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: chose random icon: %@",uniqueFolderID,iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier);
+		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: chose random icon: %@",iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier);
 	}
 
 	if (!targetIconInfo)
@@ -639,10 +637,10 @@
 
 	// add new entry
 	badgeColors.now = CFAbsoluteTimeGetCurrent();
-	[cachedRandomFolderBadgeColors setObject:badgeColors forKey:uniqueFolderID];
+	[cachedRandomFolderBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
 
-	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: [%@] %@: using icon: %@  with badge value: %@"
-		,uniqueFolderID,iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier,[targetIconInfo realBadgeNumberOrString]);
+	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: using icon: %@  with badge value: %@"
+		,iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier,[targetIconInfo realBadgeNumberOrString]);
 
 	return badgeColors;
 }
@@ -801,7 +799,7 @@
 
 - (CMBColorInfo *)getBadgeColorsForFolder:(CMBIconInfo *)iconInfo
 {
-	HBLogDebug(@"configuring for folder icon: %@  with badge value: %@",iconInfo.nodeIdentifier,[iconInfo realBadgeNumberOrString]);
+	HBLogDebug(@"configuring for folder icon: %@ (%@) with badge value: %@",iconInfo.nodeIdentifier,iconInfo.displayName,[iconInfo realBadgeNumberOrString]);
 
 	CMBColorInfo *badgeColors;
 

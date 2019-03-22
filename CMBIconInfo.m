@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <objc/runtime.h>
 #import "SpringBoard.h"
 #import "CMBIconInfo.h"
 
@@ -36,24 +37,25 @@
 
 	if ([icon isKindOfClass:NSClassFromString(@"SBApplicationIcon")])
 	{
-//		HBLogDebug(@"getIconInfo: SBApplicationIcon");
-
+		// should be same as nodeIdentifier
 		iconInfo.nodeIdentifier = [icon applicationBundleID];
-//		iconInfo.image = [icon getIconImage:1];
-//		iconInfo.unmaskedImage = [icon getUnmaskedIconImage:1];
+		iconInfo.displayName = iconInfo.nodeIdentifier;
 		iconInfo.isApplication = YES;
-//		iconInfo.isFolder = NO;
 
+#if 0
+		LSApplicationProxy *proxy = [objc_getClass("LSApplicationProxy") applicationProxyForIdentifier:iconInfo.nodeIdentifier];
+
+		if (proxy)
+		{
+			iconInfo.displayName = [proxy localizedName];
+		}
+#endif
 	}
 	else if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 	{
-//		HBLogDebug(@"getIconInfo: SBFolderIcon");
-
-		iconInfo.nodeIdentifier = [[icon folder] displayName];
-//		iconInfo.image = [icon _miniIconGridForPage:0];
-//		iconInfo.unmaskedImage = nil;
+		iconInfo.nodeIdentifier = [icon nodeIdentifier];
+		iconInfo.displayName = [[icon folder] displayName];
 		iconInfo.isApplication = NO;
-//		iconInfo.isFolder = YES;
 	}
 	else
 	{
