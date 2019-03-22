@@ -53,7 +53,10 @@
 	}
 	else if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 	{
-		iconInfo.nodeIdentifier = [icon nodeIdentifier];
+		// this selector should exist, but crashes on 9.3.3 (maybe elsewhere) with error:
+		// *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[SBFolderIcon copyWithZone:]: unrecognized selector sent to instance 0x........
+//		iconInfo.nodeIdentifier = [icon nodeIdentifier];
+		iconInfo.nodeIdentifier = [NSString stringWithFormat:@"%p", icon];
 		iconInfo.displayName = [[icon folder] displayName];
 		iconInfo.isApplication = NO;
 	}

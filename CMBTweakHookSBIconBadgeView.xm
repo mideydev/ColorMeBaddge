@@ -321,7 +321,10 @@ UIColor *getCrossfadeColor(NSString *key)
 	// badgeSizeAdjustment is user preference for the badge size, so we adjust padding the opposite way
 	paddingPoints -= [[CMBPreferences sharedInstance] badgeSizeAdjustment];
 
-	CGSize badgeSize = [%c(SBIconBadgeView) badgeSize];
+	// this selector doesn't exist on all supported ios versions; just grab size from image itself
+//	CGSize badgeSize = [%c(SBIconBadgeView) badgeSize];
+	CGSize badgeSize = backgroundImage.size;
+
 	CGRect fullRect = CGRectMake(0.0, 0.0, badgeSize.width, badgeSize.height);
 	CGRect badgeRect = CGRectMake(paddingPoints, paddingPoints, badgeSize.width - 2.0 * paddingPoints, badgeSize.height - 2.0 * paddingPoints);
 
