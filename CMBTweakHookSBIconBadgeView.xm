@@ -308,20 +308,24 @@ UIColor *getCrossfadeColor(NSString *key)
 	// smooth out the bump seen in the stock badge with small numbers.  it also makes
 	// it easier to draw borders.
 
-	UIView *badgeView;
-	CGRect rect;
-	CGFloat cornerRadius;
-
 	// create a colorized badge image, with border if desired
 
-	rect = self.bounds;
+	// points of clear padding around the badge
+	CGFloat paddingPoints = 1.0;
 
-	rect.size.width -= backgroundImage.scale * 1.0;
-	rect.size.height -= backgroundImage.scale * 1.0;
+	CGSize badgeSize = [%c(SBIconBadgeView) badgeSize];
+	CGRect fullRect = CGRectMake(0.0, 0.0, badgeSize.width, badgeSize.height);
+	CGRect badgeRect = CGRectMake(paddingPoints, paddingPoints, badgeSize.width - 2.0 * paddingPoints, badgeSize.height - 2.0 * paddingPoints);
 
-	cornerRadius = (fminf(rect.size.width, rect.size.height) - 1.0) / 2.0;
+	HBLogDebug(@"setBadgeBackgroundColor: badgeSize : { %0.2f x %0.2f }", badgeSize.width, badgeSize.height);
+	HBLogDebug(@"setBadgeBackgroundColor: fullRect  : { %0.2f x %0.2f }", fullRect.size.width, fullRect.size.height);
+	HBLogDebug(@"setBadgeBackgroundColor: badgeRect : { %0.2f x %0.2f }", badgeRect.size.width, badgeRect.size.height);
 
-	badgeView = [[UIView alloc] initWithFrame:rect];
+	CGFloat cornerRadius = ((fminf(badgeSize.width, badgeSize.height) - 2.0 * paddingPoints) - 1.0) / 2.0;
+
+	HBLogDebug(@"setBadgeBackgroundColor: cornerRadius: %0.2f", cornerRadius);
+
+	UIView *badgeView = [[UIView alloc] initWithFrame:badgeRect];
 	badgeView.layer.cornerRadius = cornerRadius;
 	badgeView.backgroundColor = badgeColors.backgroundColor;
 
@@ -336,15 +340,33 @@ UIColor *getCrossfadeColor(NSString *key)
 	colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 
+	HBLogDebug(@"setBadgeBackgroundColor: colorizedImage1: %@", colorizedImage);
+
 	// now draw the colorized badge into a larger clear image
 
-	rect = self.bounds;
-
-	UIGraphicsBeginImageContextWithOptions(rect.size, NO, colorizedImage.scale);
+	UIGraphicsBeginImageContextWithOptions(fullRect.size, NO, 0.0);
 	[[UIColor clearColor] setFill];
-	[colorizedImage drawAtPoint:CGPointMake(1.0, 1.0)];
+//	[colorizedImage drawInRect:badgeRect];
+	[colorizedImage drawAtPoint:CGPointMake(paddingPoints, paddingPoints)];
 	colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
+
+	HBLogDebug(@"setBadgeBackgroundColor: colorizedImage2: %@", colorizedImage);
+
+	if (!colorizedImage)
+		return;
+
+	double verticalInset = colorizedImage.size.height / 2.0;
+	double horizontalInset = colorizedImage.size.width / 2.0;
+
+	UIEdgeInsets insets = UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, horizontalInset);
+
+	HBLogDebug(@"setBadgeBackgroundColor: verticalInset   : %0.2f", verticalInset);
+	HBLogDebug(@"setBadgeBackgroundColor: horizontalInset : %0.2f", horizontalInset);
+
+	colorizedImage = [colorizedImage resizableImageWithCapInsets:insets];
+
+	HBLogDebug(@"setBadgeBackgroundColor: colorizedImage3: %@", colorizedImage);
 
 	if (!colorizedImage)
 		return;
