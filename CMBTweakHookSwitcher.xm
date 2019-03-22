@@ -62,6 +62,8 @@
 		NSString *groupingSeparator = [[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator];
 		NSString *delocalizedBadgeString = [badgeString stringByReplacingOccurrencesOfString:groupingSeparator withString:@""];
 
+		// no separator, because a) we could use the space, and b) binary badges get formatted when they shouldn't be
+/*
 		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 		[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 		[numberFormatter setGroupingSeparator:groupingSeparator];
@@ -70,6 +72,10 @@
 		badgeString = [numberFormatter stringFromNumber:badgeValue];
 
 		HBLogDebug(@"createSwitcherIconBadge: converted: [%@] => [%@] => [%@]",badgeNumberOrString,badgeValue,badgeString);
+*/
+		badgeString = delocalizedBadgeString;
+
+		HBLogDebug(@"createSwitcherIconBadge: converted: [%@] => [%@]",badgeNumberOrString,badgeString);
 	}
 
 	CMBColorInfo *badgeColors = [[CMBManager sharedInstance] getBadgeColorsForIcon:[self icon]];
