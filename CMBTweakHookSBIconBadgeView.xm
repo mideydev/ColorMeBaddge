@@ -310,8 +310,16 @@ UIColor *getCrossfadeColor(NSString *key)
 
 	// create a colorized badge image, with border if desired
 
-	// points of clear padding around the badge
+	// points of clear padding around the stock badge
 	CGFloat paddingPoints = 1.0;
+
+	// restrict range such that we only produce circles
+	// circles good from: -1 (uses full badge frame), 0 (default), 1, 2, 3
+	// 1.0-size borders good up to: 3
+	// badges with subscripts good up to: 1
+
+	// badgeSizeAdjustment is user preference for the badge size, so we adjust padding the opposite way
+	paddingPoints -= [[CMBPreferences sharedInstance] badgeSizeAdjustment];
 
 	CGSize badgeSize = [%c(SBIconBadgeView) badgeSize];
 	CGRect fullRect = CGRectMake(0.0, 0.0, badgeSize.width, badgeSize.height);

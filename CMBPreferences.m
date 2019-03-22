@@ -88,6 +88,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 	HBLogDebug(@"[logSettings] badgeColorAdjustmentType         = %ld",(long)self.badgeColorAdjustmentType);
 
 	HBLogDebug(@"[logSettings] ---[ miscellaneous settings ]---");
+	HBLogDebug(@"[logSettings] badgeSizeAdjustment              = %0.2f",self.badgeSizeAdjustment);
 	HBLogDebug(@"[logSettings] useUnmaskedIcons                 = %@",self.useUnmaskedIcons?@"YES":@"NO");
 	HBLogDebug(@"[logSettings] showAllBadges                    = %@",self.showAllBadges?@"YES":@"NO");
 	HBLogDebug(@"[logSettings] switcherBadgesEnabled            = %@",self.switcherBadgesEnabled?@"YES":@"NO");
@@ -130,6 +131,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 	self.badgeColorAdjustmentType = CMB_DEFAULT_BADGE_COLOR_ADJUSTMENT_TYPE;
 
 	// miscellaneous settings
+	self.badgeSizeAdjustment = CMB_DEFAULT_BADGE_SIZE_ADJUSTMENT;
 	self.useUnmaskedIcons = CMB_DEFAULT_USE_UNMASKED_ICONS;
 	self.showAllBadges = CMB_DEFAULT_SHOW_ALL_BADGES;
 	self.switcherBadgesEnabled = CMB_DEFAULT_SWITCHER_BADGES_ENABLED;
@@ -183,6 +185,7 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 		if ((pref = [settings objectForKey:@"badgeColorAdjustmentType"])) self.badgeColorAdjustmentType = [pref integerValue];
 
 		// miscellaneous settings
+		if ((pref = [settings objectForKey:@"badgeSizeAdjustment"])) self.badgeSizeAdjustment = [pref doubleValue];
 		if ((pref = [settings objectForKey:@"useUnmaskedIcons"])) self.useUnmaskedIcons = [pref boolValue];
 		if ((pref = [settings objectForKey:@"showAllBadges"])) self.showAllBadges = [pref boolValue];
 		if ((pref = [settings objectForKey:@"switcherBadgesEnabled"])) self.switcherBadgesEnabled = [pref boolValue];

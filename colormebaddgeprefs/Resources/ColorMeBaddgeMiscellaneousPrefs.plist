@@ -11,6 +11,51 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>footerText</key>
+			<string>SIZE_ADJUSTMENT_GROUP_FOOTER</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>label</key>
+			<string>SIZE_ADJUSTMENT_LABEL</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>badgeSizeAdjustment</string>
+			<key>id</key>
+			<string>CMBBadgeSizeAdjustment</string>
+			<key>default</key>
+			<real>0.0</real>
+			<key>validTitles</key>
+			<array>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_-3_0</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_-2_5</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_-2_0</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_-1_5</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_-1_0</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_-0_5</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_0_0</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_0_5</string>
+				<string>SIZE_ADJUSTMENT_LIST_ITEM_1_0</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<real>-3.0</real>
+				<real>-2.5</real>
+				<real>-2.0</real>
+				<real>-1.5</real>
+				<real>-1.0</real>
+				<real>-0.5</real>
+				<real>0.0</real>
+				<real>0.5</real>
+				<real>1.0</real>
+			</array>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
 			<string>UNMASKED_ICONS_GROUP_FOOTER</string>
 		</dict>
 		<dict>
