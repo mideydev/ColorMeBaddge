@@ -72,11 +72,13 @@
 @end
 
 @interface SBIconBadgeView : UIView
++ (CGSize)badgeSize;
 // CMB:
 - (CMBColorInfo *)getBadgeColorsForIcon:(id)icon prepareForCrossfade:(BOOL)prepareForCrossfade;
 - (void)setBadgeColors:(CMBColorInfo *)badgeColors;
 - (void)setBadgeBackgroundColor:(CMBColorInfo *)badgeColors;
 - (void)setBadgeForegroundColor:(CMBColorInfo *)badgeColors;
+- (NSString *)getCrossfadeColorKey;
 @end
 
 @interface SBDisplayItem : NSObject
