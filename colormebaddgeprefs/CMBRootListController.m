@@ -61,7 +61,7 @@
 {
 	[super viewDidLoad];
 
-	CGRect frame = CGRectMake(0,0,self.table.bounds.size.width,PREFERRED_HEIGHT);
+	CGRect frame = CGRectMake(0, 0, self.table.bounds.size.width, PREFERRED_HEIGHT);
 
 //	UIImage *headerImage = [[[UIImage alloc]
 //		initWithContentsOfFile:[[NSBundle bundleWithPath:@"/Library/PreferenceBundles/ColorMeBaddgePrefs.bundle"] pathForResource:@"ColorMeBaddgeHeader" ofType:@"jpg"]] autorelease];
@@ -91,7 +91,7 @@
 	[super viewDidLayoutSubviews];
 
 	CGRect wrapperFrame = ((UIView *)self.table.subviews[0]).frame; // UITableViewWrapperView
-	CGRect frame = CGRectMake(wrapperFrame.origin.x,self.table.tableHeaderView.frame.origin.y,wrapperFrame.size.width,self.table.tableHeaderView.frame.size.height);
+	CGRect frame = CGRectMake(wrapperFrame.origin.x, self.table.tableHeaderView.frame.origin.y, wrapperFrame.size.width, self.table.tableHeaderView.frame.size.height);
 
 	self.table.tableHeaderView.frame = frame;
 }
@@ -108,7 +108,7 @@
 								message:CMBLocalizedStringForKey(@"RESPRING_CONFIRMATION_MESSAGE")
 								preferredStyle:UIAlertControllerStyleAlert];
 
-	UIAlertAction* yesButton = [UIAlertAction
+	UIAlertAction *yesButton = [UIAlertAction
 								actionWithTitle:CMBLocalizedStringForKey(@"CONFIRMATION_YES")
 								style:UIAlertActionStyleDefault
 								handler:^(UIAlertAction *action)
@@ -116,7 +116,7 @@
 									notify_post("org.midey.colormebaddge/respringRequested");
 								}];
 
-	UIAlertAction* noButton = [UIAlertAction
+	UIAlertAction *noButton = [UIAlertAction
 								actionWithTitle:CMBLocalizedStringForKey(@"CONFIRMATION_NO")
 								style:UIAlertActionStyleDefault
 								handler:^(UIAlertAction *action)
@@ -148,7 +148,7 @@
 	if (![tweakEnabled boolValue])
 		return;
 
-	dlhandle = dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBadges.dylib",RTLD_LAZY);
+	dlhandle = dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBadges.dylib", RTLD_LAZY);
 
 	if (dlhandle)
 		dlclose(dlhandle);
@@ -166,7 +166,7 @@
 								message:CMBLocalizedStringForKey(@"COLORBADGES_WARNING_MESSAGE")
 								preferredStyle:UIAlertControllerStyleAlert];
 
-	UIAlertAction* okButton = [UIAlertAction
+	UIAlertAction *okButton = [UIAlertAction
 								actionWithTitle:CMBLocalizedStringForKey(@"CONFIRMATION_OK")
 								style:UIAlertActionStyleDefault
 								handler:^(UIAlertAction *action)

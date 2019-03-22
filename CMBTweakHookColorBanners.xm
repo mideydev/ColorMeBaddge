@@ -13,14 +13,14 @@ BOOL hasColorBanners = NO;
 
 %ctor
 {
-	void *cb1,*cb2;
+	void *cb1, *cb2;
 
-	cb1 = dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBanners.dylib",RTLD_LAZY);
-	cb2 = dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBanners2.dylib",RTLD_LAZY);
+	cb1 = dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBanners.dylib", RTLD_LAZY);
+	cb2 = dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBanners2.dylib", RTLD_LAZY);
 
 	hasColorBanners = (cb1 || cb2) ? YES : NO;
 
-	HBLogDebug(@"(cb1 = %@ || cb2 = %@) ==> hasColorBanners = %@",cb1?@"YES":@"NO",cb2?@"YES":@"NO",hasColorBanners?@"YES":@"NO");
+	HBLogDebug(@"(cb1 = %@ || cb2 = %@) ==> hasColorBanners = %@", cb1 ? @"YES" : @"NO", cb2 ? @"YES" : @"NO", hasColorBanners ? @"YES" : @"NO");
 }
 
 %hook CBRColorCache
@@ -49,14 +49,14 @@ BOOL hasColorBanners = NO;
 
 	icon = [[[objc_getClass("SBIconController") sharedInstance] model] applicationIconForBundleIdentifier:arg1];
 
-	HBLogDebug(@"colorForIdentifier: [%@] icon: %@",arg1,icon);
+	HBLogDebug(@"colorForIdentifier: [%@] icon: %@", arg1, icon);
 
 	// if no icon, it might be a today widget.  attempt to determine app by dropping last component of identifier.
 	if (!icon)
 	{
 		NSMutableArray *pieces = (NSMutableArray *)[arg1 componentsSeparatedByString:@"."];
 
-		HBLogDebug(@"colorForIdentifier: pieces count = %ld",(long)[pieces count]);
+		HBLogDebug(@"colorForIdentifier: pieces count = %ld", (long)[pieces count]);
 
 		if ([pieces count] > 1)
 		{
@@ -66,7 +66,7 @@ BOOL hasColorBanners = NO;
 
 			icon = [[[objc_getClass("SBIconController") sharedInstance] model] applicationIconForBundleIdentifier:notToday];
 
-			HBLogDebug(@"colorForIdentifier: [%@] icon: %@",notToday,icon);
+			HBLogDebug(@"colorForIdentifier: [%@] icon: %@", notToday, icon);
 		}
 	}
 
@@ -92,7 +92,7 @@ BOOL hasColorBanners = NO;
 
 	int drgb = [[CMBSexerUpper sharedInstance] DRGBFromUIColor:bannerColors.backgroundColor];
 
-	HBLogDebug(@"colorForIdentifier: returning drgb = %d (%d,%d,%d,%d)",drgb,GETDARK(drgb),GETRED(drgb),GETGREEN(drgb),GETBLUE(drgb));
+	HBLogDebug(@"colorForIdentifier: returning drgb = %d (%d,%d,%d,%d)", drgb, GETDARK(drgb), GETRED(drgb), GETGREEN(drgb), GETBLUE(drgb));
 
 	return drgb;
 }
@@ -131,7 +131,7 @@ BOOL hasColorBanners = NO;
 
 	int drgb = [[CMBSexerUpper sharedInstance] DRGBFromUIColor:bannerColors.backgroundColor];
 
-	HBLogDebug(@"colorForImage: returning drgb = %d (%d,%d,%d,%d)",drgb,GETDARK(drgb),GETRED(drgb),GETGREEN(drgb),GETBLUE(drgb));
+	HBLogDebug(@"colorForImage: returning drgb = %d (%d,%d,%d,%d)", drgb, GETDARK(drgb), GETRED(drgb), GETGREEN(drgb), GETBLUE(drgb));
 
 	return drgb;
 }
@@ -155,11 +155,11 @@ BOOL hasColorBanners = NO;
 
 	HBLogDebug(@"----------[ CBRColorCache:isDarkColor ]----------");
 
-	HBLogDebug(@"isDarkColor: arg1 = %d (%d,%d,%d,%d)",arg1,GETDARK(arg1),GETRED(arg1),GETGREEN(arg1),GETBLUE(arg1));
+	HBLogDebug(@"isDarkColor: arg1 = %d (%d,%d,%d,%d)", arg1, GETDARK(arg1), GETRED(arg1), GETGREEN(arg1), GETBLUE(arg1));
 
 	BOOL isDark = (GETDARK(arg1)) ? YES : NO;
 
-	HBLogDebug(@"isDarkColor: returning %@",isDark?@"YES":@"NO");
+	HBLogDebug(@"isDarkColor: returning %@", isDark ? @"YES" : @"NO");
 
 	return isDark;
 }
@@ -223,7 +223,7 @@ BOOL hasColorBanners = NO;
 {
 	HBLogDebug(@"----------[ CBRColoringInfo:realColorForColor ]----------");
 
-	HBLogDebug(@"realColorForColor: %@",color);
+	HBLogDebug(@"realColorForColor: %@", color);
 
 	UIColor *realContrastColor = color;
 
@@ -313,7 +313,7 @@ BOOL hasColorBanners = NO;
 
 	BOOL similar = (rdiff <= tolerance) && (gdiff <= tolerance) && (bdiff <= tolerance) && (adiff <= tolerance);
 
-	HBLogDebug(@"color:isSimilarToColor: difference: (%0.2f, %0.2f, %0.2f, %0.2f) (tolerance: %0.2f) => %@similar", rdiff, gdiff, bdiff, adiff, tolerance, (similar) ? @"" : @"NOT ");
+	HBLogDebug(@"color:isSimilarToColor: difference: (%0.2f, %0.2f, %0.2f, %0.2f) (tolerance: %0.2f) => %@similar", rdiff, gdiff, bdiff, adiff, tolerance, similar ? @"" : @"NOT ");
 
 	return similar;
 }

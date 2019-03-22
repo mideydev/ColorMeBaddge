@@ -40,7 +40,7 @@
 {
 	if (!image)
 	{
-		HBLogDebug(@"colorizeImage: called with nil image and color: %@",color);
+		HBLogDebug(@"colorizeImage: called with nil image and color: %@", color);
 		return image;
 	}
 
@@ -86,7 +86,7 @@
 	NSNumber *L = colorDict[kColoursCIE_L];
 	CGFloat normalizedBrightness = 10 * [L doubleValue];
 
-//	HBLogDebug(@"getNormalizedBrightnessUsingCIELAB: L = %0.2f --> n = %0.2f",[L doubleValue],normalizedBrightness);
+//	HBLogDebug(@"getNormalizedBrightnessUsingCIELAB: L = %0.2f --> n = %0.2f", [L doubleValue], normalizedBrightness);
 
 	return normalizedBrightness;
 }
@@ -96,7 +96,7 @@
 	CGFloat backgroundColorBrightness = [self getBrightnessForColorUsingRGB:backgroundColor];
 	CGFloat normalizedBrightness = backgroundColorBrightness * 1000;
 
-//	HBLogDebug(@"getNormalizedBrightnessUsingRGB: b = %0.2f --> n = %0.2f",backgroundColorBrightness,normalizedBrightness);
+//	HBLogDebug(@"getNormalizedBrightnessUsingRGB: b = %0.2f --> n = %0.2f", backgroundColorBrightness, normalizedBrightness);
 
 	return normalizedBrightness;
 }
@@ -129,13 +129,13 @@
 	CGFloat whiteDistance = [backgroundColor distanceFromColor:realWhiteColor type:ColoursColorDistanceCIE2000];
 	CGFloat blackDistance = [backgroundColor distanceFromColor:realBlackColor type:ColoursColorDistanceCIE2000];
 
-	HBLogDebug(@"getForegroundColorByBrightnessThreshold: n = %0.2f  pref = %ld --> %@ / wD = %0.2f bD = %0.2f --> %@"
-				,normalizedBrightness
-				,(long)brightnessThreshold
-				,(normalizedBrightness > brightnessThreshold) ? @"black" : @"white"
-				,whiteDistance
-				,blackDistance
-				,(blackDistance > whiteDistance) ? @"black" : @"white"
+	HBLogDebug(@"getForegroundColorByBrightnessThreshold: n = %0.2f  pref = %ld --> %@ / wD = %0.2f bD = %0.2f --> %@",
+				normalizedBrightness,
+				(long)brightnessThreshold,
+				(normalizedBrightness > brightnessThreshold) ? @"black" : @"white",
+				whiteDistance,
+				blackDistance,
+				(blackDistance > whiteDistance) ? @"black" : @"white",
 			);
 */
 
@@ -160,7 +160,7 @@
 #ifdef DEBUG
 	CGFloat shadedBrightness = [self getNormalizedBrightnessUsingRGB:shadedColor];
 
-	HBLogDebug(@"shadeColorUsingRGB: orig: %0.5f => target: %0.5f ---> actual: %0.5f",originalBrightness,targetBrightness,shadedBrightness);
+	HBLogDebug(@"shadeColorUsingRGB: orig: %0.5f => target: %0.5f ---> actual: %0.5f", originalBrightness, targetBrightness, shadedBrightness);
 #endif
 
 	return shadedColor;
@@ -181,7 +181,7 @@
 #ifdef DEBUG
 	CGFloat tintedBrightness = [self getNormalizedBrightnessUsingRGB:tintedColor];
 
-	HBLogDebug(@"tintColorUsingRGB: orig: %0.5f => target: %0.5f ---> actual: %0.5f",originalBrightness,targetBrightness,tintedBrightness);
+	HBLogDebug(@"tintColorUsingRGB: orig: %0.5f => target: %0.5f ---> actual: %0.5f", originalBrightness, targetBrightness, tintedBrightness);
 #endif
 
 	return tintedColor;
@@ -200,7 +200,7 @@
 	newColorDict[kColoursCIE_L] = @(targetL);
 	shadedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
 
-	HBLogDebug(@"shadeColorUsingCIELAB: shadedColor = %@",shadedColor);
+	HBLogDebug(@"shadeColorUsingCIELAB: shadedColor = %@", shadedColor);
 
 	// read back color and check L
 	NSDictionary *shadedColorDict = [shadedColor CIE_LabDictionary];
@@ -210,7 +210,7 @@
 #ifdef DEBUG
 	NSNumber *L = colorDict[kColoursCIE_L];
 
-	HBLogDebug(@"shadeColorUsingCIELAB: L: orig: %0.5f => target: %0.5f ---> actual: %0.5f",[L doubleValue],targetL,[shadedL doubleValue]);
+	HBLogDebug(@"shadeColorUsingCIELAB: L: orig: %0.5f => target: %0.5f ---> actual: %0.5f", [L doubleValue], targetL, [shadedL doubleValue]);
 #endif
 
 	// if L still too high, keep reducing it slightly
@@ -221,12 +221,12 @@
 		newColorDict[kColoursCIE_L] = @(adjustedL);
 		shadedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
 
-		HBLogDebug(@"shadeColorUsingCIELAB: shadedColor = %@",shadedColor);
+		HBLogDebug(@"shadeColorUsingCIELAB: shadedColor = %@", shadedColor);
 
 		shadedColorDict = [shadedColor CIE_LabDictionary];
 		shadedL = shadedColorDict[kColoursCIE_L];
 
-		HBLogDebug(@"shadeColorUsingCIELAB: L: target: %0.5f => adjusted: %0.5f ---> actual: %0.5f",targetL,adjustedL,[shadedL doubleValue]);
+		HBLogDebug(@"shadeColorUsingCIELAB: L: target: %0.5f => adjusted: %0.5f ---> actual: %0.5f", targetL, adjustedL, [shadedL doubleValue]);
 	}
 
 	return shadedColor;
@@ -245,7 +245,7 @@
 	newColorDict[kColoursCIE_L] = @(targetL);
 	tintedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
 
-	HBLogDebug(@"tintColorUsingCIELAB: tintedColor = %@",tintedColor);
+	HBLogDebug(@"tintColorUsingCIELAB: tintedColor = %@", tintedColor);
 
 	// read back color and check L
 	NSDictionary *tintedColorDict = [tintedColor CIE_LabDictionary];
@@ -255,7 +255,7 @@
 #ifdef DEBUG
 	NSNumber *L = colorDict[kColoursCIE_L];
 
-	HBLogDebug(@"tintColorUsingCIELAB: L: orig: %0.5f => target: %0.5f ---> actual: %0.5f",[L doubleValue],targetL,[tintedL doubleValue]);
+	HBLogDebug(@"tintColorUsingCIELAB: L: orig: %0.5f => target: %0.5f ---> actual: %0.5f", [L doubleValue], targetL, [tintedL doubleValue]);
 #endif
 
 	// if L still too low, keep increasing it slightly
@@ -266,12 +266,12 @@
 		newColorDict[kColoursCIE_L] = @(adjustedL);
 		tintedColor = [UIColor colorFromCIE_LabDictionary:newColorDict];
 
-		HBLogDebug(@"tintColorUsingCIELAB: tintedColor = %@",tintedColor);
+		HBLogDebug(@"tintColorUsingCIELAB: tintedColor = %@", tintedColor);
 
 		tintedColorDict = [tintedColor CIE_LabDictionary];
 		tintedL = tintedColorDict[kColoursCIE_L];
 
-		HBLogDebug(@"tintColorUsingCIELAB: L: target: %0.5f => adjusted: %0.5f ---> actual: %0.5f",targetL,adjustedL,[tintedL doubleValue]);
+		HBLogDebug(@"tintColorUsingCIELAB: L: target: %0.5f => adjusted: %0.5f ---> actual: %0.5f", targetL, adjustedL, [tintedL doubleValue]);
 	}
 
 	return tintedColor;
@@ -325,7 +325,7 @@
 
 	NSInteger brightnessThreshold = [[CMBPreferences sharedInstance] brightnessThreshold];
 
-//	HBLogDebug(@"shadeColorToBrightnessThreshold: n = %0.2f  pref = %lu",normalizedBrightness,(unsigned long)brightnessThreshold);
+//	HBLogDebug(@"shadeColorToBrightnessThreshold: n = %0.2f  pref = %lu", normalizedBrightness, (unsigned long)brightnessThreshold);
 
 	if (normalizedBrightness > brightnessThreshold)
 		return [self shadeColor:color toNormalizedBrightness:brightnessThreshold - 1.0];
@@ -339,7 +339,7 @@
 
 	NSInteger brightnessThreshold = [[CMBPreferences sharedInstance] brightnessThreshold];
 
-//	HBLogDebug(@"tintColorToBrightnessThreshold: n = %0.2f  pref = %lu",normalizedBrightness,(unsigned long)brightnessThreshold);
+//	HBLogDebug(@"tintColorToBrightnessThreshold: n = %0.2f  pref = %lu", normalizedBrightness, (unsigned long)brightnessThreshold);
 
 	if (normalizedBrightness < brightnessThreshold)
 		return [self tintColor:color toNormalizedBrightness:brightnessThreshold + 1.0];
@@ -438,7 +438,7 @@
 {
 	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
 
-	CGFloat targetBrightness = fmaxf(normalizedBrightness * factor,1.0);
+	CGFloat targetBrightness = fmaxf(normalizedBrightness * factor, 1.0);
 
 	return [self shadeColor:color toNormalizedBrightness:targetBrightness];
 }
@@ -447,7 +447,7 @@
 {
 	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
 
-	CGFloat targetBrightness = fminf(normalizedBrightness * factor,NORMALIZED_BRIGHTNESS_SCALE - 1.0);
+	CGFloat targetBrightness = fminf(normalizedBrightness * factor, NORMALIZED_BRIGHTNESS_SCALE - 1.0);
 
 	return [self tintColor:color toNormalizedBrightness:targetBrightness];
 }
@@ -475,9 +475,9 @@
 
 	static NSInteger imageCount = 1;
 
-	NSString *pngFile = [NSString stringWithFormat:@"/tmp/cmb/%@-%@-%03ld.png",name,postfix,(long)imageCount];
+	NSString *pngFile = [NSString stringWithFormat:@"/tmp/cmb/%@-%@-%03ld.png", name, postfix, (long)imageCount];
 
-	HBLogDebug(@"saving image to: %@",pngFile);
+	HBLogDebug(@"saving image to: %@", pngFile);
 
 	[UIImagePNGRepresentation(image) writeToFile:pngFile atomically:YES];
 
@@ -500,7 +500,7 @@
 	[img drawInRect:drawRect];
 
 	// grab image
-	UIImage* subImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIImage *subImage = UIGraphicsGetImageFromCurrentImageContext();
 
 	UIGraphicsEndImageContext();
 
@@ -512,10 +512,10 @@
 //	[self saveImage:image withName:app andPostfix:@""];
 
 	// crop image
-	CGFloat cropSize = factor * fminf(image.size.width,image.size.height);
-	CGFloat edgeSize = (fminf(image.size.width,image.size.height) - cropSize) / 2.0f;
+	CGFloat cropSize = factor * fminf(image.size.width, image.size.height);
+	CGFloat edgeSize = (fminf(image.size.width, image.size.height) - cropSize) / 2.0f;
 
-	CGRect middle = CGRectMake(edgeSize,edgeSize,cropSize,cropSize);
+	CGRect middle = CGRectMake(edgeSize, edgeSize, cropSize, cropSize);
 	UIImage *croppedImage = [self getSubImageFrom:image withRect:middle];
 
 //	[self saveImage:croppedImage withName:app andPostfix:@"-cropped"];
@@ -537,7 +537,7 @@
 	double foregroundBrightness = [foregroundL doubleValue];
 	double backgroundBrightness = [backgroundL doubleValue];
 
-//	HBLogDebug(@"swapColorsIfBackgroundIsBright: backgroundL = %0.2f  foregroundL = %0.2f",backgroundBrightness,foregroundBrightness);
+//	HBLogDebug(@"swapColorsIfBackgroundIsBright: backgroundL = %0.2f  foregroundL = %0.2f", backgroundBrightness, foregroundBrightness);
 
 	if ((backgroundBrightness > foregroundBrightness) && (backgroundBrightness > 80) && (foregroundBrightness > 10))
 	{
@@ -620,7 +620,7 @@
 	NSInteger green = (NSInteger)(steps * g);
 	NSInteger blue = (NSInteger)(steps * b);
 
-	if ((ABS(red-green) <= epsilon) && (ABS(green-blue) <= epsilon) && (ABS(blue-red) <= epsilon))
+	if ((ABS(red - green) <= epsilon) && (ABS(green - blue) <= epsilon) && (ABS(blue - red) <= epsilon))
 		return YES;
 
 	return NO;
@@ -695,9 +695,9 @@
 			CGFloat distance = [thisColor distanceFromColor:backgroundColor type:ColoursColorDistanceCIE2000];
 
 			// wild guess
-			if ((fabs(backgroundBrightness-thisBrightness) > 49.0) && (distance > 49.0))
+			if ((fabs(backgroundBrightness - thisBrightness) > 49.0) && (distance > 49.0))
 			{
-				HBLogDebug(@"getColorsUsingCCColorCube: found color with L difference: %0.2f  and CIE2000 distance: %0.2f",fabs(backgroundBrightness-thisBrightness),distance);
+				HBLogDebug(@"getColorsUsingCCColorCube: found color with L difference: %0.2f  and CIE2000 distance: %0.2f", fabs(backgroundBrightness - thisBrightness), distance);
 				foregroundColor = thisColor;
 				break;
 			}
@@ -724,7 +724,7 @@
 
 	if (pixels != nil)
 	{
-		CGContextRef context = CGBitmapContextCreate((void*) pixels,image.size.width,image.size.height,8,image.size.width * 4,CGImageGetColorSpace(image.CGImage),kCGImageAlphaPremultipliedLast);
+		CGContextRef context = CGBitmapContextCreate((void*) pixels, image.size.width, image.size.height, 8, image.size.width * 4, CGImageGetColorSpace(image.CGImage), kCGImageAlphaPremultipliedLast);
 
 		if (context != NULL)
 		{
@@ -807,23 +807,23 @@
 
 - (int)DRGBFromUIColor:(UIColor *)color
 {
-	CGFloat r,g,b,a;
-	int D,R,G,B,drgb;
+	CGFloat r, g, b, a;
+	int D, R, G, B, drgb;
 
-	HBLogDebug(@"RGBFromUIColor: color = %@",color);
+	HBLogDebug(@"RGBFromUIColor: color = %@", color);
 
 	[color getRed:&r green:&g blue:&b alpha:&a];
 
-	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,255.0*r,255.0*g,255.0*b);
+	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)", r, g, b, 255.0 * r, 255.0 * g, 255.0 * b);
 
 	// simple conversion from extended SRGB
 	// (seems to match CGColorSpace conversion values)
 
-	r = fmaxf(0.0,fminf(1.0,r));
-	g = fmaxf(0.0,fminf(1.0,g));
-	b = fmaxf(0.0,fminf(1.0,b));
+	r = fmaxf(0.0, fminf(1.0, r));
+	g = fmaxf(0.0, fminf(1.0, g));
+	b = fmaxf(0.0, fminf(1.0, b));
 
-	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,255.0*r,255.0*g,255.0*b);
+	HBLogDebug(@"RGBFromUIColor: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)", r, g, b, 255.0 * r, 255.0 * g, 255.0 * b);
 
 	CGFloat normalizedBrightness = [self getNormalizedBrightness:color];
 
@@ -832,13 +832,13 @@
 	// D = is dark color flag, carried in extra bits of int
 	D = (normalizedBrightness <= brightnessThreshold) ? 1 : 0;
 
-	R = (int)round(255.0*r);
-	G = (int)round(255.0*g);
-	B = (int)round(255.0*b);
+	R = (int)round(255.0 * r);
+	G = (int)round(255.0 * g);
+	B = (int)round(255.0 * b);
 
 	drgb = ((D & 0xFF) << 24) | ((R & 0xFF) << 16) | ((G & 0xFF) << 8) | (B & 0xFF);
 
-	HBLogDebug(@"RGBFromUIColor: (D,R,G,B) = (%d,%d,%d,%d) => drgb = %d",D,R,G,B,drgb);
+	HBLogDebug(@"RGBFromUIColor: (D,R,G,B) = (%d,%d,%d,%d) => drgb = %d", D, R, G, B, drgb);
 
 	return drgb;
 }

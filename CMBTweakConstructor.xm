@@ -1,12 +1,12 @@
 #import "SpringBoard.h"
 #import "CMBManager.h"
 
-static void respring(CFNotificationCenterRef center,void *observer,CFStringRef name,const void *object,CFDictionaryRef userInfo)
+static void respring(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
 	[[%c(FBSystemService) sharedInstance] exitAndRelaunch:YES];
 }
 
-static void refreshBadgesForAppcon(CFNotificationCenterRef center,void *observer,CFStringRef name,const void *object,CFDictionaryRef userInfo)
+static void refreshBadgesForAppcon(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
 	NSString *applicationBundleID = (__bridge NSString *)object;
 
@@ -15,7 +15,7 @@ static void refreshBadgesForAppcon(CFNotificationCenterRef center,void *observer
 
 %ctor
 {
-	dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBadges.dylib",RTLD_LAZY);
+	dlopen("/Library/MobileSubstrate/DynamicLibraries/ColorBadges.dylib", RTLD_LAZY);
 
 	CFNotificationCenterAddObserver(
 		CFNotificationCenterGetDarwinNotifyCenter(),

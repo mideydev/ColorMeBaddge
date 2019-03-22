@@ -7,7 +7,7 @@
 
 @implementation CMBPreferences
 
-static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStringRef name,const void *object,CFDictionaryRef userInfo)
+static void settingsChanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
 {
 	HBLogDebug(@"settingsChanged");
 
@@ -55,44 +55,44 @@ static void settingsChanged(CFNotificationCenterRef center,void *observer,CFStri
 - (void)logSettings
 {
 	HBLogDebug(@"[logSettings] ---[ main ]---");
-	HBLogDebug(@"[logSettings] tweakEnabled                     = %@",self.tweakEnabled?@"YES":@"NO");
+	HBLogDebug(@"[logSettings] tweakEnabled                     = %@", self.tweakEnabled ? @"YES" : @"NO");
 
 	HBLogDebug(@"[logSettings] ---[ app badges ]---");
-	HBLogDebug(@"[logSettings] appBadgeBackgroundType           = %ld",(long)self.appBadgeBackgroundType);
-	HBLogDebug(@"[logSettings] appBadgeBackgroundAdjustmentType = %ld",(long)self.appBadgeBackgroundAdjustmentType);
-	HBLogDebug(@"[logSettings] appBadgeBackgroundColor          = %@",self.appBadgeBackgroundColor);
-	HBLogDebug(@"[logSettings] appBadgeForegroundType           = %ld",(long)self.appBadgeForegroundType);
-	HBLogDebug(@"[logSettings] appBadgeForegroundAdjustmentType = %ld",(long)self.appBadgeForegroundAdjustmentType);
-	HBLogDebug(@"[logSettings] appBadgeForegroundColor          = %@",self.appBadgeForegroundColor);
+	HBLogDebug(@"[logSettings] appBadgeBackgroundType           = %ld", (long)self.appBadgeBackgroundType);
+	HBLogDebug(@"[logSettings] appBadgeBackgroundAdjustmentType = %ld", (long)self.appBadgeBackgroundAdjustmentType);
+	HBLogDebug(@"[logSettings] appBadgeBackgroundColor          = %@", self.appBadgeBackgroundColor);
+	HBLogDebug(@"[logSettings] appBadgeForegroundType           = %ld", (long)self.appBadgeForegroundType);
+	HBLogDebug(@"[logSettings] appBadgeForegroundAdjustmentType = %ld", (long)self.appBadgeForegroundAdjustmentType);
+	HBLogDebug(@"[logSettings] appBadgeForegroundColor          = %@", self.appBadgeForegroundColor);
 
 	HBLogDebug(@"[logSettings] ---[ folder badges ]---");
-	HBLogDebug(@"[logSettings] folderBadgeBackgroundType        = %ld",(long)self.folderBadgeBackgroundType);
-	HBLogDebug(@"[logSettings] folderBadgeBackgroundColor       = %@",self.folderBadgeBackgroundColor);
-	HBLogDebug(@"[logSettings] folderBadgeForegroundType        = %ld",(long)self.folderBadgeForegroundType);
-	HBLogDebug(@"[logSettings] folderBadgeForegroundColor       = %@",self.folderBadgeForegroundColor);
+	HBLogDebug(@"[logSettings] folderBadgeBackgroundType        = %ld", (long)self.folderBadgeBackgroundType);
+	HBLogDebug(@"[logSettings] folderBadgeBackgroundColor       = %@", self.folderBadgeBackgroundColor);
+	HBLogDebug(@"[logSettings] folderBadgeForegroundType        = %ld", (long)self.folderBadgeForegroundType);
+	HBLogDebug(@"[logSettings] folderBadgeForegroundColor       = %@", self.folderBadgeForegroundColor);
 
 	HBLogDebug(@"[logSettings] ---[ special badges ]---");
-	HBLogDebug(@"[logSettings] specialBadgesEnabled             = %@",self.specialBadgesEnabled?@"YES":@"NO");
-	HBLogDebug(@"[logSettings] specialBadgesBackgroundColor     = %@",self.specialBadgesBackgroundColor);
-	HBLogDebug(@"[logSettings] specialBadgesForegroundColor     = %@",self.specialBadgesForegroundColor);
+	HBLogDebug(@"[logSettings] specialBadgesEnabled             = %@", self.specialBadgesEnabled ? @"YES" : @"NO");
+	HBLogDebug(@"[logSettings] specialBadgesBackgroundColor     = %@", self.specialBadgesBackgroundColor);
+	HBLogDebug(@"[logSettings] specialBadgesForegroundColor     = %@", self.specialBadgesForegroundColor);
 
 	HBLogDebug(@"[logSettings] ---[ border settings ]---");
-	HBLogDebug(@"[logSettings] badgeBordersEnabled              = %@",self.badgeBordersEnabled?@"YES":@"NO");
-	HBLogDebug(@"[logSettings] badgeBorderType                  = %ld",(long)self.badgeBorderType);
-	HBLogDebug(@"[logSettings] badgeBorderWidth                 = %0.2f",self.badgeBorderWidth);
-	HBLogDebug(@"[logSettings] badgeBorderColor                 = %@",self.badgeBorderColor);
+	HBLogDebug(@"[logSettings] badgeBordersEnabled              = %@", self.badgeBordersEnabled ? @"YES" : @"NO");
+	HBLogDebug(@"[logSettings] badgeBorderType                  = %ld", (long)self.badgeBorderType);
+	HBLogDebug(@"[logSettings] badgeBorderWidth                 = %0.2f", self.badgeBorderWidth);
+	HBLogDebug(@"[logSettings] badgeBorderColor                 = %@", self.badgeBorderColor);
 
 	HBLogDebug(@"[logSettings] ---[ brightness settings ]---");
-	HBLogDebug(@"[logSettings] brightnessThreshold              = %ld",(long)self.brightnessThreshold);
-	HBLogDebug(@"[logSettings] colorSpaceType                   = %ld",(long)self.colorSpaceType);
-	HBLogDebug(@"[logSettings] badgeColorAdjustmentType         = %ld",(long)self.badgeColorAdjustmentType);
+	HBLogDebug(@"[logSettings] brightnessThreshold              = %ld", (long)self.brightnessThreshold);
+	HBLogDebug(@"[logSettings] colorSpaceType                   = %ld", (long)self.colorSpaceType);
+	HBLogDebug(@"[logSettings] badgeColorAdjustmentType         = %ld", (long)self.badgeColorAdjustmentType);
 
 	HBLogDebug(@"[logSettings] ---[ miscellaneous settings ]---");
-	HBLogDebug(@"[logSettings] badgeSizeAdjustment              = %0.2f",self.badgeSizeAdjustment);
-	HBLogDebug(@"[logSettings] useUnmaskedIcons                 = %@",self.useUnmaskedIcons?@"YES":@"NO");
-	HBLogDebug(@"[logSettings] showAllBadges                    = %@",self.showAllBadges?@"YES":@"NO");
-	HBLogDebug(@"[logSettings] switcherBadgesEnabled            = %@",self.switcherBadgesEnabled?@"YES":@"NO");
-	HBLogDebug(@"[logSettings] provideColorsForColorBanners     = %@",self.provideColorsForColorBanners?@"YES":@"NO");
+	HBLogDebug(@"[logSettings] badgeSizeAdjustment              = %0.2f", self.badgeSizeAdjustment);
+	HBLogDebug(@"[logSettings] useUnmaskedIcons                 = %@", self.useUnmaskedIcons ? @"YES" : @"NO");
+	HBLogDebug(@"[logSettings] showAllBadges                    = %@", self.showAllBadges ? @"YES" : @"NO");
+	HBLogDebug(@"[logSettings] switcherBadgesEnabled            = %@", self.switcherBadgesEnabled ? @"YES" : @"NO");
+	HBLogDebug(@"[logSettings] provideColorsForColorBanners     = %@", self.provideColorsForColorBanners ? @"YES" : @"NO");
 }
 
 - (void)loadInitialSettings

@@ -44,7 +44,7 @@
 
 	NSInteger badgeType = [[CMBManager sharedInstance] getBadgeValueType:badgeNumberOrString];
 
-	HBLogDebug(@"createSwitcherIconBadge: nodeIdentifier: [%@] => badgeNumberOrString: [%@]  (badgeType = %ld)",[[self icon] nodeIdentifier],badgeNumberOrString,(long)badgeType);
+	HBLogDebug(@"createSwitcherIconBadge: nodeIdentifier: [%@] => badgeNumberOrString: [%@]  (badgeType = %ld)", [[self icon] nodeIdentifier], badgeNumberOrString, (long)badgeType);
 
 	// default for numeric/special... override under numeric check below
 	NSString *badgeString = (NSString *)badgeNumberOrString;
@@ -71,11 +71,11 @@
 		NSNumber *badgeValue = [numberFormatter numberFromString:delocalizedBadgeString];
 		badgeString = [numberFormatter stringFromNumber:badgeValue];
 
-		HBLogDebug(@"createSwitcherIconBadge: converted: [%@] => [%@] => [%@]",badgeNumberOrString,badgeValue,badgeString);
+		HBLogDebug(@"createSwitcherIconBadge: converted: [%@] => [%@] => [%@]", badgeNumberOrString, badgeValue, badgeString);
 */
 		badgeString = delocalizedBadgeString;
 
-		HBLogDebug(@"createSwitcherIconBadge: converted: [%@] => [%@]",badgeNumberOrString,badgeString);
+		HBLogDebug(@"createSwitcherIconBadge: converted: [%@] => [%@]", badgeNumberOrString, badgeString);
 	}
 
 	CMBColorInfo *badgeColors = [[CMBManager sharedInstance] getBadgeColorsForIcon:[self icon]];
@@ -83,11 +83,11 @@
 	// original image size
 	CGFloat iconWidth = [self imageView].image.size.width;
 	CGFloat iconHeight = [self imageView].image.size.height;
-	CGFloat iconMaxDimension = fmaxf(iconWidth,iconHeight);
+	CGFloat iconMaxDimension = fmaxf(iconWidth, iconHeight);
 
-	HBLogDebug(@"iconWidth        = %0.2f",iconWidth);
-	HBLogDebug(@"iconHeight       = %0.2f",iconHeight);
-	HBLogDebug(@"iconMaxDimension = %0.2f",iconHeight);
+	HBLogDebug(@"iconWidth        = %0.2f", iconWidth);
+	HBLogDebug(@"iconHeight       = %0.2f", iconHeight);
+	HBLogDebug(@"iconMaxDimension = %0.2f", iconHeight);
 
 	// calculated values from original image size based on home screen icons:
 	// icon: 60 px
@@ -116,14 +116,14 @@
 	CGFloat badgeOffsetY = floor(badgeScale * -10.0 - badgeShift);
 	CGFloat badgeGrowThreshold = badgeSize / 2.0;
 
-	HBLogDebug(@"badgeScale             = %0.2f",badgeScale);
-	HBLogDebug(@"badgeSizeScale         = %0.2f",badgeSizeScale);
-	HBLogDebug(@"badgeSize              = %0.2f",badgeSize);
-	HBLogDebug(@"badgeShift             = %0.2f",badgeShift);
-	HBLogDebug(@"badgeFontSize          = %0.2f",badgeFontSize);
-	HBLogDebug(@"badgeOffsetX           = %0.2f",badgeOffsetX);
-	HBLogDebug(@"badgeOffsetY           = %0.2f",badgeOffsetY);
-	HBLogDebug(@"badgeGrowThreshold     = %0.2f",badgeGrowThreshold);
+	HBLogDebug(@"badgeScale             = %0.2f", badgeScale);
+	HBLogDebug(@"badgeSizeScale         = %0.2f", badgeSizeScale);
+	HBLogDebug(@"badgeSize              = %0.2f", badgeSize);
+	HBLogDebug(@"badgeShift             = %0.2f", badgeShift);
+	HBLogDebug(@"badgeFontSize          = %0.2f", badgeFontSize);
+	HBLogDebug(@"badgeOffsetX           = %0.2f", badgeOffsetX);
+	HBLogDebug(@"badgeOffsetY           = %0.2f", badgeOffsetY);
+	HBLogDebug(@"badgeGrowThreshold     = %0.2f", badgeGrowThreshold);
 
 	// create and build label
 	UILabel *badge = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -135,7 +135,7 @@
 
 	[badge sizeToFit];
 
-	HBLogDebug(@"badge.frame          = %@",NSStringFromCGRect(badge.frame));
+	HBLogDebug(@"badge.frame          = %@", NSStringFromCGRect(badge.frame));
 
 	// adjusted values for our badge
 	CGFloat x = badgeOffsetX;
@@ -143,25 +143,25 @@
 	CGFloat w = badgeSize;
 	CGFloat h = badgeSize;
 
-	HBLogDebug(@"x = %0.2f",x);
-	HBLogDebug(@"y = %0.2f",y);
-	HBLogDebug(@"w = %0.2f",w);
-	HBLogDebug(@"h = %0.2f",h);
+	HBLogDebug(@"x = %0.2f", x);
+	HBLogDebug(@"y = %0.2f", y);
+	HBLogDebug(@"w = %0.2f", w);
+	HBLogDebug(@"h = %0.2f", h);
 
-	CGFloat grow = fmaxf(ceil(CGRectGetWidth(badge.frame)-badgeGrowThreshold),0.0);
+	CGFloat grow = fmaxf(ceil(CGRectGetWidth(badge.frame)-badgeGrowThreshold), 0.0);
 
-	HBLogDebug(@"x = %0.2f  y = %0.2f  w = %0.2f  h = %0.2f  grow = %0.2f",x,y,w,h,grow);
+	HBLogDebug(@"x = %0.2f  y = %0.2f  w = %0.2f  h = %0.2f  grow = %0.2f", x, y, w, h, grow);
 
 	x -= grow;
 	w += grow;
 
-	HBLogDebug(@"x = %0.2f  y = %0.2f  w = %0.2f  h = %0.2f  grow = %0.2f",x,y,w,h,grow);
+	HBLogDebug(@"x = %0.2f  y = %0.2f  w = %0.2f  h = %0.2f  grow = %0.2f", x, y, w, h, grow);
 
-	badge.frame = CGRectMake(x,y,w,h);
+	badge.frame = CGRectMake(x, y, w, h);
 
-	HBLogDebug(@"badge.frame          = %@",NSStringFromCGRect(badge.frame));
+	HBLogDebug(@"badge.frame          = %@", NSStringFromCGRect(badge.frame));
 
-	badge.layer.cornerRadius = (fminf(CGRectGetWidth(badge.frame),CGRectGetHeight(badge.frame)) - 1.0) / 2.0;
+	badge.layer.cornerRadius = (fminf(CGRectGetWidth(badge.frame), CGRectGetHeight(badge.frame)) - 1.0) / 2.0;
 	badge.layer.masksToBounds = YES;
 
 	if ([[CMBPreferences sharedInstance] badgeBordersEnabled])

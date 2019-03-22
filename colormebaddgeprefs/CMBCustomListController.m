@@ -23,7 +23,7 @@
 
 #ifdef DEBUG
 	for (id key in _tweakSettings)
-		HBLogDebug(@"loadSettings: key: %@  =>  value: %@",key,[_tweakSettings objectForKey:key]);
+		HBLogDebug(@"loadSettings: key: %@  =>  value: %@", key, [_tweakSettings objectForKey:key]);
 #endif
 }
 
@@ -35,7 +35,7 @@
 
 #ifdef DEBUG
 	for (id key in _tweakSettings)
-		HBLogDebug(@"saveSettings: key: %@  =>  value: %@",key,[_tweakSettings objectForKey:key]);
+		HBLogDebug(@"saveSettings: key: %@  =>  value: %@", key, [_tweakSettings objectForKey:key]);
 #endif
 }
 
@@ -54,22 +54,22 @@
 	HBLogDebug(@"setPreferenceValue: notification = [%@]", notification ? notification : @"");
 
 	if (!notification || [notification isEqualToString:@""])
-		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),CFSTR(CMB_PREFS_CHANGED_NOTIFICATION),NULL,NULL,TRUE);
+		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR(CMB_PREFS_CHANGED_NOTIFICATION), NULL, NULL, TRUE);
 	else
-		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),(__bridge CFStringRef)notification,NULL,NULL,TRUE);
+		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge CFStringRef)notification, NULL, NULL, TRUE);
 }
 
 - (id)readPreferenceValue:(PSSpecifier *)specifier
 {
 	NSString *key = [specifier propertyForKey:@"key"];
 
-	HBLogDebug(@"readPreferenceValue: key = %@",key);
+	HBLogDebug(@"readPreferenceValue: key = %@", key);
 
 	id defaultValue = [specifier propertyForKey:@"default"];
-	HBLogDebug(@"readPreferenceValue: defaultValue = %@",defaultValue);
+	HBLogDebug(@"readPreferenceValue: defaultValue = %@", defaultValue);
 
 	id plistValue = [_tweakSettings objectForKey:key];
-	HBLogDebug(@"readPreferenceValue: plistValue = %@",plistValue);
+	HBLogDebug(@"readPreferenceValue: plistValue = %@", plistValue);
 
 	if (!plistValue)
 	{
@@ -83,7 +83,7 @@
 
 - (void)didTapColorPreviewAtIndexPath:(NSIndexPath *)indexPath
 {
-	HBLogDebug(@"didTapColorPreviewAtIndexPath: %@",indexPath);
+	HBLogDebug(@"didTapColorPreviewAtIndexPath: %@", indexPath);
 
 	PSSpecifier *specifier = [self specifierAtIndex:[self indexForRow:indexPath.row inGroup:indexPath.section]];
 
@@ -134,7 +134,7 @@
 								message:CMBLocalizedStringForKey(@"RESET_CONFIRMATION_MESSAGE")
 								preferredStyle:UIAlertControllerStyleAlert];
 
-	UIAlertAction* yesButton = [UIAlertAction
+	UIAlertAction *yesButton = [UIAlertAction
 								actionWithTitle:CMBLocalizedStringForKey(@"CONFIRMATION_YES")
 								style:UIAlertActionStyleDefault
 								handler:^(UIAlertAction *action)
@@ -143,7 +143,7 @@
 									[self reloadSpecifiers];
 								}];
 
-	UIAlertAction* noButton = [UIAlertAction
+	UIAlertAction *noButton = [UIAlertAction
 								actionWithTitle:CMBLocalizedStringForKey(@"CONFIRMATION_NO")
 								style:UIAlertActionStyleDefault
 								handler:^(UIAlertAction *action)

@@ -59,7 +59,7 @@
 	}
 	else
 	{
-		HBLogDebug(@"getIconInfo: unhandled icon: %@",NSStringFromClass([icon class]));
+		HBLogDebug(@"getIconInfo: unhandled icon: %@", NSStringFromClass([icon class]));
 
 		return nil;
 	}

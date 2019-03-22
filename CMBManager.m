@@ -19,7 +19,7 @@
 		cachedAppBadgeColors = [[NSMutableDictionary alloc] init];
 		cachedRandomFolderBadgeColors = [[NSMutableDictionary alloc] init];
 
-		dlopen("/Library/MobileSubstrate/DynamicLibraries/AnemoneCore.dylib",RTLD_LAZY);
+		dlopen("/Library/MobileSubstrate/DynamicLibraries/AnemoneCore.dylib", RTLD_LAZY);
 
 		if (ANEMONE_CLASS)
 		{
@@ -103,23 +103,23 @@
 	if (!color)
 		return color;
 
-	HBLogDebug(@"convertToUIDeviceRGBColorSpace: color       = %@",color);
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: color       = %@", color);
 
-	HBLogDebug(@"convertToUIDeviceRGBColorSpace: [color CGColor] = %@",[color CGColor]);
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: [color CGColor] = %@", [color CGColor]);
 
 	CGColorSpaceRef colorSpace = CGColorGetColorSpace([color CGColor]);
 	CGColorSpaceModel colorSpaceModel = CGColorSpaceGetModel(colorSpace);
 
-	HBLogDebug(@"convertToUIDeviceRGBColorSpace: colorSpace = %@",colorSpace);
-	HBLogDebug(@"convertToUIDeviceRGBColorSpace: colorSpaceModel = %d",colorSpaceModel);
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: colorSpace = %@", colorSpace);
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: colorSpaceModel = %d", colorSpaceModel);
 
 	CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
 
-	CGColorRef deviceColorRef = CGColorCreateCopyByMatchingToColorSpace(deviceColorSpace,kCGRenderingIntentPerceptual,[color CGColor],NULL);
+	CGColorRef deviceColorRef = CGColorCreateCopyByMatchingToColorSpace(deviceColorSpace, kCGRenderingIntentPerceptual, [color CGColor], NULL);
 
 	UIColor *deviceColor = [UIColor colorWithCGColor:deviceColorRef];
 
-	HBLogDebug(@"convertToUIDeviceRGBColorSpace: deviceColor = %@",deviceColor);
+	HBLogDebug(@"convertToUIDeviceRGBColorSpace: deviceColor = %@", deviceColor);
 
 	return deviceColor;
 }
@@ -140,22 +140,22 @@
 	if (!color)
 		return color;
 
-	HBLogDebug(@"adjustColorForDisplay: color = %@",color);
+	HBLogDebug(@"adjustColorForDisplay: color = %@", color);
 
-	CGFloat r,g,b,a;
-	CGFloat R,G,B;
+	CGFloat r, g, b, a;
+	CGFloat R, G, B;
 
 	[color getRed:&r green:&g blue:&b alpha:&a];
 
-	R = fmaxf(0.0,fminf(1.0,r));
-	G = fmaxf(0.0,fminf(1.0,g));
-	B = fmaxf(0.0,fminf(1.0,b));
+	R = fmaxf(0.0, fminf(1.0, r));
+	G = fmaxf(0.0, fminf(1.0, g));
+	B = fmaxf(0.0, fminf(1.0, b));
 
-	HBLogDebug(@"adjustColorForDisplay: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)",r,g,b,R,G,B);
+	HBLogDebug(@"adjustColorForDisplay: (r,g,b) = (%0.2f,%0.2f,%0.2f) => (%0.2f,%0.2f,%0.2f)", r, g, b, R, G, B);
 
 	UIColor *displayColor = [UIColor colorWithRed:R green:G blue:B alpha:a];
 
-	HBLogDebug(@"adjustColorForDisplay: displayColor = %@",displayColor);
+	HBLogDebug(@"adjustColorForDisplay: displayColor = %@", displayColor);
 
 	return displayColor;
 }
@@ -285,7 +285,7 @@
 	if (badgeColors)
 		return badgeColors;
 
-	HBLogDebug(@"getBadgeColorsForApplicationIcon: scanning app: %@",iconInfo.nodeIdentifier);
+	HBLogDebug(@"getBadgeColorsForApplicationIcon: scanning app: %@", iconInfo.nodeIdentifier);
 
 //	[[CMBSexerUpper sharedInstance] saveImage:iconInfo.image withName:iconInfo.nodeIdentifier andPostfix:@"-masked"];
 //	[[CMBSexerUpper sharedInstance] saveImage:iconInfo.unmaskedImage withName:iconInfo.nodeIdentifier andPostfix:@"-unmasked"];
@@ -294,7 +294,7 @@
 
 	badgeColors.borderColor = [self getPreferredBorderColor:badgeColors];
 
-	HBLogDebug(@"getBadgeColorsForApplicationIcon: app: %@  backgroundColor = %@",iconInfo.nodeIdentifier,badgeColors.backgroundColor);
+	HBLogDebug(@"getBadgeColorsForApplicationIcon: app: %@  backgroundColor = %@", iconInfo.nodeIdentifier, badgeColors.backgroundColor);
 
 	[cachedAppBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
 
@@ -313,17 +313,17 @@
 	{
 		if ([badgeNumberOrString integerValue] <= 0)
 		{
-			HBLogDebug(@"getBadgeValueType: kEmptyBadge (non-positive NSNumber): [%@]",NSStringFromClass([badgeNumberOrString class]));
+			HBLogDebug(@"getBadgeValueType: kEmptyBadge (non-positive NSNumber): [%@]", NSStringFromClass([badgeNumberOrString class]));
 			return kEmptyBadge;
 		}
 
-		HBLogDebug(@"getBadgeValueType: kNumericBadge (NSNumber): [%@]",NSStringFromClass([badgeNumberOrString class]));
+		HBLogDebug(@"getBadgeValueType: kNumericBadge (NSNumber): [%@]", NSStringFromClass([badgeNumberOrString class]));
 		return kNumericBadge;
 	}
 
 	if (![badgeNumberOrString isKindOfClass:[NSString class]])
 	{
-		HBLogDebug(@"getBadgeValueType: kEmptyBadge (not NSString): [%@]",NSStringFromClass([badgeNumberOrString class]));
+		HBLogDebug(@"getBadgeValueType: kEmptyBadge (not NSString): [%@]", NSStringFromClass([badgeNumberOrString class]));
 		return kEmptyBadge;
 	}
 
@@ -343,12 +343,12 @@
 
 	// 1. check string as-is
 
-	HBLogDebug(@"getBadgeValueType: 1. checking string for numeracy as-is: [%@]",badgeString);
+	HBLogDebug(@"getBadgeValueType: 1. checking string for numeracy as-is: [%@]", badgeString);
 
 	scanner = [NSScanner scannerWithString:badgeString];
 	isNumeric = [scanner scanInteger:&badgeValue] && [scanner isAtEnd];
 
-	HBLogDebug(@"getBadgeValueType: 1. isNumeric = %@ / badgeValue = %ld",(isNumeric)?@"YES":@"NO",(long)badgeValue);
+	HBLogDebug(@"getBadgeValueType: 1. isNumeric = %@ / badgeValue = %ld", isNumeric ? @"YES" : @"NO", (long)badgeValue);
 
 	if ((isNumeric) && (badgeValue >= 0))
 	{
@@ -361,12 +361,12 @@
 	NSString *groupingSeparator = [[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator];
 	NSString *delocalizedBadgeString = [badgeString stringByReplacingOccurrencesOfString:groupingSeparator withString:@""];
 
-	HBLogDebug(@"getBadgeValueType: 2. checking delocalized string: [%@] - [%@] => [%@]",badgeString,groupingSeparator,delocalizedBadgeString);
+	HBLogDebug(@"getBadgeValueType: 2. checking delocalized string: [%@] - [%@] => [%@]", badgeString, groupingSeparator, delocalizedBadgeString);
 
 	scanner = [NSScanner scannerWithString:delocalizedBadgeString];
 	isNumeric = [scanner scanInteger:&badgeValue] && [scanner isAtEnd];
 
-	HBLogDebug(@"getBadgeValueType: 2. isNumeric = %@ / badgeValue = %ld",(isNumeric)?@"YES":@"NO",(long)badgeValue);
+	HBLogDebug(@"getBadgeValueType: 2. isNumeric = %@ / badgeValue = %ld", isNumeric ? @"YES" : @"NO", (long)badgeValue);
 
 	if ((isNumeric) && (badgeValue >= 0))
 	{
@@ -376,7 +376,7 @@
 
 		NSString *relocalizedBadgeString = [numberFormatter stringFromNumber:@(badgeValue)];
 
-		HBLogDebug(@"getBadgeValueType: 2. checking relocalized string: [%@] = [%@]",badgeString,relocalizedBadgeString);
+		HBLogDebug(@"getBadgeValueType: 2. checking relocalized string: [%@] = [%@]", badgeString, relocalizedBadgeString);
 
 		if ([badgeString isEqualToString:relocalizedBadgeString])
 		{
@@ -406,9 +406,9 @@
 
 - (CMBColorInfo *)getBadgeColorsForApplication:(CMBIconInfo *)iconInfo
 {
-//	HBLogDebug(@"getBadgeColorsForApplication: scanning app: %@",iconInfo.nodeIdentifier);
+//	HBLogDebug(@"getBadgeColorsForApplication: scanning app: %@", iconInfo.nodeIdentifier);
 
-	HBLogDebug(@"configuring for application icon: %@ (%@) with badge value: %@",iconInfo.nodeIdentifier,iconInfo.displayName,[iconInfo realBadgeNumberOrString]);
+	HBLogDebug(@"configuring for application icon: %@ (%@) with badge value: %@", iconInfo.nodeIdentifier, iconInfo.displayName, [iconInfo realBadgeNumberOrString]);
 
 	CMBColorInfo *badgeColors;
 
@@ -448,11 +448,11 @@
 
 	if (kEmptyBadge == badgeType)
 	{
-		HBLogDebug(@"validBadgeNumberOrString: %@: badgeNumberOrString: %@  [INVALID]",iconInfo.nodeIdentifier,thisBadgeCount);
+		HBLogDebug(@"validBadgeNumberOrString: %@: badgeNumberOrString: %@  [INVALID]", iconInfo.nodeIdentifier, thisBadgeCount);
 		return nil;
 	}
 
-	HBLogDebug(@"validBadgeNumberOrString: %@: badgeNumberOrString: %@",iconInfo.nodeIdentifier,thisBadgeCount);
+	HBLogDebug(@"validBadgeNumberOrString: %@: badgeNumberOrString: %@", iconInfo.nodeIdentifier, thisBadgeCount);
 
 	return thisBadgeCount;
 }
@@ -570,7 +570,7 @@
 
 - (CMBColorInfo *)getBadgeColorsForFolderUsingColorsFromRandomBadge:(CMBIconInfo *)iconInfo preferCachedColors:(BOOL)preferCachedColors
 {
-	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: begin",iconInfo.nodeIdentifier);
+	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: begin", iconInfo.nodeIdentifier);
 
 	CMBColorInfo *badgeColors = [cachedRandomFolderBadgeColors objectForKey:iconInfo.nodeIdentifier];
 
@@ -578,7 +578,7 @@
 	{
 		if (preferCachedColors)
 		{
-			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: preferring cached colors",iconInfo.nodeIdentifier);
+			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: preferring cached colors", iconInfo.nodeIdentifier);
 			return badgeColors;
 		}
 
@@ -586,11 +586,11 @@
 
 		CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
 
-		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: examining cached colors; elapsed: %f",iconInfo.nodeIdentifier,now-badgeColors.now);
+		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: examining cached colors; elapsed: %f", iconInfo.nodeIdentifier, now - badgeColors.now);
 
 		if ((now - badgeColors.now) < 0.5)
 		{
-			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: found recent colors",iconInfo.nodeIdentifier);
+			HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: found recent colors", iconInfo.nodeIdentifier);
 
 			badgeColors.now = CFAbsoluteTimeGetCurrent();
 			[cachedRandomFolderBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
@@ -598,7 +598,7 @@
 			return badgeColors;
 		}
 
-		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: found stale colors",iconInfo.nodeIdentifier);
+		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: found stale colors", iconInfo.nodeIdentifier);
 	}
 
 	// choose new icon if no cached or stale icon
@@ -627,7 +627,7 @@
 	{
 		targetIconInfo = badgedIcons[arc4random_uniform([badgedIcons count])];
 
-		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: chose random icon: %@",iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier);
+		HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: chose random icon: %@", iconInfo.nodeIdentifier, targetIconInfo.nodeIdentifier);
 	}
 
 	if (!targetIconInfo)
@@ -639,8 +639,8 @@
 	badgeColors.now = CFAbsoluteTimeGetCurrent();
 	[cachedRandomFolderBadgeColors setObject:badgeColors forKey:iconInfo.nodeIdentifier];
 
-	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: using icon: %@  with badge value: %@"
-		,iconInfo.nodeIdentifier,targetIconInfo.nodeIdentifier,[targetIconInfo realBadgeNumberOrString]);
+	HBLogDebug(@"getBadgeColorsForFolderUsingColorsFromRandomBadge: %@: using icon: %@  with badge value: %@",
+		iconInfo.nodeIdentifier, targetIconInfo.nodeIdentifier, [targetIconInfo realBadgeNumberOrString]);
 
 	return badgeColors;
 }
@@ -799,7 +799,7 @@
 
 - (CMBColorInfo *)getBadgeColorsForFolder:(CMBIconInfo *)iconInfo
 {
-	HBLogDebug(@"configuring for folder icon: %@ (%@) with badge value: %@",iconInfo.nodeIdentifier,iconInfo.displayName,[iconInfo realBadgeNumberOrString]);
+	HBLogDebug(@"configuring for folder icon: %@ (%@) with badge value: %@", iconInfo.nodeIdentifier, iconInfo.displayName, [iconInfo realBadgeNumberOrString]);
 
 	CMBColorInfo *badgeColors;
 
@@ -895,7 +895,7 @@
 		if (!badgeNumberOrString)
 			continue;
 
-		HBLogDebug(@"redrawBadges: redrawing: %@",[icon applicationBundleID]);
+		HBLogDebug(@"redrawBadges: redrawing: %@", [icon applicationBundleID]);
 
 //		[icon noteBadgeDidChange];
 		[icon setBadge:nil];
@@ -916,7 +916,7 @@
 
 - (void)refreshBadgesForApplication:(NSString *)applicationBundleID
 {
-	HBLogDebug(@"refreshBadgesForApplication: refreshing badges for app: %@",applicationBundleID);
+	HBLogDebug(@"refreshBadgesForApplication: refreshing badges for app: %@", applicationBundleID);
 
 	[cachedRandomFolderBadgeColors removeAllObjects];
 
