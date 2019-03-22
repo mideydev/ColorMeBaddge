@@ -49,7 +49,14 @@
 
 	[self saveSettings];
 
-	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),CFSTR(CMB_PREFS_CHANGED_NOTIFICATION),NULL,NULL,TRUE);
+	NSString *notification = [specifier propertyForKey:@"PostNotification"];
+
+	HBLogDebug(@"setPreferenceValue: notification = [%@]", notification ? notification : @"");
+
+	if (!notification || [notification isEqualToString:@""])
+		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),CFSTR(CMB_PREFS_CHANGED_NOTIFICATION),NULL,NULL,TRUE);
+	else
+		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),(__bridge CFStringRef)notification,NULL,NULL,TRUE);
 }
 
 - (id)readPreferenceValue:(PSSpecifier *)specifier

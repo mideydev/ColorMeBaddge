@@ -27,12 +27,24 @@
 
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier *)specifier
 {
-	[super setPreferenceValue:value specifier:specifier];
-
 	id tweakEnabledSpecifier = [self specifierForID:@"CMBTweakEnabled"];
 
 	if (specifier == tweakEnabledSpecifier)
+	{
+		HBLogDebug(@"setPreferenceValue: tweakEnabled = %@", (value && [value boolValue]) ? @"YES" : @"NO");
+
+		// if tweak is being disabled, use a different notification so we can clean up properly
+//		if (![value boolValue])
+//			[specifier setProperty:@CMB_PREFS_TWEAK_DISABLED_NOTIFICATION forKey:@"PostNotification"];
+
+		[super setPreferenceValue:value specifier:specifier];
+
 		[self showColorBadgesWarningIfBothEnabled];
+
+		return;
+	}
+
+	[super setPreferenceValue:value specifier:specifier];
 }
 
 - (NSArray *)specifiers
