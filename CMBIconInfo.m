@@ -39,7 +39,7 @@
 	{
 		// should be same as nodeIdentifier
 		iconInfo.nodeIdentifier = [icon applicationBundleID];
-		iconInfo.displayName = iconInfo.nodeIdentifier;
+		iconInfo.displayName = [icon displayName];
 		iconInfo.isApplication = YES;
 
 #if 0
@@ -53,11 +53,13 @@
 	}
 	else if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 	{
-		// this selector should exist, but crashes on 9.3.3 (maybe elsewhere) with error:
-		// *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[SBFolderIcon copyWithZone:]: unrecognized selector sent to instance 0x........
-//		iconInfo.nodeIdentifier = [icon nodeIdentifier];
+		// [icon nodeIdentifier] -- this selector should exist, but crashes on 9.3.3 (maybe elsewhere) with error:
+		// *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[SBFolderIcon copyWithZone:]: unrecognized selector sent to instance 0x........'
+		//iconInfo.nodeIdentifier = [icon nodeIdentifier];
+
+		// just looking for uniqueness so this should suffice:
 		iconInfo.nodeIdentifier = [NSString stringWithFormat:@"%p", icon];
-		iconInfo.displayName = [[icon folder] displayName];
+		iconInfo.displayName = [icon displayName];
 		iconInfo.isApplication = NO;
 	}
 	else
