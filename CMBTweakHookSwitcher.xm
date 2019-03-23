@@ -161,7 +161,10 @@
 
 	HBLogDebug(@"badge.frame          = %@", NSStringFromCGRect(badge.frame));
 
-	badge.layer.cornerRadius = (fminf(CGRectGetWidth(badge.frame), CGRectGetHeight(badge.frame)) - 1.0) / 2.0;
+	CGFloat fullCornerRadius = (fminf(CGRectGetWidth(badge.frame), CGRectGetHeight(badge.frame)) - 1.0) / 2.0;
+	CGFloat cornerRadius = [[CMBManager sharedInstance] getScaledCornerRadius:fullCornerRadius];
+
+	badge.layer.cornerRadius = cornerRadius;
 	badge.layer.masksToBounds = YES;
 
 	if ([[CMBPreferences sharedInstance] badgeBordersEnabled])

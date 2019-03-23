@@ -938,6 +938,18 @@
 	[self refreshBadgesForAllApplications];
 }
 
+- (CGFloat)getScaledCornerRadius:(CGFloat)fullCornerRadius
+{
+	CGFloat cornerRoundnessScale = (CGFloat)[[CMBPreferences sharedInstance] badgeCornerRoundnessScale] / 100.0;
+
+	// scale corner radius, rounding to nearest half
+	CGFloat cornerRadius = round(fullCornerRadius * cornerRoundnessScale * 2.0) / 2.0;
+
+	HBLogDebug(@"getScaledCornerRadius: fullCornerRadius: %0.2f  scale: %0.3f => cornerRadius: %0.2f", fullCornerRadius, cornerRoundnessScale, cornerRadius);
+
+	return cornerRadius;
+}
+
 @end
 
 // vim:ft=objc

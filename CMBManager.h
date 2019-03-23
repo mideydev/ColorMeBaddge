@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger,BadgeValueType)
 - (void)refreshBadges:(NSString *)applicationBundleID;
 - (void)refreshBadgesForApplication:(NSString *)applicationBundleID;
 - (void)refreshBadgesForAllApplications;
+- (CGFloat)getScaledCornerRadius:(CGFloat)fullCornerRadius;
 @end
 
 // vim:ft=objc
