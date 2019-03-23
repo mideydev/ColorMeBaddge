@@ -1,6 +1,6 @@
 # ColorMeBaddge
 
-Compatible with iOS 8.4 - 11.3.1
+Compatible with iOS 8.4 - 12.1.2
 
 Sex up your badges with icon-based colors that feel so right it can't be wrong!
 
@@ -27,6 +27,10 @@ Set a custom color, use the color of the contained badge (if applicable), or let
 ## Special Badges
 
 Some badges are not numeric and act more as alerts, such as the Messages delivery failure "!" badge. If desired, you can assign custom colors for these badges so that they stand out.
+
+## Shape Settings
+
+You can grow or shrink your badges to reasonable sizes, and adjust the roundness of the badge corners.
 
 ## Border Settings
 
