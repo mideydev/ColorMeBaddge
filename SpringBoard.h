@@ -16,6 +16,7 @@
 @interface SBIcon : NSObject
 - (id)getIconImage:(int)arg1;
 - (id)nodeIdentifier;
+- (NSString *)displayName;
 - (id)badgeNumberOrString;
 - (void)noteBadgeDidChange;
 - (void)setBadge:(id)arg1;
@@ -37,6 +38,7 @@
 @end
 
 @interface SBFolder : NSObject
+- (NSString *)displayName;
 @property(readonly, copy, nonatomic) NSArray *lists;
 @end
 
