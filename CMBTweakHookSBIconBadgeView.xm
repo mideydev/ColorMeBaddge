@@ -7,9 +7,6 @@
 // keep track of per-view text colors when crossfading
 static NSMutableDictionary *crossfadeColors = nil;
 
-// holds an image of the smallest size we want the badge to be
-//static UIImage *minimalImage = nil;
-
 static BOOL tweakIsOrWasPreviouslyEnabled()
 {
 	// sticky enable flag (disable tweak and respring to clear)
@@ -349,9 +346,14 @@ static UIImage *colorizeImage(UIImage *image, UIColor *color)
 	HBLogDebug(@"setBadgeBackgroundColor: fullRect  : { %0.2f x %0.2f }", fullRect.size.width, fullRect.size.height);
 	HBLogDebug(@"setBadgeBackgroundColor: badgeRect : { %0.2f x %0.2f }", badgeRect.size.width, badgeRect.size.height);
 
-	CGFloat cornerRadius = ((fminf(badgeSize.width, badgeSize.height) - 2.0 * paddingPoints) - 1.0) / 2.0;
+	// badgeCornerRoundnessScale is user preference for the corner radius scaling percentage relative to the full value
+	CGFloat fullCornerRadius = ((fminf(badgeSize.width, badgeSize.height) - 2.0 * paddingPoints) - 1.0) / 2.0;
+	CGFloat cornerRoundnessScale = (CGFloat)[[CMBPreferences sharedInstance] badgeCornerRoundnessScale] / 100.0;
 
-	HBLogDebug(@"setBadgeBackgroundColor: cornerRadius: %0.2f", cornerRadius);
+	// scale corner radius, rounding to nearest half
+	CGFloat cornerRadius = round(fullCornerRadius * cornerRoundnessScale * 2.0) / 2.0;
+	
+	HBLogDebug(@"setBadgeBackgroundColor: fullCornerRadius: %0.2f  scale: %0.3f => cornerRadius: %0.2f", fullCornerRadius, cornerRoundnessScale, cornerRadius);
 
 	UIView *badgeView = [[UIView alloc] initWithFrame:badgeRect];
 	badgeView.layer.cornerRadius = cornerRadius;

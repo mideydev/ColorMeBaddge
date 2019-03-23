@@ -58,6 +58,19 @@
 			<key>detail</key>
 			<string>CMBSpecialListController</string>
 		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>SHAPE_SETTINGS_LABEL</string>
+			<key>detail</key>
+			<string>CMBShapeListController</string>
+		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSLinkCell</string>

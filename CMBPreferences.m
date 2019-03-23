@@ -76,6 +76,10 @@ static void settingsChanged(CFNotificationCenterRef center, void *observer, CFSt
 	HBLogDebug(@"[logSettings] specialBadgesBackgroundColor     = %@", self.specialBadgesBackgroundColor);
 	HBLogDebug(@"[logSettings] specialBadgesForegroundColor     = %@", self.specialBadgesForegroundColor);
 
+	HBLogDebug(@"[logSettings] ---[ shape settings ]---");
+	HBLogDebug(@"[logSettings] badgeSizeAdjustment              = %0.2f", self.badgeSizeAdjustment);
+	HBLogDebug(@"[logSettings] badgeCornerRoundnessScale        = %ld", (long)self.badgeCornerRoundnessScale);
+
 	HBLogDebug(@"[logSettings] ---[ border settings ]---");
 	HBLogDebug(@"[logSettings] badgeBordersEnabled              = %@", self.badgeBordersEnabled ? @"YES" : @"NO");
 	HBLogDebug(@"[logSettings] badgeBorderType                  = %ld", (long)self.badgeBorderType);
@@ -88,7 +92,6 @@ static void settingsChanged(CFNotificationCenterRef center, void *observer, CFSt
 	HBLogDebug(@"[logSettings] badgeColorAdjustmentType         = %ld", (long)self.badgeColorAdjustmentType);
 
 	HBLogDebug(@"[logSettings] ---[ miscellaneous settings ]---");
-	HBLogDebug(@"[logSettings] badgeSizeAdjustment              = %0.2f", self.badgeSizeAdjustment);
 	HBLogDebug(@"[logSettings] useUnmaskedIcons                 = %@", self.useUnmaskedIcons ? @"YES" : @"NO");
 	HBLogDebug(@"[logSettings] showAllBadges                    = %@", self.showAllBadges ? @"YES" : @"NO");
 	HBLogDebug(@"[logSettings] switcherBadgesEnabled            = %@", self.switcherBadgesEnabled ? @"YES" : @"NO");
@@ -119,6 +122,10 @@ static void settingsChanged(CFNotificationCenterRef center, void *observer, CFSt
 	self.specialBadgesBackgroundColor = [UIColor colorFromHexString:@CMB_DEFAULT_SPECIAL_BADGE_BACKGROUND_COLOR];
 	self.specialBadgesForegroundColor = [UIColor colorFromHexString:@CMB_DEFAULT_SPECIAL_BADGE_FOREGROUND_COLOR];
 
+	// shape settings
+	self.badgeSizeAdjustment = CMB_DEFAULT_BADGE_SIZE_ADJUSTMENT;
+	self.badgeCornerRoundnessScale = CMB_DEFAULT_BADGE_CORNER_ROUNDNESS_SCALE;
+
 	// border settings
 	self.badgeBordersEnabled = CMB_DEFAULT_BADGE_BORDERS_ENABLED;
 	self.badgeBorderType = CMB_DEFAULT_BADGE_BORDER_TYPE;
@@ -131,7 +138,6 @@ static void settingsChanged(CFNotificationCenterRef center, void *observer, CFSt
 	self.badgeColorAdjustmentType = CMB_DEFAULT_BADGE_COLOR_ADJUSTMENT_TYPE;
 
 	// miscellaneous settings
-	self.badgeSizeAdjustment = CMB_DEFAULT_BADGE_SIZE_ADJUSTMENT;
 	self.useUnmaskedIcons = CMB_DEFAULT_USE_UNMASKED_ICONS;
 	self.showAllBadges = CMB_DEFAULT_SHOW_ALL_BADGES;
 	self.switcherBadgesEnabled = CMB_DEFAULT_SWITCHER_BADGES_ENABLED;
@@ -173,6 +179,10 @@ static void settingsChanged(CFNotificationCenterRef center, void *observer, CFSt
 		if ((pref = [settings objectForKey:@"specialBadgesBackgroundColor"])) self.specialBadgesBackgroundColor = [UIColor colorFromHexString:pref];
 		if ((pref = [settings objectForKey:@"specialBadgesForegroundColor"])) self.specialBadgesForegroundColor = [UIColor colorFromHexString:pref];
 
+		// shape settings
+		if ((pref = [settings objectForKey:@"badgeSizeAdjustment"])) self.badgeSizeAdjustment = [pref doubleValue];
+		if ((pref = [settings objectForKey:@"badgeCornerRoundnessScale"])) self.badgeCornerRoundnessScale = (NSInteger)round([pref doubleValue]);
+
 		// border settings
 		if ((pref = [settings objectForKey:@"badgeBordersEnabled"])) self.badgeBordersEnabled = [pref boolValue];
 		if ((pref = [settings objectForKey:@"badgeBorderType"])) self.badgeBorderType = [pref integerValue];
@@ -181,11 +191,10 @@ static void settingsChanged(CFNotificationCenterRef center, void *observer, CFSt
 
 		// brightness settings
 		if ((pref = [settings objectForKey:@"colorSpaceType"])) self.colorSpaceType = [pref integerValue];
-		if ((pref = [settings objectForKey:@"brightnessThreshold"])) self.brightnessThreshold = [pref integerValue];
+		if ((pref = [settings objectForKey:@"brightnessThreshold"])) self.brightnessThreshold = (NSInteger)round([pref doubleValue]);
 		if ((pref = [settings objectForKey:@"badgeColorAdjustmentType"])) self.badgeColorAdjustmentType = [pref integerValue];
 
 		// miscellaneous settings
-		if ((pref = [settings objectForKey:@"badgeSizeAdjustment"])) self.badgeSizeAdjustment = [pref doubleValue];
 		if ((pref = [settings objectForKey:@"useUnmaskedIcons"])) self.useUnmaskedIcons = [pref boolValue];
 		if ((pref = [settings objectForKey:@"showAllBadges"])) self.showAllBadges = [pref boolValue];
 		if ((pref = [settings objectForKey:@"switcherBadgesEnabled"])) self.switcherBadgesEnabled = [pref boolValue];
