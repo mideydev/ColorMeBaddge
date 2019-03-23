@@ -63,6 +63,23 @@ UIColor *getCrossfadeColor(NSString *key)
 	return crossfadeColor;
 }
 
+static UIImage *colorizeImage(UIImage *image, UIColor *color)
+{
+	UIImage *colorizedImage;
+
+	UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	[color setFill];
+	CGContextTranslateCTM(context, 0, image.size.height);
+	CGContextScaleCTM(context, 1.0, -1.0);
+	CGContextClipToMask(context, CGRectMake(0, 0, image.size.width, image.size.height), [image CGImage]);
+	CGContextFillRect(context, CGRectMake(0, 0, image.size.width, image.size.height));
+	colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+
+	return colorizedImage;
+}
+
 %hook SBIconBadgeView
 
 %group iOS10OrLess
@@ -116,7 +133,7 @@ UIColor *getCrossfadeColor(NSString *key)
 	if (arg1)
 	{
 		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@", arg1);
-		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:crossfadeColor];
+		arg1 = colorizeImage(arg1, crossfadeColor);
 	}
 
 	%orig();
@@ -175,7 +192,7 @@ UIColor *getCrossfadeColor(NSString *key)
 	if (arg1)
 	{
 		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@", arg1);
-		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:crossfadeColor];
+		arg1 = colorizeImage(arg1, crossfadeColor);
 	}
 
 	%orig();
@@ -234,7 +251,7 @@ UIColor *getCrossfadeColor(NSString *key)
 	if (arg1)
 	{
 		HBLogDebug(@"_crossfadeToTextImage: colorizing: arg1 = %@", arg1);
-		arg1 = [[CMBSexerUpper sharedInstance] colorizeImage:arg1 withColor:crossfadeColor];
+		arg1 = colorizeImage(arg1, crossfadeColor);
 	}
 
 	%orig();
@@ -404,7 +421,7 @@ UIColor *getCrossfadeColor(NSString *key)
 	if (!textView)
 		return;
 
-	colorizedImage = [[CMBSexerUpper sharedInstance] colorizeImage:textImage withColor:badgeColors.foregroundColor];
+	colorizedImage = colorizeImage(textImage, badgeColors.foregroundColor);
 
 	if (!colorizedImage)
 		return;

@@ -13,7 +13,6 @@
 - (UIColor *)adjustBorderColorByPreference:(UIColor *)color;
 - (UIColor *)adjustAppBadgeBackgroundColorByPreference:(UIColor *)color;
 - (UIColor *)adjustAppBadgeForegroundColorByPreference:(UIColor *)color;
-- (UIImage *)colorizeImage:(UIImage *)image withColor:(UIColor *)color;
 - (CMBColorInfo *)getColorsUsingLEColorPicker:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingCCColorCube:(UIImage *)image;
 - (CMBColorInfo *)getColorsUsingBooverAlgorithm:(UIImage *)image;

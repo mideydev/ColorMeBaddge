@@ -36,33 +36,6 @@
 	return sharedInstance;
 }
 
-- (UIImage *)colorizeImage:(UIImage *)image withColor:(UIColor *)color
-{
-	if (!image)
-	{
-		HBLogDebug(@"colorizeImage: called with nil image and color: %@", color);
-		return image;
-	}
-
-	if (!color)
-	{
-		HBLogDebug(@"colorizeImage: called with nil color");
-		return image;
-	}
-
-	UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	[color setFill];
-	CGContextTranslateCTM(context, 0, image.size.height);
-	CGContextScaleCTM(context, 1.0, -1.0);
-	CGContextClipToMask(context, CGRectMake(0, 0, image.size.width, image.size.height), [image CGImage]);
-	CGContextFillRect(context, CGRectMake(0, 0, image.size.width, image.size.height));
-	UIImage *colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-
-	return colorizedImage;
-}
-
 - (CGFloat)getBrightnessForColorUsingRGB:(UIColor *)color
 {
 	CGColorRef colorref = [color CGColor];
