@@ -40,7 +40,9 @@
 	if (![[objc_getClass("SBIconController") sharedInstance] iconAllowsBadging:[self icon]])
 		return;
 
-	id badgeNumberOrString = [[self icon] badgeNumberOrString];
+	// have to dip into application, otherwise numeric values get converted twice (e.g. "8" becomes "1000" then "1111101000")
+	//id badgeNumberOrString = [[self icon] badgeValueOrString];
+	id badgeNumberOrString = [[[self icon] application] badgeValue];
 
 	NSInteger badgeType = [[CMBManager sharedInstance] getBadgeValueType:badgeNumberOrString];
 

@@ -55,6 +55,10 @@
 - (id)badgeNumberOrString;
 @end
 
+@interface SBApplication : NSObject
+- (id)badgeValue;
+@end
+
 @interface SBDarkeningImageView : UIImageView
 - (void)setImage:(id)arg1;
 @end
