@@ -1,4 +1,5 @@
 #import "SpringBoard.h"
+#import "CMBIconInfo.h"
 #import "CMBManager.h"
 #import "CMBPreferences.h"
 
@@ -40,9 +41,9 @@
 	if (![[objc_getClass("SBIconController") sharedInstance] iconAllowsBadging:[self icon]])
 		return;
 
-	// have to dip into application, otherwise numeric values get converted twice (e.g. "8" becomes "1000" then "1111101000")
-	//id badgeNumberOrString = [[self icon] badgeValueOrString];
-	id badgeNumberOrString = [[[self icon] application] badgeValue];
+	CMBIconInfo *iconInfo = [[CMBIconInfo sharedInstance] getIconInfo:[self icon]];
+
+	id badgeNumberOrString = [iconInfo fakeBadgeNumberOrString];
 
 	NSInteger badgeType = [[CMBManager sharedInstance] getBadgeValueType:badgeNumberOrString];
 

@@ -77,6 +77,15 @@
 	return [self.icon badgeNumberOrString];
 }
 
+- (id)fakeBadgeNumberOrString
+{
+	// have to dip into application, otherwise numeric values get converted twice (e.g. "8" becomes "1000" then "1111101000")
+	if (self.isApplication)
+		return [[self.icon application] badgeValue];
+
+	return [self.icon badgeNumberOrString];
+}
+
 @end
 
 // vim:ft=objc
