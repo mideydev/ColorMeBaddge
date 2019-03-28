@@ -10,6 +10,7 @@
 
 @implementation UIImage (ChameleonPrivate)
 
+#if 0
 // Would not have been possible without - http://stackoverflow.com/a/1262893
 + (UIColor *)colorFromImage:(UIImage *)image atPoint:(CGPoint)point {
     
@@ -50,6 +51,7 @@
     //Return color
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
+#endif
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     
