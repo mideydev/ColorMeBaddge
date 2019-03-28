@@ -99,8 +99,8 @@
 	NSInteger brightnessThreshold = [[CMBPreferences sharedInstance] brightnessThreshold];
 
 /*
-	CGFloat whiteDistance = [backgroundColor distanceFromColor:realWhiteColor type:ColoursColorDistanceCIE2000];
-	CGFloat blackDistance = [backgroundColor distanceFromColor:realBlackColor type:ColoursColorDistanceCIE2000];
+	CGFloat whiteDistance = [backgroundColor distanceFromColor:REAL_WHITE_COLOR type:ColoursColorDistanceCIE2000];
+	CGFloat blackDistance = [backgroundColor distanceFromColor:REAL_BLACK_COLOR type:ColoursColorDistanceCIE2000];
 
 	HBLogDebug(@"getForegroundColorByBrightnessThreshold: n = %0.2f  pref = %ld --> %@ / wD = %0.2f bD = %0.2f --> %@",
 				normalizedBrightness,
@@ -113,9 +113,9 @@
 */
 
 	if (normalizedBrightness > brightnessThreshold)
-		return realBlackColor;
+		return REAL_BLACK_COLOR;
 
-	return realWhiteColor;
+	return REAL_WHITE_COLOR;
 }
 
 - (UIColor *)shadeColorUsingRGB:(UIColor *)color toNormalizedBrightness:(CGFloat)targetBrightness

@@ -55,7 +55,7 @@
 	UIColor *foregroundColor = currentColors.foregroundColor;
 
 	if (!backgroundColor)
-		backgroundColor = fallbackAppBadgeBackgroundColor;
+		backgroundColor = [[CMBColorInfo sharedInstance] stockBackgroundColor];
 
 	switch ([[CMBPreferences sharedInstance] appBadgeForegroundType])
 	{
@@ -243,7 +243,7 @@
 	if (badgeColors)
 		return badgeColors;
 
-	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackAppBadgeBackgroundColor andForegroundColor:fallbackAppBadgeForegroundColor];
+	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithStockColors];
 
 	return badgeColors;
 }
@@ -401,7 +401,16 @@
 	if (kSpecialBadge != badgeType)
 		return nil;
 
-	return [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackSpecialBadgeBackgroundColor andForegroundColor:fallbackSpecialBadgeForegroundColor];
+	CMBColorInfo *badgeColors;
+
+	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] specialBadgesBackgroundColor] andForegroundColor:[[CMBPreferences sharedInstance] specialBadgesBackgroundColor]];
+
+	if (badgeColors)
+		return badgeColors;
+
+	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:FALLBACK_SPECIAL_BADGES_BACKGROUND_COLOR andForegroundColor:FALLBACK_SPECIAL_BADGES_FOREGROUND_COLOR];
+
+	return badgeColors;
 }
 
 - (CMBColorInfo *)getBadgeColorsForApplication:(CMBIconInfo *)iconInfo
@@ -792,7 +801,7 @@
 	if (badgeColors)
 		return badgeColors;
 
-	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackFolderBadgeBackgroundColor andForegroundColor:fallbackFolderBadgeForegroundColor];
+	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithStockColors];
 
 	return badgeColors;
 }
@@ -818,14 +827,14 @@
 
 - (CMBColorInfo *)getBadgeColorsForUnknown
 {
-	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackUnknownBadgeBackgroundColor andForegroundColor:fallbackUnknownBadgeForegroundColor];
+	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithStockColors];
 
 	return badgeColors;
 }
 
 - (CMBColorInfo *)getBadgeColorsForDisabled
 {
-	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:fallbackDisabledBadgeBackgroundColor andForegroundColor:fallbackDisabledBadgeForegroundColor];
+	CMBColorInfo *badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithStockColors];
 
 	return badgeColors;
 }

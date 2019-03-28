@@ -7,6 +7,9 @@
 // keep track of per-view text colors when crossfading
 static NSMutableDictionary *crossfadeColors = nil;
 
+// stock iOS badge color, determined at runtime
+static UIColor *stockBadgeColor = nil;
+
 static BOOL tweakIsOrWasPreviouslyEnabled()
 {
 	// sticky enable flag (disable tweak and respring to clear)
@@ -77,67 +80,93 @@ static UIImage *colorizeImage(UIImage *image, UIColor *color)
 	return colorizedImage;
 }
 
+static UIColor *colorOfPixelAtXY(UIImage *image, int x, int y)
+{
+	int w = CGImageGetWidth(image.CGImage);
+	int h = CGImageGetHeight(image.CGImage);
+
+	struct pixel { unsigned char r, g, b, a; };
+
+	struct pixel* pixels = (struct pixel*) calloc(1, w * h * sizeof(struct pixel));
+
+	CGContextRef context = CGBitmapContextCreate((void*) pixels, w, h, 8, w * 4, CGImageGetColorSpace(image.CGImage), kCGImageAlphaPremultipliedLast);
+	CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, w, h), image.CGImage);
+
+	int i = (w * y) + x;
+	UIColor* pixelColor =  [UIColor colorWithRed:pixels[i].r/255.0f green:pixels[i].g/255.0f blue:pixels[i].b/255.0f alpha:1.0f];
+
+	CGContextRelease(context);
+	free(pixels);
+
+	HBLogDebug(@"colorOfPixelAtXY: {x, y} = {%d, %d} < [%d, %d] => color: %@", x, y, w, h, pixelColor);
+
+	return pixelColor;
+}
+
+static UIColor *colorOfMiddlePixel(UIImage *image)
+{
+	return colorOfPixelAtXY(image, CGImageGetWidth(image.CGImage) / 2, CGImageGetHeight(image.CGImage) / 2);
+}
+
 // taken from: https://stackoverflow.com/a/14472163
 static BOOL containsColorizedTextSuchAsEmoji(NSString *text)
 {
-    UILabel *characterRender = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    characterRender.text = text;
-    characterRender.backgroundColor = [UIColor blackColor];//needed to remove subpixel rendering colors
-    [characterRender sizeToFit];
+	UILabel *characterRender = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+	characterRender.text = text;
+	characterRender.backgroundColor = [UIColor blackColor];//needed to remove subpixel rendering colors
+	[characterRender sizeToFit];
 
-    CGRect rect = [characterRender bounds];
-    UIGraphicsBeginImageContextWithOptions(rect.size,YES,0.0f);
-    CGContextRef contextSnap = UIGraphicsGetCurrentContext();
-    [characterRender.layer renderInContext:contextSnap];
-    UIImage *capturedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+	CGRect rect = [characterRender bounds];
+	UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0f);
+	CGContextRef contextSnap = UIGraphicsGetCurrentContext();
+	[characterRender.layer renderInContext:contextSnap];
+	UIImage *capturedImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
 
-    CGImageRef imageRef = [capturedImage CGImage];
-    NSUInteger width = CGImageGetWidth(imageRef);
-    NSUInteger height = CGImageGetHeight(imageRef);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    unsigned char *rawData = (unsigned char*) calloc(height * width * 4, sizeof(unsigned char));
-    NSUInteger bytesPerPixel = 4;
-    NSUInteger bytesPerRow = bytesPerPixel * width;
-    NSUInteger bitsPerComponent = 8;
-    CGContextRef context = CGBitmapContextCreate(rawData, width, height,
-                                                 bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGColorSpaceRelease(colorSpace);
+	CGImageRef imageRef = [capturedImage CGImage];
+	NSUInteger width = CGImageGetWidth(imageRef);
+	NSUInteger height = CGImageGetHeight(imageRef);
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	unsigned char *rawData = (unsigned char*) calloc(height * width * 4, sizeof(unsigned char));
+	NSUInteger bytesPerPixel = 4;
+	NSUInteger bytesPerRow = bytesPerPixel * width;
+	NSUInteger bitsPerComponent = 8;
+	CGContextRef context = CGBitmapContextCreate(rawData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+	CGColorSpaceRelease(colorSpace);
 
-    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
-    CGContextRelease(context);
+	CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+	CGContextRelease(context);
 
-    BOOL colorPixelFound = NO;
+	BOOL colorPixelFound = NO;
 
-    int x = 0;
-    int y = 0;
-    while (y < height && !colorPixelFound) {
-        while (x < width && !colorPixelFound) {
+	int x = 0;
+	int y = 0;
+	while (y < height && !colorPixelFound) {
+		while (x < width && !colorPixelFound) {
 
-            NSUInteger byteIndex = (bytesPerRow * y) + x * bytesPerPixel;
+			NSUInteger byteIndex = (bytesPerRow * y) + x * bytesPerPixel;
 
-            CGFloat red = (CGFloat)rawData[byteIndex];
-            CGFloat green = (CGFloat)rawData[byteIndex+1];
-            CGFloat blue = (CGFloat)rawData[byteIndex+2];
+			CGFloat red = (CGFloat)rawData[byteIndex];
+			CGFloat green = (CGFloat)rawData[byteIndex+1];
+			CGFloat blue = (CGFloat)rawData[byteIndex+2];
 
-            CGFloat h, s, b, a;
-            UIColor *c = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
-            [c getHue:&h saturation:&s brightness:&b alpha:&a];
+			CGFloat h, s, b, a;
+			UIColor *c = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
+			[c getHue:&h saturation:&s brightness:&b alpha:&a];
 
-            b /= 255.0f;
+			b /= 255.0f;
 
-            if (b > 0) {
-                colorPixelFound = YES;
-            }
+			if (b > 0) {
+				colorPixelFound = YES;
+			}
 
-            x++;
-        }
-        x=0;
-        y++;
-    }
+			x++;
+		}
+		x=0;
+		y++;
+	}
 
-    return colorPixelFound;
+	return colorPixelFound;
 }
 
 %hook SBIconBadgeView
@@ -377,6 +406,17 @@ static BOOL containsColorizedTextSuchAsEmoji(NSString *text)
 	if (!backgroundView)
 		return;
 
+	// extract stock badge color if we haven't already
+	@synchronized(stockBadgeColor)
+	{
+		if (!stockBadgeColor)
+		{
+			stockBadgeColor = colorOfMiddlePixel(backgroundImage);
+			[CMBColorInfo sharedInstance].stockBackgroundColor = stockBadgeColor;
+			[CMBColorInfo sharedInstance].stockForegroundColor = REAL_WHITE_COLOR;
+		}
+	}
+
 	// colorize the background by recreating it from scratch.  the stock badge image
 	// contains the badge, surrounded by 1 point of empty space.  we attempt to simulate
 	// that by a) creating a colorized badge image 1 point smaller than the stock image,
@@ -464,30 +504,9 @@ static BOOL containsColorizedTextSuchAsEmoji(NSString *text)
 %new
 - (void)setBadgeForegroundColor:(CMBColorInfo *)badgeColors
 {
-	NSString *text;
-	BOOL colorize = YES;
-
-	text = MSHookIvar<NSString *>(self, "_text");
-
-	if (text)
-	{
-		if (containsColorizedTextSuchAsEmoji(text))
-		{
-			HBLogDebug(@"setBadgeForegroundColor: _text: [%@] contains colorized text (emoji?); not colorizing", text);
-
-			colorize = NO;
-		}
-		else
-		{
-			HBLogDebug(@"setBadgeForegroundColor: _text: [%@] does not contain colorized text; colorizing", text);
-		}
-	}
-
 	SBDarkeningImageView *textView;
 	SBIconAccessoryImage *textImage;
-	UIImage *colorizedImage;
-
-	// colorize the text by simply colorizing it
+	NSString *text;
 
 	textImage = MSHookIvar<SBIconAccessoryImage*>(self, "_textImage");
 
@@ -499,19 +518,32 @@ static BOOL containsColorizedTextSuchAsEmoji(NSString *text)
 	if (!textView)
 		return;
 
-	if (colorize)
-	{
-		colorizedImage = colorizeImage(textImage, badgeColors.foregroundColor);
+	text = MSHookIvar<NSString *>(self, "_text");
 
-		if (!colorizedImage)
+	if (text)
+	{
+		if (containsColorizedTextSuchAsEmoji(text))
+		{
+			HBLogDebug(@"setBadgeForegroundColor: _text: [%@] contains colorized text (emoji?); not colorizing", text);
+
+			[textView setImage:textImage];
+
 			return;
+		}
 
-		[textView setImage:colorizedImage];
+		HBLogDebug(@"setBadgeForegroundColor: _text: [%@] does not contain colorized text; colorizing", text);
 	}
-	else
-	{
-		[textView setImage:textImage];
-	}
+
+	// colorize the text by simply colorizing it
+
+	UIImage *colorizedImage;
+
+	colorizedImage = colorizeImage(textImage, badgeColors.foregroundColor);
+
+	if (!colorizedImage)
+		return;
+
+	[textView setImage:colorizedImage];
 }
 
 %new

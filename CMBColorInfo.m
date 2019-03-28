@@ -22,6 +22,8 @@
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[CMBColorInfo alloc] init];
 		// Do any other initialisation stuff here
+		sharedInstance.stockBackgroundColor = STOCK_BADGE_BACKGROUND_COLOR;
+		sharedInstance.stockForegroundColor = STOCK_BADGE_FOREGROUND_COLOR;
 	});
 
 	return sharedInstance;
@@ -36,6 +38,11 @@
 	badgeColors.borderColor = nil;
 
 	return badgeColors;
+}
+
+- (CMBColorInfo *)colorInfoWithStockColors
+{
+	return [self colorInfoWithBackgroundColor:[self stockBackgroundColor] andForegroundColor:[self stockForegroundColor]];
 }
 
 @end
