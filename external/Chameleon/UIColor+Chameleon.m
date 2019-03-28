@@ -244,6 +244,7 @@
     return hsb(40, 100, 100);
 }
 
+#if 0
 #pragma mark - Chameleon - "Color With" Methods
 
 + (UIColor *)colorWithAverageColorFromImage:(UIImage *)image {
@@ -364,6 +365,7 @@
     //Return flat version with default alpha of 1.0
     return [[self class] colorWithFlatVersionOf:color withAlpha:1.0];
 }
+#endif
 
 + (UIColor *)colorWithFlatVersionFrom:(UIColor *)color {
     CGFloat colorAlpha = 0;
@@ -414,6 +416,7 @@
     return [self nearestFlatColorForL:L A:A B:B alpha:alpha];
 }
 
+#if 0
 + (UIColor *)colorWithContrastingBlackOrWhiteColorOn:(UIColor *)backgroundColor isFlat:(BOOL)flat {
     
     //Return color with default alpha value of 1.0
@@ -755,6 +758,7 @@
     
     return randomColor;
 }
+#endif
 
 #pragma mark - Chameleon Instance Methods
 
@@ -763,6 +767,7 @@
     return [UIColor colorWithFlatVersionFrom:self];
 }
 
+#if 0
 - (NSString *)hexValue {
     
     UIColor *currentColor = self;
@@ -778,6 +783,7 @@
     return [NSString stringWithFormat:@"#%02X%02X%02X", (int)((CGColorGetComponents(currentColor.CGColor))[0]*255.0), (int)((CGColorGetComponents(currentColor.CGColor))[1]*255.0), (int)((CGColorGetComponents(currentColor.CGColor))[2]*255.0)];
     
 }
+#endif
 
 - (UIColor * _Nullable)darkenByPercentage:(CGFloat)percentage {
     
@@ -799,6 +805,7 @@
     return nil;
 }
 
+#if 0
 - (UIColor * _Nullable)lightenByPercentage:(CGFloat)percentage {
     
     //Define HSBA values
@@ -871,6 +878,7 @@
     //Return comparison
     return [self isEqual:color];
 }
+#endif
 
 #pragma mark - Chameleon Internal Methods
 
@@ -880,6 +888,7 @@
     return @[FlatBlack, FlatBlackDark, FlatBlue, FlatBlueDark, FlatBrown, FlatBrownDark, FlatCoffee, FlatCoffeeDark, FlatForestGreen, FlatForestGreenDark, FlatGray, FlatGrayDark, FlatGreen, FlatGreenDark, FlatLime, FlatLimeDark, FlatMagenta, FlatMagentaDark, FlatMaroon, FlatMaroonDark, FlatMint, FlatMintDark, FlatNavyBlue, FlatNavyBlueDark, FlatOrange, FlatOrangeDark, FlatPink, FlatPinkDark, FlatPlum, FlatPlumDark, FlatPowderBlue, FlatPowderBlueDark, FlatPurple, FlatPurpleDark, FlatRed, FlatRedDark, FlatSand, FlatSandDark, FlatSkyBlue, FlatSkyBlueDark, FlatTeal, FlatTealDark, FlatWatermelon, FlatWatermelonDark, FlatWhite, FlatWhiteDark, FlatYellow, FlatYellowDark];
 }
 
+#if 0
 - (uint32_t)RGBAValue {
     
     CGFloat rgba[4];
@@ -940,6 +949,7 @@
     CGColorSpaceModel model = CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
     return model == kCGColorSpaceModelMonochrome || model == kCGColorSpaceModelRGB;
 }
+#endif
 
 //Calculate the total sum of differences - Euclidian distance
 //Chameleon is now using the CIEDE2000 formula to calculate distances between 2 colors.

@@ -785,6 +785,7 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
 + (UIColor *)flatYellowDarkColor;
 #endif
 
+#if 0
 #pragma mark - Randomizing Colors
 #if UIKIT_DEFINE_AS_PROPERTIES
 /**
@@ -856,7 +857,9 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 2.0
  */
 + (UIColor *)colorWithRandomFlatColorOfShadeStyle:(UIShadeStyle)shadeStyle withAlpha:(CGFloat)alpha;
+#endif
 
+#if 0
 #pragma mark - Averaging a Color
 
 /**
@@ -881,7 +884,9 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 2.0
  */
 + (UIColor *)colorWithAverageColorFromImage:(UIImage *)image withAlpha:(CGFloat)alpha;
+#endif
 
+#if 0
 #pragma mark - Complementary Colors
 
 /**
@@ -908,7 +913,9 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  */
 
 + (UIColor *)colorWithComplementaryFlatColorOf:(UIColor *)color withAlpha:(CGFloat)alpha;
+#endif
 
+#if 0
 #pragma mark - Contrasting Colors
 
 /**
@@ -936,7 +943,9 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 2.0
  */
 + (UIColor *)colorWithContrastingBlackOrWhiteColorOn:(UIColor *)backgroundColor isFlat:(BOOL)flat alpha:(CGFloat)alpha;
+#endif
 
+#if 0
 #pragma mark - Gradient Colors
 
 /**
@@ -951,7 +960,9 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 2.0
  */
 + (UIColor *)colorWithGradientStyle:(UIGradientStyle)gradientStyle withFrame:(CGRect)frame andColors:(NSArray<UIColor *> * _Nonnull)colors;
+#endif
 
+#if 0
 #pragma mark - Colors from Hex Strings
 
 /**
@@ -978,6 +989,7 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 2.0
  */
 + (UIColor * _Nullable)colorWithHexString:(NSString * _Nonnull)string withAlpha:(CGFloat)alpha;
+#endif
 
 #pragma mark - Instance Methods
 
@@ -1001,6 +1013,7 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  */
 - (UIColor * _Nullable)darkenByPercentage:(CGFloat)percentage;
 
+#if 0
 /**
  *  @author Vicc Alexander
  *
@@ -1022,7 +1035,9 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 2.0
  */
 - (UIColor * _Nullable)lightenByPercentage:(CGFloat)percentage;
+#endif
 
+#if 0
 #pragma mark - Deprecated Methods
 
 /**
@@ -1035,6 +1050,7 @@ typedef NS_ENUM (NSInteger, UIShadeStyle) {
  *  @since 1.0
  */
 + (UIColor *)colorWithFlatVersionOf:(UIColor *)color __attribute((deprecated(" Use -flatten: instead (First deprecated in Chameleon 2.0).")));
+#endif
 
 
 @end
