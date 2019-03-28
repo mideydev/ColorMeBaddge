@@ -506,7 +506,6 @@ static BOOL containsColorizedTextSuchAsEmoji(NSString *text)
 {
 	SBDarkeningImageView *textView;
 	SBIconAccessoryImage *textImage;
-	NSString *text;
 
 	textImage = MSHookIvar<SBIconAccessoryImage*>(self, "_textImage");
 
@@ -518,20 +517,25 @@ static BOOL containsColorizedTextSuchAsEmoji(NSString *text)
 	if (!textView)
 		return;
 
-	text = MSHookIvar<NSString *>(self, "_text");
-
-	if (text)
+	if (![[CMBPreferences sharedInstance] colorizeEmojis])
 	{
-		if (containsColorizedTextSuchAsEmoji(text))
+		NSString *text;
+
+		text = MSHookIvar<NSString *>(self, "_text");
+
+		if (text)
 		{
-			HBLogDebug(@"setBadgeForegroundColor: _text: [%@] contains colorized text (emoji?); not colorizing", text);
+			if (containsColorizedTextSuchAsEmoji(text))
+			{
+				HBLogDebug(@"setBadgeForegroundColor: _text: [%@] contains colorized text (emoji?); not colorizing", text);
 
-			[textView setImage:textImage];
+				[textView setImage:textImage];
 
-			return;
+				return;
+			}
+
+			HBLogDebug(@"setBadgeForegroundColor: _text: [%@] does not contain colorized text; colorizing", text);
 		}
-
-		HBLogDebug(@"setBadgeForegroundColor: _text: [%@] does not contain colorized text; colorizing", text);
 	}
 
 	// colorize the text by simply colorizing it

@@ -24,6 +24,7 @@
 #define CMB_DEFAULT_BADGE_BORDER_WIDTH				1.0
 #define CMB_DEFAULT_SWITCHER_BADGES_ENABLED			NO
 #define CMB_DEFAULT_PROVIDE_COLORS_FOR_COLORBANNERS	NO
+#define CMB_DEFAULT_COLORIZE_EMOJIS					NO
 #define CMB_DEFAULT_BADGE_SIZE_ADJUSTMENT			0.0
 #define CMB_DEFAULT_BADGE_CORNER_ROUNDNESS_SCALE	100
 
@@ -175,6 +176,7 @@ typedef NS_ENUM(NSUInteger,BadgeBorderType)
 @property(nonatomic)		BOOL showAllBadges;
 @property(nonatomic)		BOOL switcherBadgesEnabled;
 @property(nonatomic)		BOOL provideColorsForColorBanners;
+@property(nonatomic)		BOOL colorizeEmojis;
 
 + (instancetype)sharedInstance;
 @end
