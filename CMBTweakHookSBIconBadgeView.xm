@@ -3,6 +3,7 @@
 #import "CMBManager.h"
 #import "CMBPreferences.h"
 #import "CMBSexerUpper.h"
+#import "external/Chameleon/UIColor+ChameleonPrivate.h"
 
 // keep track of per-view text colors when crossfading
 static NSMutableDictionary *crossfadeColors = nil;
@@ -80,32 +81,24 @@ static UIImage *colorizeImage(UIImage *image, UIColor *color)
 	return colorizedImage;
 }
 
-static UIColor *colorOfPixelAtXY(UIImage *image, int x, int y)
+static UIColor *colorOfMiddlePixel(UIImage *image)
 {
 	int w = CGImageGetWidth(image.CGImage);
 	int h = CGImageGetHeight(image.CGImage);
+	int x = w / 2;
+	int y = h / 2;
 
-	struct pixel { unsigned char r, g, b, a; };
+	UIColor *pixelColor = [UIColor colorFromImage:image atPoint:CGPointMake(x, y)];
 
-	struct pixel* pixels = (struct pixel*) calloc(1, w * h * sizeof(struct pixel));
+	CGFloat r, g, b, a;
 
-	CGContextRef context = CGBitmapContextCreate((void*) pixels, w, h, 8, w * 4, CGImageGetColorSpace(image.CGImage), kCGImageAlphaPremultipliedLast);
-	CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, w, h), image.CGImage);
+	[pixelColor getRed:&r green:&g blue:&b alpha:&a];
 
-	int i = (w * y) + x;
-	UIColor* pixelColor =  [UIColor colorWithRed:pixels[i].r/255.0f green:pixels[i].g/255.0f blue:pixels[i].b/255.0f alpha:1.0f];
+	pixelColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
 
-	CGContextRelease(context);
-	free(pixels);
-
-	HBLogDebug(@"colorOfPixelAtXY: {x, y} = {%d, %d} < [%d, %d] => color: %@", x, y, w, h, pixelColor);
+	HBLogDebug(@"colorOfMiddlePixel: {x, y} = {%d, %d} < [%d, %d] => color: %@", x, y, w, h, pixelColor);
 
 	return pixelColor;
-}
-
-static UIColor *colorOfMiddlePixel(UIImage *image)
-{
-	return colorOfPixelAtXY(image, CGImageGetWidth(image.CGImage) / 2, CGImageGetHeight(image.CGImage) / 2);
 }
 
 // taken from: https://stackoverflow.com/a/14472163
