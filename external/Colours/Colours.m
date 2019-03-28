@@ -42,7 +42,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 
 #endif
 
-
+#if 0
 #pragma mark - Color from Hex
 + (instancetype)colorFromHexString:(NSString *)hexString
 {
@@ -55,6 +55,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Hex from Color
 - (NSString *)hexString
 {
@@ -70,6 +73,8 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
 #pragma mark - Color from RGBA
 + (instancetype)colorFromRGBAArray:(NSArray *)rgbaArray
 {
@@ -83,6 +88,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
                                 alpha:[rgbaArray[3] floatValue]];
 }
 
+#if 0
 + (instancetype)colorFromRGBADictionary:(NSDictionary *)rgbaDict
 {
     if (rgbaDict[kColoursRGBA_R] && rgbaDict[kColoursRGBA_G] && rgbaDict[kColoursRGBA_B] && rgbaDict[kColoursRGBA_A]) {
@@ -95,6 +101,8 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     return [[self class] clearColor];
 }
 
+
+#endif
 
 #pragma mark - RGBA from Color
 - (NSArray *)rgbaArray
@@ -118,6 +126,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              @(a)];
 }
 
+#if 0
 - (NSDictionary *)rgbaDictionary
 {
     CGFloat r=0,g=0,b=0,a=0;
@@ -139,6 +148,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - HSBA from Color
 - (NSArray *)hsbaArray
 {
@@ -154,6 +166,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              @(b),
              @(a)];
 }
+#endif
 
 - (NSDictionary *)hsbaDictionary
 {
@@ -170,6 +183,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#if 0
 #pragma mark - Color from HSBA
 + (instancetype)colorFromHSBAArray:(NSArray *)hsbaArray
 {
@@ -182,6 +196,8 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
                            brightness:[hsbaArray[2] doubleValue]
                                 alpha:[hsbaArray[3] doubleValue]];
 }
+
+#endif
 
 + (instancetype)colorFromHSBADictionary:(NSDictionary *)hsbaDict
 {
@@ -247,6 +263,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              kColoursCIE_alpha:colors[3],};
 }
 
+#if 0
 #pragma mark - LCH from Color
 - (NSArray*)CIE_LCHArray {
     // www.brucelindbloom.com/index.html?Equations.html
@@ -277,6 +294,8 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              kColoursCIE_alpha:colors[3],};
 }
 
+
+#endif
 
 #pragma mark - Color from LAB
 + (instancetype)colorFromCIE_LabArray:(NSArray *)colors {
@@ -337,6 +356,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     return [[self class] clearColor];
 }
 
+#if 0
 #pragma mark - Color from LCH
 
 + (instancetype)colorFromCIE_LCHArray:(NSArray *)colors {
@@ -368,6 +388,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Color to CMYK
 - (NSArray *)cmykArray
 {
@@ -409,6 +432,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
              kColoursCMYK_K:colors[3]};
 }
 
+#endif
+
+#if 0
 #pragma mark - CMYK to Color
 + (instancetype)colorFromCMYKArray:(NSArray *)cmyk
 {
@@ -458,6 +484,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Color Components
 - (NSDictionary *)colorComponents
 {
@@ -534,6 +563,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Darken/Lighten
 - (instancetype)darken:(CGFloat)percentage {
     return [self modifyBrightnessByPercentage:1.0-percentage];
@@ -550,6 +582,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Generate Color Scheme
 - (NSArray *)colorSchemeOfType:(ColoursColorScheme)type
 {
@@ -574,6 +609,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Color Scheme Generation - Helper methods
 + (NSArray *)analagousColorsFromHue:(float)h saturation:(float)s brightness:(float)b alpha:(float)a
 {
@@ -608,6 +646,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Contrasting Color
 - (instancetype)blackOrWhiteContrastingColor
 {
@@ -616,6 +657,8 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     return a < 0.5 ? [[self class] blackColor] : [[self class] whiteColor];
 }
 
+
+#endif
 
 #pragma mark - Complementary Color
 - (instancetype)complementaryColor
@@ -627,12 +670,15 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#if 0
 #pragma mark - Distance between Colors
 - (CGFloat)distanceFromColor:(id)color
 {
     // Defaults to CIE94
     return [self distanceFromColor:color type:ColoursColorDistanceCIE94];
 }
+
+#endif
 
 - (CGFloat)distanceFromColor:(id)color type:(ColoursColorDistance)distanceType {
     /**
@@ -742,6 +788,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#if 0
 #pragma mark - Compare Colors
 + (NSArray *)sortColors:(NSArray *)colors withComparison:(ColoursColorComparison)comparison {
     return [colors sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -763,6 +810,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - System Colors
 + (instancetype)infoBlueColor
 {
@@ -785,6 +835,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Whites
 + (instancetype)antiqueWhiteColor
 {
@@ -822,6 +875,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Grays
 + (instancetype)black25PercentColor
 {
@@ -854,6 +910,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Blues
 + (instancetype)tealColor
 {
@@ -931,6 +990,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Greens
 + (instancetype)emeraldColor
 {
@@ -1003,6 +1065,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Reds
 + (instancetype)salmonColor
 {
@@ -1075,6 +1140,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Purples
 + (instancetype)eggplantColor
 {
@@ -1137,6 +1205,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Yellows
 + (instancetype)goldenrodColor
 {
@@ -1189,6 +1260,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Oranges
 + (instancetype)peachColor
 {
@@ -1221,6 +1295,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Browns
 + (instancetype)chiliPowderColor
 {
@@ -1278,15 +1355,23 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Private
 
 
+#endif
+
+#if 0
 #pragma mark - RGBA Helper method
 + (instancetype)colorWithR:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha
 {
     return [[self class] colorWithRed:red/255.0f green:green/255.0f blue:blue/255.0f alpha:alpha];
 }
 
+
+#endif
 
 #pragma mark - Degrees Helper method for Color Schemes
 + (float)addDegrees:(float)addDeg toDegree:(float)staticDeg
@@ -1305,6 +1390,7 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#if 0
 #pragma mark - Color Comparison
 - (NSDictionary *)colorsForComparison:(ColoursColorComparison)comparison key:(NSString **)key greater:(boolean_t *)greaterThan {
     switch (comparison) {
@@ -1357,9 +1443,15 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Swizzle
 
 
+#endif
+
+#if 0
 #pragma mark - On Load - Flip methods
 + (void)load {
     static dispatch_once_t onceToken;
@@ -1409,6 +1501,9 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
 }
 
 
+#endif
+
+#if 0
 #pragma mark - Swizzled Methods
 - (BOOL)colours_getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha
 {
@@ -1452,6 +1547,6 @@ static CGFloat (^RAD)(CGFloat) = ^CGFloat (CGFloat degree){
     
     return NO;
 }
-
+#endif
 
 @end

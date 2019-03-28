@@ -24,11 +24,13 @@
 #include <Foundation/Foundation.h>
 
 
+#if 0
 #pragma mark - Static String Keys
 static NSString * kColoursRGBA_R = @"RGBA-r";
 static NSString * kColoursRGBA_G = @"RGBA-g";
 static NSString * kColoursRGBA_B = @"RGBA-b";
 static NSString * kColoursRGBA_A = @"RGBA-a";
+#endif
 static NSString * kColoursHSBA_H = @"HSBA-h";
 static NSString * kColoursHSBA_S = @"HSBA-s";
 static NSString * kColoursHSBA_B = @"HSBA-b";
@@ -37,6 +39,7 @@ static NSString * kColoursCIE_L = @"LABa-L";
 static NSString * kColoursCIE_A = @"LABa-A";
 static NSString * kColoursCIE_B = @"LABa-B";
 static NSString * kColoursCIE_alpha = @"LABa-a";
+#if 0
 static NSString * kColoursCIE_C = @"LABa-C";
 static NSString * kColoursCIE_H = @"LABa-H";
 static NSString * kColoursCMYK_C = @"CMYK-c";
@@ -44,6 +47,8 @@ static NSString * kColoursCMYK_M = @"CMYK-m";
 static NSString * kColoursCMYK_Y = @"CMYK-y";
 static NSString * kColoursCMYK_K = @"CMYK-k";
 
+
+#endif
 
 #pragma mark - Create correct iOS/OSX interface
 
@@ -55,9 +60,10 @@ static NSString * kColoursCMYK_K = @"CMYK-k";
 #import <AppKit/AppKit.h>
 @interface NSColor (Colours)
 
+
 #endif
 
-
+#if 0
 #pragma mark - Enums
 // Color Scheme Generation Enum
 typedef NS_ENUM(NSInteger, ColoursColorScheme) {
@@ -74,6 +80,7 @@ typedef NS_ENUM(NSInteger, ColoursColorFormulation) {
     ColoursColorFormulationLAB,
     ColoursColorFormulationCMYK
 };
+#endif
 
 // ColoursColorDistance
 typedef NS_ENUM(NSInteger, ColoursColorDistance) {
@@ -82,6 +89,7 @@ typedef NS_ENUM(NSInteger, ColoursColorDistance) {
     ColoursColorDistanceCIE2000,
 };
 
+#if 0
 typedef NS_ENUM(NSInteger, ColoursColorComparison) {
     ColoursColorComparisonDarkness,
     ColoursColorComparisonLightness,
@@ -93,6 +101,9 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 };
 
 
+#endif
+
+#if 0
 #pragma mark - Color from Hex/RGBA/HSBA/CIE_LAB/CMYK
 /**
  Creates a Color from a Hex representation string
@@ -100,6 +111,7 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  @return    Color
  */
 + (instancetype)colorFromHexString:(NSString *)hexString;
+#endif
 
 /**
  Creates a Color from an array of 4 NSNumbers (r,g,b,a)
@@ -108,6 +120,7 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  */
 + (instancetype)colorFromRGBAArray:(NSArray *)rgbaArray;
 
+#if 0
 /**
  Creates a Color from a dictionary of 4 NSNumbers
  Keys: kColoursRGBA_R, kColoursRGBA_G, kColoursRGBA_B, kColoursRGBA_A
@@ -122,6 +135,7 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  @return    Color
  */
 + (instancetype)colorFromHSBAArray:(NSArray *)hsbaArray;
+#endif
 
 /**
  Creates a Color from a dictionary of 4 NSNumbers
@@ -146,6 +160,7 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  */
 + (instancetype)colorFromCIE_LabDictionary:(NSDictionary *)colors;
 
+#if 0
 /**
  Creates a Color from an array of 4 NSNumbers (L,a,b,alpha)
  @param colors   4 NSNumbers for CIE_LAB between 0 - 1
@@ -178,12 +193,16 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 
 
 
+#endif
+
+#if 0
 #pragma mark - Hex/RGBA/HSBA/CIE_LAB/CMYK from Color
 /**
  Creates a Hex representation from a Color
  @return    NSString
  */
 - (NSString *)hexString;
+#endif
 
 /**
  Creates an array of 4 NSNumbers representing the float values of r, g, b, a in that order.
@@ -191,6 +210,7 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  */
 - (NSArray *)rgbaArray;
 
+#if 0
 /**
  Creates an array of 4 NSNumbers representing the float values of h, s, b, a in that order.
  @return    NSArray
@@ -202,6 +222,8 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  @return    NSDictionary
  */
 - (NSDictionary *)rgbaDictionary;
+
+#endif
 
 /**
  Creates a dictionary of 4 NSNumbers representing float values with keys: kColoursHSBA_H, kColoursHSBA_S, kColoursHSBA_B, kColoursHSBA_A
@@ -223,6 +245,7 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  */
 - (NSDictionary *)CIE_LabDictionary;
 
+#if 0
 /**
  *  Creates an array of 4 NSNumbers representing the float values of L*, a, b, alpha in that order.
  *
@@ -252,6 +275,9 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 - (NSDictionary *)cmykDictionary;
 
 
+#endif
+
+#if 0
 #pragma mark - Color Components
 /**
  *  Creates an NSDictionary with RGBA and HSBA color components inside.
@@ -359,6 +385,9 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 - (CGFloat)keyBlack;
 
 
+#endif
+
+#if 0
 #pragma mark - Darken/Lighten
 /**
  *  Darkens a color by changing the brightness by a percentage you pass in. If you want a 25% darker color, you pass in 0.25;
@@ -379,6 +408,9 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 - (instancetype)lighten:(CGFloat)percentage;
 
 
+#endif
+
+#if 0
 #pragma mark - 4 Color Scheme from Color
 /**
  Creates an NSArray of 4 Colors that complement the Color.
@@ -388,6 +420,9 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 - (NSArray *)colorSchemeOfType:(ColoursColorScheme)type;
 
 
+#endif
+
+#if 0
 #pragma mark - Contrasting Color from Color
 /**
  Creates either [Color whiteColor] or [Color blackColor] depending on if the color this method is run on is dark or light.
@@ -395,6 +430,8 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  */
 - (instancetype)blackOrWhiteContrastingColor;
 
+
+#endif
 
 #pragma mark - Complementary Color
 /**
@@ -404,6 +441,8 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 - (instancetype)complementaryColor;
 
 
+
+#if 0
 #pragma mark - Distance between Colors
 /**
  *  Returns a float of the distance between 2 colors. Defaults to the
@@ -414,6 +453,8 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
  *  @return CGFloat
  */
 - (CGFloat)distanceFromColor:(id)color;
+
+#endif
 
 /**
  *  Returns a float of the distance between 2 colors, using one of
@@ -427,11 +468,15 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 - (CGFloat)distanceFromColor:(id)color type:(ColoursColorDistance)distanceType;
 
 
+#if 0
 #pragma mark - Compare Colors
 + (NSArray *)sortColors:(NSArray *)colors withComparison:(ColoursColorComparison)comparison;
 + (NSComparisonResult)compareColor:(id)colorA andColor:(id)colorB withComparison:(ColoursColorComparison)comparison;
 
 
+#endif
+
+#if 0
 #pragma mark - Colors
 // System Colors
 + (instancetype)infoBlueColor;
@@ -551,5 +596,6 @@ typedef NS_ENUM(NSInteger, ColoursColorComparison) {
 + (instancetype)mudColor;
 + (instancetype)siennaColor;
 + (instancetype)dustColor;
+#endif
 
 @end
