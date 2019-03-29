@@ -12,7 +12,7 @@ SWITCHER_BADGES_SWITCH_LABEL = "Switcher Badges";
 PROVIDE_COLORS_FOR_COLORBANNERS_GROUP_FOOTER = "Enable this to make ColorBanners choose colors according to your app badge background colorization settings.  Requires ColorBanners or ColorBanners 2 to be installed.";
 PROVIDE_COLORS_FOR_COLORBANNERS_SWITCH_LABEL = "Provide Colors for ColorBanners";
 
-COLORIZE_EMOJIS_GROUP_FOOTER = "For app badges that contain colorized characters (such as Emojis), enabling this will cause these characters to be completely filled with the app badge foreground color.  Leave disabled to let these badges through untouched.";
+COLORIZE_EMOJIS_GROUP_FOOTER = "For app badges that contain emojis, enabling this will cause them to be filled with the app badge foreground color.  Leave disabled to let these badges through untouched.";
 COLORIZE_EMOJIS_SWITCH_LABEL = "Colorize Emojis";
 
 RESET_LABEL = "Reset to Defaults";
