@@ -14,6 +14,6 @@ SIZE_ADJUSTMENT_LIST_ITEM_0_5 = "+0.5";
 SIZE_ADJUSTMENT_LIST_ITEM_1_0 = "+1.0";
 
 CORNER_ROUNDNESS_GROUP_LABEL = "Corner Roundness";
-CORNER_ROUNDNESS_GROUP_FOOTER = "Adjust the corner roundness from none to full.";
+CORNER_ROUNDNESS_GROUP_FOOTER = "Adjust the corner roundness from none (square corners) to full (round ends).";
 
 RESET_LABEL = "Reset to Defaults";

@@ -16,3 +16,5 @@ RESPRING_FOOTER = "Changes made above take effect immediately.  A respring is on
 RESPRING_LABEL = "Respring";
 
 CREDITS_LABEL = "Acknowledgements";
+
+COPYRIGHT_FOOTER = "\U00A9 2016-2019 midey @mideydev <mideydev@gmail.com>";

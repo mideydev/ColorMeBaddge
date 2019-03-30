@@ -15,13 +15,13 @@ BADGE_COLOR_LIST_ITEM_WEIGHTED_AVERAGE_COLOR = "Weighted Average Color";
 BADGE_COLOR_LIST_ITEM_FOLDER_MINIGRID = "Folder Minigrid";
 BADGE_COLOR_LIST_ITEM_RANDOM_COLORS = "Random Colors";
 
-BADGE_COLOR_LIST_DESCRIPTION = "Lowest Badge: Uses the color of the first lowest-numbered badge in the folder. †
+BADGE_COLOR_LIST_DESCRIPTION = "Lowest Badge: Uses the color of the first lowest-numbered badge in the folder. \U2020
 
-Highest Badge: Uses the color of the first highest-numbered badge in the folder. †
+Highest Badge: Uses the color of the first highest-numbered badge in the folder. \U2020
 
-First Badge: Uses the color of the first badge in the folder. †
+First Badge: Uses the color of the first badge in the folder. \U2020
 
-Last Badge: Uses the color of the last badge in the folder. †
+Last Badge: Uses the color of the last badge in the folder. \U2020
 
 Random Badge: Uses the color of a random badge in the folder.  Since this applies recursively, the badge color may come from any badged application within the folder, or subfolders of the folder.
 
@@ -33,7 +33,7 @@ Folder Minigrid: Treats the folder icon as an app icon, and generates colors for
 
 Random Colors: Generates a random badge and text color.
 
-† If folder icons are manually reordered, the folder badge color may no longer be as expected until the badge is redrawn.";
+\U2020 If folder icons are manually reordered, the folder badge color may no longer be as expected until the badge is redrawn.";
 
 BADGE_COLOR_LINK_LABEL = "Fixed Badge Color";
 
