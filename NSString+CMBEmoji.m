@@ -2,33 +2,26 @@
 
 @implementation NSString (CMBEmoji)
 
-- (BOOL)isEmojiUTF32:(UTF32Char)utf32
-{
-	// compare utf32 value against list maintained here:
-	// https://unicode.org/emoji/charts/emoji-list.html
-
-	switch (utf32)
-	{
 /*
-		// keycaps: these match regular characters; check for closing 0xfe0f 0x20e3 instead
-		case 0x0023:
-		case 0x002a:
-		case 0x0030:
-		case 0x0031:
-		case 0x0032:
-		case 0x0033:
-		case 0x0034:
-		case 0x0035:
-		case 0x0036:
-		case 0x0037:
-		case 0x0038:
-		case 0x0039:
-*/
-		// keycaps:
-		case 0xfe0f:
-		case 0x20e3:
+	master list: https://unicode.org/emoji/charts/emoji-list.html
 
-		// continue...
+	this implementation is for v12.0
+
+	perform the following checks:
+		1. check single code points
+		2. check sequences of 2 code points that weren't eliminated by 1.
+		3. check sequences of 3 code points that weren't eliminated by 1.
+
+	checking 1. eliminates many of the sequences with 2-8 code points, leaving
+	just a handful of 2/3 code point emojis to check.
+*/
+
+- (BOOL)isEmojiSingleCodePoint:(UTF32Char)cp1
+{
+	/* single code points */
+
+	switch (cp1)
+	{
 		case 0x00a9:
 		case 0x00ae:
 		case 0x203c:
@@ -215,32 +208,6 @@
 		case 0x1f198:
 		case 0x1f199:
 		case 0x1f19a:
-		case 0x1f1e6:
-		case 0x1f1e7:
-		case 0x1f1e8:
-		case 0x1f1e9:
-		case 0x1f1ea:
-		case 0x1f1eb:
-		case 0x1f1ec:
-		case 0x1f1ed:
-		case 0x1f1ee:
-		case 0x1f1ef:
-		case 0x1f1f0:
-		case 0x1f1f1:
-		case 0x1f1f2:
-		case 0x1f1f3:
-		case 0x1f1f4:
-		case 0x1f1f5:
-		case 0x1f1f6:
-		case 0x1f1f7:
-		case 0x1f1f8:
-		case 0x1f1f9:
-		case 0x1f1fa:
-		case 0x1f1fb:
-		case 0x1f1fc:
-		case 0x1f1fd:
-		case 0x1f1fe:
-		case 0x1f1ff:
 		case 0x1f201:
 		case 0x1f202:
 		case 0x1f21a:
@@ -1324,6 +1291,539 @@
 		case 0x1fa94:
 		case 0x1fa95:
 			return YES;
+			break;
+	}
+
+	return NO;
+}
+
+- (BOOL)isEmojiCodePointSequenceOf2:(UTF32Char)cp1 codePoint2:(UTF32Char)cp2
+{
+	/* sequences with 2 code points */
+
+	switch (cp1)
+	{
+		case 0x1f1e6:
+			switch (cp2)
+			{
+				case 0x1f1e8:
+				case 0x1f1e9:
+				case 0x1f1ea:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ee:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f4:
+				case 0x1f1f6:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fa:
+				case 0x1f1fc:
+				case 0x1f1fd:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1e7:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e7:
+				case 0x1f1e9:
+				case 0x1f1ea:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1ee:
+				case 0x1f1ef:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f4:
+				case 0x1f1f6:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fb:
+				case 0x1f1fc:
+				case 0x1f1fe:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1e8:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e8:
+				case 0x1f1e9:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1ee:
+				case 0x1f1f0:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f4:
+				case 0x1f1f5:
+				case 0x1f1f7:
+				case 0x1f1fa:
+				case 0x1f1fb:
+				case 0x1f1fc:
+				case 0x1f1fd:
+				case 0x1f1fe:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1e9:
+			switch (cp2)
+			{
+				case 0x1f1ea:
+				case 0x1f1ec:
+				case 0x1f1ef:
+				case 0x1f1f0:
+				case 0x1f1f2:
+				case 0x1f1f4:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1ea:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e8:
+				case 0x1f1ea:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fa:
+					return YES;
+			}
+			break;
+
+		case 0x1f1eb:
+			switch (cp2)
+			{
+				case 0x1f1ee:
+				case 0x1f1ef:
+				case 0x1f1f0:
+				case 0x1f1f2:
+				case 0x1f1f4:
+				case 0x1f1f7:
+					return YES;
+			}
+			break;
+
+		case 0x1f1ec:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e7:
+				case 0x1f1e9:
+				case 0x1f1ea:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1ee:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f5:
+				case 0x1f1f6:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fa:
+				case 0x1f1fc:
+				case 0x1f1fe:
+					return YES;
+			}
+			break;
+
+		case 0x1f1ed:
+			switch (cp2)
+			{
+				case 0x1f1f0:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f7:
+				case 0x1f1f9:
+				case 0x1f1fa:
+					return YES;
+			}
+			break;
+
+		case 0x1f1ee:
+			switch (cp2)
+			{
+				case 0x1f1e8:
+				case 0x1f1e9:
+				case 0x1f1ea:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f4:
+				case 0x1f1f6:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+					return YES;
+			}
+			break;
+
+		case 0x1f1ef:
+			switch (cp2)
+			{
+				case 0x1f1ea:
+				case 0x1f1f2:
+				case 0x1f1f4:
+				case 0x1f1f5:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f0:
+			switch (cp2)
+			{
+				case 0x1f1ea:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1ee:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f5:
+				case 0x1f1f7:
+				case 0x1f1fc:
+				case 0x1f1fe:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f1:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e7:
+				case 0x1f1e8:
+				case 0x1f1ee:
+				case 0x1f1f0:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fa:
+				case 0x1f1fb:
+				case 0x1f1fe:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f2:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e8:
+				case 0x1f1e9:
+				case 0x1f1ea:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1f0:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f4:
+				case 0x1f1f5:
+				case 0x1f1f6:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fa:
+				case 0x1f1fb:
+				case 0x1f1fc:
+				case 0x1f1fd:
+				case 0x1f1fe:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f3:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e8:
+				case 0x1f1ea:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ee:
+				case 0x1f1f1:
+				case 0x1f1f4:
+				case 0x1f1f5:
+				case 0x1f1f7:
+				case 0x1f1fa:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f4:
+			switch (cp2)
+			{
+				case 0x1f1f2:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f5:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1ea:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1f0:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fc:
+				case 0x1f1fe:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f6:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f7:
+			switch (cp2)
+			{
+				case 0x1f1ea:
+				case 0x1f1f4:
+				case 0x1f1f8:
+				case 0x1f1fa:
+				case 0x1f1fc:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f8:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e7:
+				case 0x1f1e8:
+				case 0x1f1e9:
+				case 0x1f1ea:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1ee:
+				case 0x1f1ef:
+				case 0x1f1f0:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f4:
+				case 0x1f1f7:
+				case 0x1f1f8:
+				case 0x1f1f9:
+				case 0x1f1fb:
+				case 0x1f1fd:
+				case 0x1f1fe:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1f9:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e8:
+				case 0x1f1e9:
+				case 0x1f1eb:
+				case 0x1f1ec:
+				case 0x1f1ed:
+				case 0x1f1ef:
+				case 0x1f1f0:
+				case 0x1f1f1:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f4:
+				case 0x1f1f7:
+				case 0x1f1f9:
+				case 0x1f1fb:
+				case 0x1f1fc:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1fa:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1ec:
+				case 0x1f1f2:
+				case 0x1f1f3:
+				case 0x1f1f8:
+				case 0x1f1fe:
+				case 0x1f1ff:
+					return YES;
+			}
+			break;
+
+		case 0x1f1fb:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1e8:
+				case 0x1f1ea:
+				case 0x1f1ec:
+				case 0x1f1ee:
+				case 0x1f1f3:
+				case 0x1f1fa:
+					return YES;
+			}
+			break;
+
+		case 0x1f1fc:
+			switch (cp2)
+			{
+				case 0x1f1eb:
+				case 0x1f1f8:
+					return YES;
+			}
+			break;
+
+		case 0x1f1fd:
+			switch (cp2)
+			{
+				case 0x1f1f0:
+					return YES;
+			}
+			break;
+
+		case 0x1f1fe:
+			switch (cp2)
+			{
+				case 0x1f1ea:
+				case 0x1f1f9:
+					return YES;
+			}
+			break;
+
+		case 0x1f1ff:
+			switch (cp2)
+			{
+				case 0x1f1e6:
+				case 0x1f1f2:
+				case 0x1f1fc:
+					return YES;
+			}
+			break;
+	}
+
+	return NO;
+}
+
+- (BOOL)isEmojiCodePointSequenceOf3:(UTF32Char)cp1 codePoint2:(UTF32Char)cp2 codePoint3:(UTF32Char)cp3
+{
+	/* sequences with 3 code points */
+
+	switch (cp1)
+	{
+		case 0x0023:
+		case 0x002a:
+		case 0x0030:
+		case 0x0031:
+		case 0x0032:
+		case 0x0033:
+		case 0x0034:
+		case 0x0035:
+		case 0x0036:
+		case 0x0037:
+		case 0x0038:
+		case 0x0039:
+			if (cp2 == 0xfe0f && cp3 == 0x20e3)
+				return YES;
+			break;
+	}
+
+	return NO;
+}
+
+- (BOOL)isEmojiCodePointOrSequence:(UTF32Char)cp1 codePoint2:(UTF32Char)cp2 codePoint3:(UTF32Char)cp3
+{
+	// rolling sequence of up to 3 code points
+
+	// cp1   0   0
+	if (cp2 == 0)
+	{
+		if ([self isEmojiSingleCodePoint:cp1])
+		{
+			HBLogDebug(@"isEmojiCodePointOrSequence: got emoji: 0x%08x", (unsigned int)cp1);
+			return YES;
+		}
+
+		return NO;
+	}
+
+	// cp1 cp2   0
+	if (cp3 == 0)
+	{
+		if ([self isEmojiSingleCodePoint:cp2])
+		{
+			HBLogDebug(@"isEmojiCodePointOrSequence: got emoji: 0x%08x", (unsigned int)cp2);
+			return YES;
+		}
+
+		if ([self isEmojiCodePointSequenceOf2:cp1 codePoint2:cp2])
+		{
+			HBLogDebug(@"isEmojiCodePointOrSequence: got emoji: 0x%08x 0x%08x", (unsigned int)cp1, (unsigned int)cp2);
+			return YES;
+		}
+
+		return NO;
+	}
+
+	// cp1 cp2 cp3
+	if ([self isEmojiSingleCodePoint:cp3])
+	{
+		HBLogDebug(@"isEmojiCodePointOrSequence: got emoji: 0x%08x", (unsigned int)cp3);
+		return YES;
+	}
+
+	if ([self isEmojiCodePointSequenceOf2:cp2 codePoint2:cp3])
+	{
+		HBLogDebug(@"isEmojiCodePointOrSequence: got emoji: 0x%08x 0x%08x", (unsigned int)cp2, (unsigned int)cp3);
+		return YES;
+	}
+
+	if ([self isEmojiCodePointSequenceOf3:cp1 codePoint2:cp2 codePoint3:cp3])
+	{
+		HBLogDebug(@"isEmojiCodePointOrSequence: got emoji: 0x%08x 0x%08x 0x%08x", (unsigned int)cp1, (unsigned int)cp2, (unsigned int)cp3);
+		return YES;
 	}
 
 	return NO;
@@ -1340,8 +1840,10 @@
 	[self getCharacters:buffer];
 
 	// Temporary stores for the UTF-32 and UTF-16 values.
-	UTF32Char utf32 = 0;
+	UTF32Char utf32 = 0, cp1 = 0, cp2 = 0, cp3 = 0;
 	UTF16Char h16 = 0, l16 = 0;
+
+	int cpcount = 0;
 
 	for (int i = 0; i < length; i++) {
 		unichar surrogate = buffer[i];
@@ -1363,13 +1865,31 @@
 			utf32 = surrogate;
 		}
 
-//		HBLogDebug(@"containsEmoji: got utf32 value: 0x%08x", (unsigned int)utf32);
-
-		if ([self isEmojiUTF32:utf32])
+		// rolling sequence of up to 3 code points
+		switch (cpcount)
 		{
-			HBLogDebug(@"containsEmoji: got emoji-related utf32: 0x%08x", (unsigned int)utf32);
-			return YES;
+			case 0:
+				cp1 = utf32;
+				break;
+			case 1:
+				cp2 = utf32;
+				break;
+			case 2:
+				cp3 = utf32;
+				break;
+			default:
+				cp1 = cp2;
+				cp2 = cp3;
+				cp3 = utf32;
+				break;
 		}
+
+//		HBLogDebug(@"containsEmoji: cpcount: %2d | utf32: 0x%08x => cp1: 0x%08x  cp2: 0x%08x  cp3: 0x%08x", i, (unsigned int)utf32, (unsigned int)cp1, (unsigned int)cp2, (unsigned int)cp3);
+
+		if ([self isEmojiCodePointOrSequence:cp1 codePoint2:cp2 codePoint3:cp3])
+			return YES;
+
+		cpcount++;
 	}
 
 	return NO;
