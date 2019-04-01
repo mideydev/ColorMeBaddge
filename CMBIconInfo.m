@@ -39,17 +39,19 @@
 	{
 		// should be same as nodeIdentifier
 		iconInfo.nodeIdentifier = [icon applicationBundleID];
-		iconInfo.displayName = [icon displayName];
 		iconInfo.isApplication = YES;
 
-#if 0
-		LSApplicationProxy *proxy = [objc_getClass("LSApplicationProxy") applicationProxyForIdentifier:iconInfo.nodeIdentifier];
-
-		if (proxy)
+		if ([icon respondsToSelector:@selector(displayName)])
 		{
-			iconInfo.displayName = [proxy localizedName];
+			iconInfo.displayName = [icon displayName];
 		}
-#endif
+		else
+		{
+			LSApplicationProxy *proxy = [objc_getClass("LSApplicationProxy") applicationProxyForIdentifier:iconInfo.nodeIdentifier];
+
+			if (proxy)
+				iconInfo.displayName = [proxy localizedName];
+		}
 	}
 	else if ([icon isKindOfClass:NSClassFromString(@"SBFolderIcon")])
 	{
@@ -59,8 +61,16 @@
 
 		// just looking for uniqueness so this should suffice:
 		iconInfo.nodeIdentifier = [NSString stringWithFormat:@"%p", icon];
-		iconInfo.displayName = [icon displayName];
 		iconInfo.isApplication = NO;
+
+		if ([icon respondsToSelector:@selector(displayName)])
+		{
+			iconInfo.displayName = [icon displayName];
+		}
+		else
+		{
+			iconInfo.displayName = [[icon folder] displayName];
+		}
 	}
 	else
 	{
