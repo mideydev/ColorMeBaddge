@@ -403,7 +403,7 @@
 
 	CMBColorInfo *badgeColors;
 
-	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] specialBadgesBackgroundColor] andForegroundColor:[[CMBPreferences sharedInstance] specialBadgesBackgroundColor]];
+	badgeColors = [[CMBColorInfo sharedInstance] colorInfoWithBackgroundColor:[[CMBPreferences sharedInstance] specialBadgesBackgroundColor] andForegroundColor:[[CMBPreferences sharedInstance] specialBadgesForegroundColor]];
 
 	if (badgeColors)
 		return badgeColors;
