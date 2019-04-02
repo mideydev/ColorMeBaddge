@@ -54,6 +54,8 @@ If you miss the ability to see badges in the app switcher that was present in ea
 
 If you use ColorBanners, you can choose to have it colorize banners according to your app badge background settings, instead of using its built-in algorithm. This feature requires either [ColorBanners] or [ColorBanners 2] to be installed.
 
+If you have badges that contain emojis, they will be left alone by default.  You can opt to colorize them with the badge text color, effectively creating an emoji silhouette.
+
 ## KNOWN ISSUES
 
 The third-party color picker used in this tweak doesn't work well in landscape mode. To work around this, please pick colors in portrait mode.
